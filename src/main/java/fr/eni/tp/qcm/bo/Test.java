@@ -10,7 +10,6 @@ public class Test {
 	private int SeuilBas;
 	
 	public Test(Integer idTest, String libelleTest, String description, int duree, int seuilHaut, int seuilBas) {
-		super();
 		this.idTest = idTest;
 		this.libelleTest = libelleTest;
 		this.description = description;
