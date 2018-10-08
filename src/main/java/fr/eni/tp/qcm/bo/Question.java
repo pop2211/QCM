@@ -6,16 +6,18 @@ public class Question {
 	private String enonce;
 	private String media;
 	private Integer points;
+	private Theme theme;
 	
 	
-	public Question(Integer idQuestion, String enonce, String media, Integer points) {
+	public Question(Integer idQuestion, String enonce, String media, Integer points, Theme theme) {
 		super();
 		this.idQuestion = idQuestion;
 		this.enonce = enonce;
 		this.media = media;
 		this.points = points;
+		this.theme = theme;
 	}
-	
+
 	public Question() {
 	}
 
@@ -49,6 +51,14 @@ public class Question {
 
 	public void setPoints(Integer points) {
 		this.points = points;
+	}
+
+	public Theme getTheme() {
+		return theme;
+	}
+
+	public void setTheme(Theme theme) {
+		this.theme = theme;
 	}
 	
 	
