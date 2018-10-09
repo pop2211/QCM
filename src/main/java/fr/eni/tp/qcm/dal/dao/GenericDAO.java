@@ -2,7 +2,7 @@ package fr.eni.tp.qcm.dal.dao;
 
 import java.util.List;
 
-import fr.eni.tp.qcm.dal.exception.DaoException;
+import fr.eni.tp.web.common.dal.exception.DaoException;
 
 
 
