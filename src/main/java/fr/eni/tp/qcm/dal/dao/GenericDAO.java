@@ -6,6 +6,7 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 
 
 
+
 /**
  * Generic DAO for the basic current usages of specific DAO.
  * 
