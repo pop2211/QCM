@@ -6,7 +6,7 @@ import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bo.Proposition;
 import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.dal.dao.PropositionDAO;
-import fr.eni.tp.qcm.dal.factory.DaoFactory;
+import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -15,7 +15,7 @@ import fr.eni.tp.web.common.util.ValidationUtil;
 
 public class PropositionManagerImpl implements PropositionManager{
 	
-	private PropositionDAO propositionDAO = DaoFactory.propositionDAO();
+	private PropositionDAO propositionDAO = DAOFactory.propositionDAO();
     
     private static PropositionManagerImpl instance;
     

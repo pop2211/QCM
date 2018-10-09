@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
 import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.dal.dao.QuestionDAO;
-import fr.eni.tp.qcm.dal.factory.DaoFactory;
+import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -14,7 +14,7 @@ import fr.eni.tp.web.common.util.ValidationUtil;
 
 public class QuestionManagerImpl implements QuestionManager{
 	
-	private QuestionDAO questionDAO = DaoFactory.questionDAO();
+	private QuestionDAO questionDAO = DAOFactory.questionDAO();
     
     private static QuestionManagerImpl instance;
     

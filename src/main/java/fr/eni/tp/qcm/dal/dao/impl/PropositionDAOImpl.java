@@ -12,7 +12,7 @@ import fr.eni.tp.qcm.bo.Proposition;
 import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.dal.dao.PropositionDAO;
 import fr.eni.tp.qcm.dal.dao.QuestionDAO;
-import fr.eni.tp.qcm.dal.factory.DaoFactory;
+import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
@@ -26,7 +26,7 @@ public class PropositionDAOImpl implements PropositionDAO{
     private static final String DELETE_PROPOSITION_QUERY = "DELETE FROM PROPOSITION WHERE idProposition = ?";
     private static final String UPDATE_PROPOSITION_QUERY = "UPDATE PROPOSITION SET enonce = ?, estBonne = ?, idQuestion = ? WHERE idProposition = ?";
 
-    private QuestionDAO questionDAO = DaoFactory.questionDAO();
+    private QuestionDAO questionDAO = DAOFactory.questionDAO();
     
     
     private static PropositionDAOImpl instance;
