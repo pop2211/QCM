@@ -5,14 +5,17 @@ public class Proposition {
 	private Integer idProposition;
 	private String enonce;
 	private boolean estBonne;
+	private Question question;
 	
-	public Proposition(Integer idProposition, String enonce, boolean estBonne) {
+	
+	public Proposition(Integer idProposition, String enonce, boolean estBonne, Question question) {
 		super();
 		this.idProposition = idProposition;
 		this.enonce = enonce;
 		this.estBonne = estBonne;
+		this.question = question;
 	}
-	
+
 	public Proposition() {
 	}
 
@@ -38,6 +41,14 @@ public class Proposition {
 
 	public void setEstBonne(boolean estBonne) {
 		this.estBonne = estBonne;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 	
 	
