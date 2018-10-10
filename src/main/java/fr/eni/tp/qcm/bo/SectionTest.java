@@ -5,6 +5,10 @@ public class SectionTest {
 	private Test test;
 	private Theme theme;
 	
+	public SectionTest() {
+		super();
+	}
+	
 	public SectionTest(Integer nbQuestionsATrier, Test test, Theme theme) {
 		super();
 		this.nbQuestionsATrier = nbQuestionsATrier;

@@ -2,6 +2,7 @@ package fr.eni.tp.qcm.dal.dao;
 
 import java.util.List;
 
+import fr.eni.tp.qcm.bo.SectionTest;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 
 
@@ -63,5 +64,6 @@ public interface GenericDAO<T, ID> {
 	 * @throws DaoException
 	 */
 	List<T> selectAll() throws DaoException;
+
 	
 }
