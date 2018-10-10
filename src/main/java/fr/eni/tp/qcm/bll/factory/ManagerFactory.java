@@ -1,10 +1,12 @@
 package fr.eni.tp.qcm.bll.factory;
 
+import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
+import fr.eni.tp.qcm.bll.manager.impl.EpreuveManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.PropositionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.TestManagerImpl;
@@ -31,5 +33,9 @@ public class ManagerFactory {
 
 	public static TestManager testManager() {
         return TestManagerImpl.getInstance();
+	}
+	
+	public static EpreuveManager epreuveManager() {
+        return EpreuveManagerImpl.getInstance();
 	}
 }

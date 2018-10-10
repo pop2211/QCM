@@ -4,8 +4,9 @@
   <welcome-file-list>
     <welcome-file>connexion</welcome-file>
   </welcome-file-list>
-
-<servlet-mapping>
+  
+  <!-- servlet question -->
+  <servlet-mapping>
     <servlet-name>questionController</servlet-name>
     <url-pattern>/gestionQuestion</url-pattern>
   </servlet-mapping>
@@ -13,7 +14,7 @@
     <servlet-name>questionController</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controller.QuestionController</servlet-class>
   </servlet>
-  
+  <!--  jsp question -->
   <servlet>
     <servlet-name>questionJSP</servlet-name>
     <jsp-file>/WEB-INF/jsp/question.jsp</jsp-file>
@@ -22,16 +23,32 @@
     <servlet-name>questionJSP</servlet-name>
     <url-pattern>/question/</url-pattern>
   </servlet-mapping>
-  
+  <!-- servlet epreuve -->
+  <servlet-mapping>
+    <servlet-name>epreuveController</servlet-name>
+    <url-pattern>/gestionConsulterEpreuve</url-pattern>
+  </servlet-mapping>
   <servlet>
-	<servlet-name>connexion</servlet-name>
-	<jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
- </servlet>
- <servlet-mapping>
-   <servlet-name>connexion</servlet-name>
-   <url-pattern>/connexion</url-pattern>
- </servlet-mapping>
-
+    <servlet-name>epreuveController</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controller.EpreuveController</servlet-class>
+  </servlet>
+  <!--  jsp consulter resultat -->
+  <servlet>
+    <servlet-name>consulterResultatJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/consulterResultat.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>consulterResultatJSP</servlet-name>
+    <url-pattern>/consulterResultat/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>connexion</servlet-name>
+    <jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>connexion</servlet-name>
+    <url-pattern>/connexion</url-pattern>
+  </servlet-mapping>
   <error-page>
     <error-code>400</error-code>
     <location>/forward/listeArticle/new</location>

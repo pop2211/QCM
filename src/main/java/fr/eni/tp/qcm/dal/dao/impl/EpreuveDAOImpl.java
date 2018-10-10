@@ -29,6 +29,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ? WHERE idEpreuve = ?";
 
+    private TestDAO testDAO = DAOFactory.testDAO();
     
     private static EpreuveDAOImpl instance;
     
@@ -187,7 +188,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setEtat(resultSet.getString("etat"));
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
-		
+		epreuve.setTest(testDAO.resultSetToTest(resultSet));
         
         return epreuve;
         
