@@ -7,16 +7,20 @@
 
 <servlet-mapping>
     <servlet-name>questionController</servlet-name>
-    <url-pattern>/question</url-pattern>
+    <url-pattern>/gestionQuestion</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>questionController</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controller.QuestionController</servlet-class>
   </servlet>
-
+  
+  <servlet>
+    <servlet-name>questionJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/question.jsp</jsp-file>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>index</servlet-name>
-    <url-pattern>/index</url-pattern>
+    <servlet-name>questionJSP</servlet-name>
+    <url-pattern>/question/</url-pattern>
   </servlet-mapping>
   
   <error-page>

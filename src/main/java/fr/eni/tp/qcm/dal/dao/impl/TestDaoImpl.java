@@ -146,8 +146,8 @@ public class TestDaoImpl implements TestDAO {
 		return null;
 	}
 
-	
-    private Test resultSetToTest(ResultSet resultSet) throws SQLException {
+	@Override
+    public Test resultSetToTest(ResultSet resultSet) throws SQLException {
         
         Test test = new Test();
         test.setIdTest(resultSet.getInt("idTheme"));
