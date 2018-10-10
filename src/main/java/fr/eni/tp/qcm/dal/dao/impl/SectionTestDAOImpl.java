@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Proposition;
+import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.bo.SectionTest;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.dal.dao.QuestionDAO;
@@ -71,12 +73,12 @@ public class SectionTestDAOImpl implements SectionTestDAO{
 	}
 	
 	@Override
-	public SectionTest selectByIdTest(Integer idTest) throws DaoException {
+	public List<SectionTest> selectByIdTest(Integer idTest) throws DaoException {
 		Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        SectionTest sectionTest = null;
-        
+        List<SectionTest> sectionTest = new ArrayList<>();
+
         try {
             connection = MSSQLConnectionFactory.get();
             statement = connection.prepareStatement(SELECT_SECTION_TEST_BY_TEST_QUERY);
@@ -85,7 +87,7 @@ public class SectionTestDAOImpl implements SectionTestDAO{
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-            	sectionTest = resultSetToSectionTest(resultSet);
+            	sectionTest.add(resultSetToSectionTest(resultSet));
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);

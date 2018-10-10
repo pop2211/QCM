@@ -11,6 +11,7 @@ import java.util.List;
 import com.sun.media.sound.PortMixerProvider;
 
 import fr.eni.tp.qcm.bo.Question;
+import fr.eni.tp.qcm.bo.SectionTest;
 import fr.eni.tp.qcm.bo.Theme;
 import fr.eni.tp.qcm.dal.dao.QuestionDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -21,6 +22,7 @@ public class QuestionDAOImpl implements QuestionDAO{
 	
 	private static final String SELECT_ALL_QUESTIONS_QUERY = "SELECT idQuestion, enonce, media,  points , idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme";
     private static final String SELECT_ONE_QUESTION_QUERY = "SELECT idQuestion, enonce, media, points, idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme where idQuestion = ?";
+    private static final String SELECT_QUESTION_BY_THEME_QUERY = "SELECT idQuestion, enonce, media, points, idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme WHERE idTheme = ?";
     private static final String INSERT_QUESTION_QUERY = "INSERT INTO QUESTION(enonce, media, points, idTheme) VALUES (?, ?, ?, ?)";
     private static final String DELETE_QUESTION_QUERY = "DELETE FROM QUESTION WHERE idQuestion = ?";
     private static final String UPDATE_QUESTION_QUERY = "UPDATE QUESTION SET enonce = ?, media = ?, points = ?, idTheme = ? WHERE idQuestion = ?";
@@ -186,6 +188,32 @@ public class QuestionDAOImpl implements QuestionDAO{
         return list;
 	}
 	
+	@Override
+	public List<Question> selectByIdTheme(Integer idTest) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Question> questions = new ArrayList<>();
+
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_QUESTION_BY_THEME_QUERY);
+            
+            statement.setInt(1, idTest);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	questions.add(resultSetToQuestion(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return questions;
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.eni.tp.qcm.dal.dao.QuestionDAO#resultSetToQuestion(java.sql.ResultSet)
 	 * Permet la création du resulset de question
