@@ -2,16 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>QCM</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>index</welcome-file>
   </welcome-file-list>
-  
-  
-  
+
 <servlet-mapping>
     <servlet-name>questionController</servlet-name>
     <url-pattern>/question</url-pattern>
@@ -20,6 +13,35 @@
     <servlet-name>questionController</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controller.QuestionController</servlet-class>
   </servlet>
+
+  <servlet-mapping>
+    <servlet-name>index</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
   
-  
+  <error-page>
+    <error-code>400</error-code>
+    <location>/forward/listeArticle/new</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/technicalError</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error/accessDenied</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/pageNotFound</location>
+  </error-page>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>DefaultDenyForwards</web-resource-name>
+      <url-pattern>/forward/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>NoAccess</role-name>
+    </auth-constraint>
+  </security-constraint>
 </web-app>
