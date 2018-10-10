@@ -24,14 +24,14 @@
     <url-pattern>/question/</url-pattern>
   </servlet-mapping>
   <!-- servlet epreuve -->
-  <servlet-mapping>
-    <servlet-name>epreuveController</servlet-name>
-    <url-pattern>/gestionConsulterEpreuve</url-pattern>
-  </servlet-mapping>
-  <servlet>
+    <servlet>
     <servlet-name>epreuveController</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controller.EpreuveController</servlet-class>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>epreuveController</servlet-name>
+    <url-pattern>/gestion/consulterResultat</url-pattern>
+  </servlet-mapping>
   <!--  jsp consulter resultat -->
   <servlet>
     <servlet-name>consulterResultatJSP</servlet-name>

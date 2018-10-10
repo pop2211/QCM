@@ -14,6 +14,12 @@
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 	
+	<div class="container">
+		
+		<h1>Vos résultats</h1>	
+	
+	  ${epreuves}
+	
 	<table class="table">
   <thead>
     <tr>
@@ -25,7 +31,7 @@
       <th scope="col">Note</th>
       <th scope="col">Niveau</th>
     </tr>
-  </thead>
+  </thead> 
   <tbody>
   <c:forEach items="${epreuves}" var="epreuve">
     <tr>
@@ -41,6 +47,7 @@
   </tbody>
 </table>
 	
+</div>
 
 </body>
 </html>

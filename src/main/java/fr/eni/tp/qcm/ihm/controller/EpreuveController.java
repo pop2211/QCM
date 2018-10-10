@@ -15,6 +15,7 @@ import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.web.common.HttpStatus;
+import fr.eni.tp.web.common.bll.exception.ManagerException;
 
 /**
  * Servlet implementation class EpreuveController
@@ -30,19 +31,22 @@ public class EpreuveController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Epreuve> epreuves;
+		
+		
+		List<Epreuve> epreuves = null;
 		try {
 			epreuves = epreuveManager.findAll();
-            
+            System.out.println(epreuves);
             request.setAttribute("epreuves", epreuves);
             request.getRequestDispatcher("/consulterResultat").forward(request, response);
                
-        } catch (Exception e) {
+        } catch (ManagerException e) {
+        	e.printStackTrace();
         	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 		
-		
+		System.out.println("EpreuveController - doGet");
 	}
 
 	/**
