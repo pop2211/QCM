@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>QCM</display-name>
   <welcome-file-list>
-    <welcome-file>index</welcome-file>
+    <welcome-file>connexion</welcome-file>
   </welcome-file-list>
 
 <servlet-mapping>
@@ -23,6 +23,15 @@
     <url-pattern>/question/</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>connexion</servlet-name>
+	<jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
+ </servlet>
+ <servlet-mapping>
+   <servlet-name>connexion</servlet-name>
+   <url-pattern>/connexion</url-pattern>
+ </servlet-mapping>
+
   <error-page>
     <error-code>400</error-code>
     <location>/forward/listeArticle/new</location>

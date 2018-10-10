@@ -6,57 +6,51 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Theme;
-import fr.eni.tp.qcm.dal.dao.TestDAO;
+import fr.eni.tp.qcm.dal.dao.ThemeDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 
-public class TestDaoImpl implements TestDAO {
+public class ThemeDAOImpl implements ThemeDAO {
 
-
-    private static final String SELECT_TEST_QUERY = "SELECT idTest, libelle, description, duree, seuil_haut, seuil_bas FROM TEST WHERE idTest = ?";
-    private static final String INSERT_TEST_QUERY = "INSERT INTO TEST(libelle, description, duree, seuil_haut, seuil_bas) VALUES (?, ?, ?, ?, ?)";
-    private static final String DELETE_TEST_QUERY = "DELETE FROM TEST WHERE idTest = ?";
-    private static final String UPDATE_TEST_QUERY = "UPDATE TEST SET libelle = ?, descripion = ?, duree = ?, seuil_haut = ?, seuil_bas = ? WHERE idTest = ?";
+    private static final String SELECT_THEME_QUERY = "SELECT idTheme, libelle FROM THEME WHERE idTheme = ?";
+    private static final String INSERT_THEME_QUERY = "INSERT INTO THEME(libelle) VALUES (?)";
+    private static final String DELETE_THEME_QUERY = "DELETE FROM THEME WHERE idTheme = ?";
+    private static final String UPDATE_THEME_QUERY = "UPDATE THEME SET libelle = ? WHERE idTest = ?";
     
-    private static TestDaoImpl instance;
+    private static ThemeDAOImpl instance;
     
-    private TestDaoImpl() {
+    private ThemeDAOImpl() {
         
     }
     
-    public static TestDaoImpl getInstance() {
+    public static ThemeDAOImpl getInstance() {
         if(instance == null) {
-            instance = new TestDaoImpl();
+            instance = new ThemeDAOImpl();
         }
         return instance;
     }
-    
+	
 	@Override
-	public Test insert(Test test) throws DaoException {
+	public Theme insert(Theme theme) throws DaoException {
 		Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             connection = MSSQLConnectionFactory.get();
             
-            statement = connection.prepareStatement(INSERT_TEST_QUERY, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(INSERT_THEME_QUERY, Statement.RETURN_GENERATED_KEYS);
             
-            statement.setString(1, test.getLibelleTest());
-            statement.setString(2, test.getDescription());
-            statement.setInt(3, test.getDuree());
-            statement.setInt(4, test.getSeuilBas());
-            statement.setInt(5, test.getSeuilHaut());
-
+            statement.setString(1, theme.getLibelleTheme());
 
             if (statement.executeUpdate() == 1) {
                 resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {            
-                	test.setIdTest(resultSet.getInt(1));                    
+                	theme.setIdTheme(resultSet.getInt(1));                    
                 }
             }
 
@@ -66,24 +60,21 @@ public class TestDaoImpl implements TestDAO {
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
         
-        return test;
+        return theme;
 	}
 
 	@Override
-	public void update(Test test) throws DaoException {
-		Connection connection = null;
+	public void update(Theme theme) throws DaoException {
+		   
+        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             connection = MSSQLConnectionFactory.get();
             
-            statement = connection.prepareStatement(UPDATE_TEST_QUERY);
+            statement = connection.prepareStatement(UPDATE_THEME_QUERY);
             
-            statement.setString(1, test.getLibelleTest());
-            statement.setString(2, test.getDescription());
-            statement.setInt(3, test.getDuree());
-            statement.setInt(4, test.getSeuilHaut());
-            statement.setInt(5, test.getSeuilBas());
+            statement.setString(1, theme.getLibelleTheme());
             
             statement.executeUpdate();
 
@@ -92,6 +83,7 @@ public class TestDaoImpl implements TestDAO {
         } finally {
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
+        
 	}
 
 	@Override
@@ -102,7 +94,7 @@ public class TestDaoImpl implements TestDAO {
         try {
             connection = MSSQLConnectionFactory.get();
             
-            statement = connection.prepareStatement(DELETE_TEST_QUERY);
+            statement = connection.prepareStatement(DELETE_THEME_QUERY);
             
             statement.setInt(1, id);
             
@@ -114,23 +106,25 @@ public class TestDaoImpl implements TestDAO {
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
 	}
+	
+	
 
 	@Override
-	public Test selectById(Integer id) throws DaoException {
+	public Theme selectById(Integer id) throws DaoException {
 		Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Test test = null;
+        Theme theme = null;
         
         try {
             connection = MSSQLConnectionFactory.get();
-            statement = connection.prepareStatement(SELECT_TEST_QUERY);
+            statement = connection.prepareStatement(SELECT_THEME_QUERY);
             
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-            	test = resultSetToTest(resultSet);
+            	theme = resultSetToTheme(resultSet);
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);
@@ -138,26 +132,20 @@ public class TestDaoImpl implements TestDAO {
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
         
-        return test;
+        return theme;
 	}
 
 	@Override
-	public List<Test> selectAll() throws DaoException {
+	public List<Theme> selectAll() throws DaoException {
 		return null;
 	}
 
-	@Override
-    public Test resultSetToTest(ResultSet resultSet) throws SQLException {
+    private Theme resultSetToTheme(ResultSet resultSet) throws SQLException {
         
-        Test test = new Test();
-        test.setIdTest(resultSet.getInt("idTheme"));
-        test.setLibelleTest(resultSet.getString("libelle"));
-        test.setDescription(resultSet.getString("description"));
-        test.setDuree(resultSet.getInt("duree"));
-        test.setSeuilHaut(resultSet.getInt("seuil_haut"));
-        test.setSeuilBas(resultSet.getInt("seuil_bas"));
-
-        return test;
+        Theme theme = new Theme();
+        theme.setIdTheme(resultSet.getInt("idTheme"));
+        theme.setLibelleTheme(resultSet.getString("libelle"));
+        return theme;
         
     }
 }
