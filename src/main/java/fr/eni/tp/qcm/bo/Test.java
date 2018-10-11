@@ -1,15 +1,17 @@
 package fr.eni.tp.qcm.bo;
 
+import java.sql.Time;
+
 public class Test {
 
 	private Integer idTest;
 	private String libelleTest;
 	private String description;
-	private int duree; // a convertir ?
+	private Time duree; 
 	private int seuilHaut;
 	private int SeuilBas;
 	
-	public Test(Integer idTest, String libelleTest, String description, int duree, int seuilHaut, int seuilBas) {
+	public Test(Integer idTest, String libelleTest, String description, Time duree, int seuilHaut, int seuilBas) {
 		this.idTest = idTest;
 		this.libelleTest = libelleTest;
 		this.description = description;
@@ -46,11 +48,11 @@ public class Test {
 		this.description = description;
 	}
 
-	public int getDuree() {
+	public Time getDuree() {
 		return duree;
 	}
 
-	public void setDuree(int duree) {
+	public void setDuree(Time duree) {
 		this.duree = duree;
 	}
 
