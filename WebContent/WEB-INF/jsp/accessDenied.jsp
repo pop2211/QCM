@@ -24,9 +24,9 @@
 				
 		<div class="col-md-12 mt-5">
 		
-			<h1 class="mt-5">You're not authorized to access this resouce !</h1>
+			<h1 class="mt-5">Vous devez être connecté !</h1>
 		
-			<a href="${pageContext.request.contextPath}/welcome" class="btn btn-primary mt-5">Go Back to home</a>
+			<a href="${pageContext.request.contextPath}/connexion" class="btn btn-primary mt-5">Connexion</a>
 		</div>
 	</div>
 	
