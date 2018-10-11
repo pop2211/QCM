@@ -12,11 +12,11 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 
 
-    private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM SECTION_TEST INNER JOIN THEME ON SECTION_TEST.idTheme = THEME.idTheme WHERE idTest = ?";
+    private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve WHERE idQuestionTirage = ?";
 
-    private static final String INSERT_QUESTION_TIRAGE_QUERY = "INSERT INTO QUESTION_TIRAGE(estMarquee, numOrdreTheme, idUtilisateur, IdEpreuve, idQuestion) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_QUESTION_TIRAGE_QUERY = "INSERT INTO QUESTION_TIRAGE(estMarquee, numOrdreTheme, IdEpreuve, idQuestion) VALUES (?, ?, ?, ?)";
     private static final String DELETE_QUESTION_TIRAGE_QUERY = "DELETE FROM QUESTION_TIRAGE WHERE idQuestionTirage = ?";
-    private static final String UPDATE_QUESTION_TIRAGE_QUERY = "UPDATE QUESTION_TIRAGE SET estMarquee = ?, numOrdre = ? WHERE idTest = ?";
+    private static final String UPDATE_QUESTION_TIRAGE_QUERY = "UPDATE QUESTION_TIRAGE SET estMarquee = ?, numOrdre = ?, idEpreuve = ?, idQuestion = ? WHERE idQuestionTirage = ?";
     
     private ThemeDAO themeDAO = DAOFactory.themeDAO();
     private TestDAO testDAO = DAOFactory.testDAO();

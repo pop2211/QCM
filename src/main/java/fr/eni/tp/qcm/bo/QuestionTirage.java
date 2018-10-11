@@ -4,7 +4,6 @@ public class QuestionTirage {
 
 	private Boolean estMarque;
 	private int numOrdre;
-	private Utilisateur utilisateur;
 	private Epreuve epreuve;
 	private Question question;
 	
@@ -12,12 +11,10 @@ public class QuestionTirage {
 		super();
 	}
 
-	public QuestionTirage(Boolean estMarque, int numOrdre, Utilisateur utilisateur, Epreuve epreuve,
-			Question question) {
+	public QuestionTirage(Boolean estMarque, int numOrdre, Epreuve epreuve, Question question) {
 		super();
 		this.estMarque = estMarque;
 		this.numOrdre = numOrdre;
-		this.utilisateur = utilisateur;
 		this.epreuve = epreuve;
 		this.question = question;
 	}
@@ -38,14 +35,6 @@ public class QuestionTirage {
 		this.numOrdre = numOrdre;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-
 	public Epreuve getEpreuve() {
 		return epreuve;
 	}
@@ -61,5 +50,6 @@ public class QuestionTirage {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
 	
 }
