@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controller;
+package fr.eni.tp.qcm.ihm.controler;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,10 +20,10 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
 /**
  * Servlet implementation class EpreuveController
  */
-public class EpreuveController extends HttpServlet {
+public class EpreuveControler extends HttpServlet {
 	
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private static final long serialVersionUID = 1L;
        
 

@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controller;
+package fr.eni.tp.qcm.ihm.controler;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class QuestionController
  */
-public class QuestionController extends HttpServlet {
+public class QuestionControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionController() {
+    public QuestionControler() {
         super();
         // TODO Auto-generated constructor stub
     }
