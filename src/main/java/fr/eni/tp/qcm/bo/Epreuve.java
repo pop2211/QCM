@@ -7,14 +7,14 @@ public class Epreuve {
 	
 	private Integer idEpreuve;
 	private Test test;
-	private Date dateDebutValidite;
-	private Date dateFinValidite;
+	private String dateDebutValidite;
+	private String dateFinValidite;
 	private Time tempsEcoule;
 	private String etat;
 	private Integer noteObtenue;
 	private Integer niveauObtenu;
 	
-	public Epreuve(Integer idEpreuve, Test test, Date dateDebutValidite, Date dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu) {
+	public Epreuve(Integer idEpreuve, Test test, String dateDebutValidite, String dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu) {
 		this.idEpreuve = idEpreuve;
 		this.test = test;
 		this.dateDebutValidite = dateDebutValidite;
@@ -45,19 +45,19 @@ public class Epreuve {
 		this.test = test;
 	}
 
-	public Date getDateDebutValidite() {
+	public String getDateDebutValidite() {
 		return dateDebutValidite;
 	}
 
-	public void setDateDebutValidite(Date dateDebutValidite) {
+	public void setDateDebutValidite(String dateDebutValidite) {
 		this.dateDebutValidite = dateDebutValidite;
 	}
 
-	public Date getDateFinValidite() {
+	public String getDateFinValidite() {
 		return dateFinValidite;
 	}
 
-	public void setDateFinValidite(Date dateFinValidite) {
+	public void setDateFinValidite(String dateFinValidite) {
 		this.dateFinValidite = dateFinValidite;
 	}
 

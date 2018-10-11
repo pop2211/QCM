@@ -12,36 +12,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
-import fr.eni.tp.qcm.bll.manager.EpreuveManager;
+import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Epreuve;
+import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 
 /**
- * Servlet implementation class EpreuveController
+ * Servlet implementation class ConsulterTestControler
  */
-public class EpreuveControler extends HttpServlet {
-	
-	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
+public class ConsulterTestControler extends HttpServlet {
+	private TestManager testManager = ManagerFactory.testManager();
 	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
-	private static final long serialVersionUID = 1L;
-       
+	private static final long serialVersionUID = 1L;       
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		List<Epreuve> epreuves = null;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Test> tests = null;
 		try {
-			epreuves = epreuveManager.findAll();
-            request.setAttribute("epreuves", epreuves);
-            request.getRequestDispatcher("/consulterResultat").forward(request, response);
+			tests = testManager.findAll();
+            request.setAttribute("tests", tests);
+            request.getRequestDispatcher("/consulterTest").forward(request, response);
                
         } catch (ManagerException e) {
         	e.printStackTrace();
         	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
+        }	
 	}
 
 	/**

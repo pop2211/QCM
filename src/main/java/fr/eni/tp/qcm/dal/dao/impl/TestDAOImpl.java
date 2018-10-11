@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Proposition;
+import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -16,7 +18,7 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class TestDAOImpl implements TestDAO {
 
-
+	private static final String SELECT_ALL_TEST_QUERY = "SELECT idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM TEST";
     private static final String SELECT_TEST_QUERY = "SELECT idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM TEST WHERE idTest = ?";
     private static final String INSERT_TEST_QUERY = "INSERT INTO TEST(libelleTest, description, duree, seuilHaut, seuilBas) VALUES (?, ?, ?, ?, ?)";
     private static final String DELETE_TEST_QUERY = "DELETE FROM TEST WHERE idTest = ?";
@@ -142,7 +144,26 @@ public class TestDAOImpl implements TestDAO {
 
 	@Override
 	public List<Test> selectAll() throws DaoException {
-		return null;
+		Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        List<Test> tests = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SELECT_ALL_TEST_QUERY);
+
+            while (resultSet.next()) {
+            	tests.add(resultSetToTest(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return tests;
 	}
 
 	@Override
