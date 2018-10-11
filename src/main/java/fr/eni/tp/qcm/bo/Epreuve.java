@@ -1,5 +1,6 @@
 package fr.eni.tp.qcm.bo;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Epreuve {
@@ -8,12 +9,12 @@ public class Epreuve {
 	private Test test;
 	private Date dateDebutValidite;
 	private Date dateFinValidite;
-	private Integer tempsEcoule; // a convertir lors de l'impl
+	private Time tempsEcoule;
 	private String etat;
 	private Integer noteObtenue;
 	private Integer niveauObtenu;
 	
-	public Epreuve(Integer idEpreuve, Test test, Date dateDebutValidite, Date dateFinValidite, Integer tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu) {
+	public Epreuve(Integer idEpreuve, Test test, Date dateDebutValidite, Date dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu) {
 		this.idEpreuve = idEpreuve;
 		this.test = test;
 		this.dateDebutValidite = dateDebutValidite;
@@ -60,11 +61,11 @@ public class Epreuve {
 		this.dateFinValidite = dateFinValidite;
 	}
 
-	public Integer getTempsEcoule() {
+	public Time getTempsEcoule() {
 		return tempsEcoule;
 	}
 
-	public void setTempsEcoule(Integer tempsEcoule) {
+	public void setTempsEcoule(Time tempsEcoule) {
 		this.tempsEcoule = tempsEcoule;
 	}
 

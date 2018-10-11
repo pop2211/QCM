@@ -26,7 +26,11 @@ public class DAOFactory {
 	public static PropositionDAO propositionDAO() {
         return PropositionDAOImpl.getInstance();
 	}
-
+	
+	public static EpreuveDAO epreuveDAO() {
+        return EpreuveDAOImpl.getInstance();
+	}
+	
 	public static TestDAO testDAO() {
         return TestDAOImpl.getInstance();
 	}

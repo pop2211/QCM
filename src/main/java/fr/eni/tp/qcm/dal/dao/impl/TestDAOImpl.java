@@ -5,12 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Proposition;
 import fr.eni.tp.qcm.bo.Test;
-import fr.eni.tp.qcm.bo.Theme;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
@@ -19,10 +17,10 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class TestDAOImpl implements TestDAO {
 
 
-    private static final String SELECT_TEST_QUERY = "SELECT idTest, libelle, description, duree, seuil_haut, seuil_bas FROM TEST WHERE idTest = ?";
-    private static final String INSERT_TEST_QUERY = "INSERT INTO TEST(libelle, description, duree, seuil_haut, seuil_bas) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_TEST_QUERY = "SELECT idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM TEST WHERE idTest = ?";
+    private static final String INSERT_TEST_QUERY = "INSERT INTO TEST(libelleTest, description, duree, seuilHaut, seuilBas) VALUES (?, ?, ?, ?, ?)";
     private static final String DELETE_TEST_QUERY = "DELETE FROM TEST WHERE idTest = ?";
-    private static final String UPDATE_TEST_QUERY = "UPDATE TEST SET libelle = ?, descripion = ?, duree = ?, seuil_haut = ?, seuil_bas = ? WHERE idTest = ?";
+    private static final String UPDATE_TEST_QUERY = "UPDATE TEST SET libelleTest = ?, descripion = ?, duree = ?, seuilHaut = ?, seuilBas = ? WHERE idTest = ?";
     
     private static TestDAOImpl instance;
     
@@ -49,7 +47,7 @@ public class TestDAOImpl implements TestDAO {
             
             statement.setString(1, test.getLibelleTest());
             statement.setString(2, test.getDescription());
-            statement.setInt(3, test.getDuree());
+            statement.setTime(3, test.getDuree());
             statement.setInt(4, test.getSeuilBas());
             statement.setInt(5, test.getSeuilHaut());
 
@@ -82,7 +80,7 @@ public class TestDAOImpl implements TestDAO {
             
             statement.setString(1, test.getLibelleTest());
             statement.setString(2, test.getDescription());
-            statement.setInt(3, test.getDuree());
+            statement.setTime(3, test.getDuree());
             statement.setInt(4, test.getSeuilHaut());
             statement.setInt(5, test.getSeuilBas());
             
@@ -151,12 +149,12 @@ public class TestDAOImpl implements TestDAO {
     public Test resultSetToTest(ResultSet resultSet) throws SQLException {
         
         Test test = new Test();
-        test.setIdTest(resultSet.getInt("idTheme"));
-        test.setLibelleTest(resultSet.getString("libelle"));
+        test.setIdTest(resultSet.getInt("idTest"));
+        test.setLibelleTest(resultSet.getString("libelleTest"));
         test.setDescription(resultSet.getString("description"));
-        test.setDuree(resultSet.getInt("duree"));
-        test.setSeuilHaut(resultSet.getInt("seuil_haut"));
-        test.setSeuilBas(resultSet.getInt("seuil_bas"));
+        test.setDuree(resultSet.getTime("duree"));
+        test.setSeuilHaut(resultSet.getInt("seuilHaut"));
+        test.setSeuilBas(resultSet.getInt("seuilBas"));
 
         return test;
         
