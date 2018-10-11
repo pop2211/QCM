@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
+import fr.eni.tp.qcm.bo.Proposition;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Theme;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
@@ -146,8 +147,8 @@ public class TestDAOImpl implements TestDAO {
 		return null;
 	}
 
-	
-    private Test resultSetToTest(ResultSet resultSet) throws SQLException {
+	@Override
+    public Test resultSetToTest(ResultSet resultSet) throws SQLException {
         
         Test test = new Test();
         test.setIdTest(resultSet.getInt("idTheme"));

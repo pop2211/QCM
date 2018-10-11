@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.bo.Theme;
 import fr.eni.tp.qcm.dal.dao.ThemeDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -140,7 +141,8 @@ public class ThemeDAOImpl implements ThemeDAO {
 		return null;
 	}
 
-    private Theme resultSetToTheme(ResultSet resultSet) throws SQLException {
+    @Override
+    public Theme resultSetToTheme(ResultSet resultSet) throws SQLException {
         
         Theme theme = new Theme();
         theme.setIdTheme(resultSet.getInt("idTheme"));
@@ -148,4 +150,5 @@ public class ThemeDAOImpl implements ThemeDAO {
         return theme;
         
     }
+
 }

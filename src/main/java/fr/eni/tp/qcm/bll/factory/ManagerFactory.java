@@ -2,11 +2,13 @@ package fr.eni.tp.qcm.bll.factory;
 
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
+import fr.eni.tp.qcm.bll.manager.SectionTestManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bll.manager.impl.PropositionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionManagerImpl;
+import fr.eni.tp.qcm.bll.manager.impl.SectionTestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.TestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.ThemeManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.UtilisateurManagerImpl;
@@ -31,5 +33,10 @@ public class ManagerFactory {
 
 	public static TestManager testManager() {
         return TestManagerImpl.getInstance();
+	}
+
+	public static SectionTestManager sectionThemeManager() {
+        return SectionTestManagerImpl.getInstance();
+
 	}
 }

@@ -42,6 +42,19 @@ public class QuestionManagerImpl implements QuestionManager{
 	}
 
 	@Override
+	public List<Question> findByIdTheme(Integer id) throws ManagerException {
+		List<Question> questions = null;    
+        try {
+        	questions = questionDAO.selectByIdTheme(id);
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return questions;
+	}
+	
+	
+	@Override
 	public Question findOne(Integer id) throws ManagerException, ElementNotFoundException {
 		Question question = null;    
         try {
