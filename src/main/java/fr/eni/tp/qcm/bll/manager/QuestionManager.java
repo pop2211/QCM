@@ -17,8 +17,6 @@ public interface QuestionManager {
     
     Question saveOne(Question question) throws ManagerException, FunctionalException;
 
-	List<Question> findByIdTheme() throws ManagerException;
-
 	List<Question> findByIdTheme(Integer id) throws ManagerException;
 
     

@@ -39,6 +39,7 @@ public class ManagerFactory {
 
 	public static SectionTestManager sectionThemeManager() {
         return SectionTestManagerImpl.getInstance();
+	}
 	
 	public static EpreuveManager epreuveManager() {
         return EpreuveManagerImpl.getInstance();
