@@ -13,26 +13,12 @@
 </jsp:include>
 <link rel="stylesheet" type="text/css" href="/QCM/css/connexion.css">
 </head>
-<body id="LoginForm">
-
-	<!--
-	<jsp:include page="/WEB-INF/jsp/header.jsp">
+<body>
+<jsp:include page="/WEB-INF/jsp/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
-	 -->
-	
 <div class="container">
-	<h1 class="form-heading">Plateforme ECF</h1>
-	<div class="login-form">
-		<div class="main-div">
-		    <div class="panel">
-				<h2>Plateforme ECF</h2>
-			   	<p>Entre ton email et ton mot de passe poto !</p>
-		 	</div>
-		 	<h1>c'est l'accueil</h1>
-		    </div>
-		</div>
-	</div>
+	<h2>c'est l'accueil</h2>
 </div>
 </body>
 </html>

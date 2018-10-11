@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controller;
+package fr.eni.tp.qcm.ihm.controler;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
