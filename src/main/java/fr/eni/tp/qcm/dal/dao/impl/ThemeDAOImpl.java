@@ -18,10 +18,10 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class ThemeDAOImpl implements ThemeDAO {
 
-    private static final String SELECT_THEME_QUERY = "SELECT idTheme, libelle FROM THEME WHERE idTheme = ?";
-    private static final String INSERT_THEME_QUERY = "INSERT INTO THEME(libelle) VALUES (?)";
+    private static final String SELECT_THEME_QUERY = "SELECT idTheme, libelleTheme FROM THEME WHERE idTheme = ?";
+    private static final String INSERT_THEME_QUERY = "INSERT INTO THEME(libelleTheme) VALUES (?)";
     private static final String DELETE_THEME_QUERY = "DELETE FROM THEME WHERE idTheme = ?";
-    private static final String UPDATE_THEME_QUERY = "UPDATE THEME SET libelle = ? WHERE idTest = ?";
+    private static final String UPDATE_THEME_QUERY = "UPDATE THEME SET libelleTheme = ? WHERE idTest = ?";
     
     private static ThemeDAOImpl instance;
     
@@ -146,7 +146,7 @@ public class ThemeDAOImpl implements ThemeDAO {
         
         Theme theme = new Theme();
         theme.setIdTheme(resultSet.getInt("idTheme"));
-        theme.setLibelleTheme(resultSet.getString("libelle"));
+        theme.setLibelleTheme(resultSet.getString("libelleTheme"));
         return theme;
         
     }
