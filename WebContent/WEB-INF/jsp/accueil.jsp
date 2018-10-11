@@ -18,7 +18,9 @@
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 <div class="container">
-	<h2>c'est l'accueil</h2>
+	<div class="col-md-6 center">
+		<h2>c'est l'accueil</h2>
+	</div>
 </div>
 </body>
 </html>
