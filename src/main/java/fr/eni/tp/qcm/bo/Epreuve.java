@@ -13,8 +13,9 @@ public class Epreuve {
 	private String etat;
 	private Integer noteObtenue;
 	private Integer niveauObtenu;
+	private Utilisateur utilisateur;
 	
-	public Epreuve(Integer idEpreuve, Test test, Date dateDebutValidite, Date dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu) {
+	public Epreuve(Integer idEpreuve, Test test, Date dateDebutValidite, Date dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu, Utilisateur utilisateur) {
 		this.idEpreuve = idEpreuve;
 		this.test = test;
 		this.dateDebutValidite = dateDebutValidite;
@@ -23,10 +24,19 @@ public class Epreuve {
 		this.etat = etat;
 		this.noteObtenue = noteObtenue;
 		this.niveauObtenu = niveauObtenu;
+		this.utilisateur = utilisateur;
 	}
 	
 	public Epreuve() {
 		
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public Integer getIdEpreuve() {

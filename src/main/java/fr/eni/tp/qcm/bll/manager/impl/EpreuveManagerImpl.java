@@ -50,12 +50,12 @@ public class EpreuveManagerImpl implements EpreuveManager{
             ValidationUtil.checkNotNull(id);
             epreuve = epreuveDAO.selectById(id);
             if(epreuve == null) {
-                throw new ElementNotFoundException("L'épreuve n'existe pas", null);
+                throw new ElementNotFoundException("L'Ã©preuve n'existe pas", null);
             }
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'id ne peut pas être null", e);
+            throw new ManagerException("L'id ne peut pas ï¿½tre null", e);
         }
         return epreuve;
 	}
@@ -68,7 +68,7 @@ public class EpreuveManagerImpl implements EpreuveManager{
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'id ne peut pas être null", e);
+            throw new ManagerException("L'id ne peut pas ï¿½tre null", e);
         }
 		
 	}
@@ -89,7 +89,7 @@ public class EpreuveManagerImpl implements EpreuveManager{
             throw new ManagerException(e.getMessage(), e);
 
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'épreuve n'est pas valide", e);
+            throw new ManagerException("L'Ã©preuve n'est pas valide", e);
         }
         return epreuve;
 	}
