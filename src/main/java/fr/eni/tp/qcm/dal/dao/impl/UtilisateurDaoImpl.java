@@ -22,9 +22,9 @@ public class UtilisateurDaoImpl implements UtilisateurDAO{
 	private static final String UPDATE_UTILISATEUR_QUERY = "UPDATE UTILISATEUR SET nomUtilisateur = ?, prenomUtilisateur  = ?, email  = ?, password  = ?, idProfil  = ?, idPromotion  = ? WHERE idUtilisateur = ?";
 	private static final String DELETE_UTILISATEUR_QUERY = "DELETE FROM UTILISATEUR WHERE idUtilisateur = ?";
 	private static final String JOINTURE = "left join PROFIL on u.idProfil= PROFIL.idProfil left join PROMOTION on u.idPromotion = PROMOTION.idPromotion";
-    private static final String SELECT_FOR_CONNEXION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion from USER where email = ? and password = ?";
-	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + "WHERE idUtilisateur = ?";
-	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idProfil, libellePromotion FROM UTILISATEUR u " + JOINTURE;
+    private static final String SELECT_FOR_CONNEXION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion from UTILISATEUR u " + JOINTURE + " where email = ? and password = ?";
+	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
+	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion FROM UTILISATEUR u " + JOINTURE;
     
 	private static UtilisateurDaoImpl instance;
 	
@@ -176,11 +176,10 @@ public class UtilisateurDaoImpl implements UtilisateurDAO{
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Utilisateur util = null;
-        Boolean loginOk = false;
         
         try {
             connection = MSSQLConnectionFactory.get();
-            statement = connection.prepareStatement(SELECT_UTILISATEUR_BY_ID);
+            statement = connection.prepareStatement(SELECT_FOR_CONNEXION);
             
             statement.setString(1, email);
             statement.setString(2, password);

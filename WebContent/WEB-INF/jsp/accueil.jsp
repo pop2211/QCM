@@ -29,18 +29,7 @@
 				<h2>Plateforme ECF</h2>
 			   	<p>Entre ton email et ton mot de passe poto !</p>
 		 	</div>
-		 	<form name="login" id="Login" action="${pageContext.request.contextPath}/login" method="post">
-		        <div class="form-group">
-		            <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email">
-		        </div>
-		        <div class="form-group">
-		            <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Mot de passe">
-		        </div>
-		        <div class="forgot">
-		        	<!--<a href="reset.html">Forgot password?</a>-->
-				</div>
-		        <button type="submit" class="btn btn-primary">Login</button>
-		    </form>
+		 	<h1>c'est l'accueil</h1>
 		    </div>
 		</div>
 	</div>
