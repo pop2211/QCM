@@ -26,10 +26,11 @@ import fr.eni.tp.web.common.util.ValidationUtil;
 public class SectionTestDAOImpl implements SectionTestDAO{
 
 
-    private static final String SELECT_SECTION_TEST_BY_TEST_QUERY = "SELECT idTest, idTheme, nbQuestionsATrier FROM SECTION_TEST WHERE idTest = ?";
-    private static final String INSERT_SECTION_TEST_QUERY = "INSERT INTO SECTION_TEST(idTest, idTheme, nbQuestionsATrier) VALUES (?, ?, ?)";
+    private static final String SELECT_SECTION_TEST_BY_TEST_QUERY = "SELECT * FROM SECTION_TEST INNER JOIN THEME ON SECTION_TEST.idTheme = THEME.idTheme WHERE idTest = ?";
+
+    private static final String INSERT_SECTION_TEST_QUERY = "INSERT INTO SECTION_TEST(idTest, idTheme, nbQuestionsATirer) VALUES (?, ?, ?)";
     private static final String DELETE_SECTION_TEST_QUERY = "DELETE FROM SECTION_TEST WHERE idTest = ?";
-    private static final String UPDATE_SECTION_TEST_QUERY = "UPDATE SECTION_TEST SET idTheme = ?, nbQuestionsATrier = ? WHERE idTest = ?";
+    private static final String UPDATE_SECTION_TEST_QUERY = "UPDATE SECTION_TEST SET idTheme = ?, nbQuestionsATirer = ? WHERE idTest = ?";
     
     private ThemeDAO themeDAO = DAOFactory.themeDAO();
     private TestDAO testDAO = DAOFactory.testDAO();
@@ -101,9 +102,9 @@ public class SectionTestDAOImpl implements SectionTestDAO{
 	private SectionTest resultSetToSectionTest(ResultSet resultSet) throws SQLException {
         
 		SectionTest sectionTest = new SectionTest();
-		sectionTest.setNbQuestionsATrier(resultSet.getInt("nbQuestionsATrier"));
+		sectionTest.setNbQuestionsATirer(resultSet.getInt("nbQuestionsATirer"));
 		sectionTest.setTheme(themeDAO.resultSetToTheme(resultSet));
-		sectionTest.setTest(testDAO.resultSetToTest(resultSet));
+//		sectionTest.setTest(testDAO.resultSetToTest(resultSet));
 		
         return sectionTest;
         

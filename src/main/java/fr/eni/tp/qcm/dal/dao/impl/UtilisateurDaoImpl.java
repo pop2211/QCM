@@ -16,7 +16,7 @@ import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 
-public class UtilisateurDaoImpl implements UtilisateurDAO{
+public class UtilisateurDAOImpl implements UtilisateurDAO{
 	
 	private static final String INSERT_UTILISATEUR_QUERY = "INSERT INTO UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_UTILISATEUR_QUERY = "UPDATE UTILISATEUR SET nomUtilisateur = ?, prenomUtilisateur  = ?, email  = ?, password  = ?, idProfil  = ?, idPromotion  = ? WHERE idUtilisateur = ?";
@@ -26,15 +26,15 @@ public class UtilisateurDaoImpl implements UtilisateurDAO{
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
 	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion FROM UTILISATEUR u " + JOINTURE;
     
-	private static UtilisateurDaoImpl instance;
+	private static UtilisateurDAOImpl instance;
 	
-	private UtilisateurDaoImpl() {
+	private UtilisateurDAOImpl() {
 	        
 	}
 	    
-    public static UtilisateurDaoImpl getInstance() {
+    public static UtilisateurDAOImpl getInstance() {
         if(instance == null) {
-            instance = new UtilisateurDaoImpl();
+            instance = new UtilisateurDAOImpl();
         }
         return instance;
     }
@@ -198,19 +198,20 @@ public class UtilisateurDaoImpl implements UtilisateurDAO{
 		return util;
 	}
 	
-	private Utilisateur resultSetToUtilisateur(ResultSet resultSet) throws SQLException {
+	@Override
+    public Utilisateur resultSetToUtilisateur(ResultSet resultSet) throws SQLException {
 		
-		Utilisateur util = new Utilisateur();
-        util.setIdUtilisateur(resultSet.getInt("idUtilisateur"));
-        util.setNomUtilisateur(resultSet.getString("nomUtilisateur"));
-        util.setPrenomUtilisateur(resultSet.getString("prenomUtilisateur"));
-        util.setEmail(resultSet.getString("email"));
-        util.setPassword(resultSet.getString("password"));
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setIdUtilisateur(resultSet.getInt("idUtilisateur"));
+		utilisateur.setNomUtilisateur(resultSet.getString("nomUtilisateur"));
+		utilisateur.setPrenomUtilisateur(resultSet.getString("prenomUtilisateur"));
+		utilisateur.setEmail(resultSet.getString("email"));
+		utilisateur.setPassword(resultSet.getString("password"));
         
-        util.setProfil(new Profil(resultSet.getInt("idProfil"), resultSet.getString("libelleProfil")));
-        util.setPromotion(new Promotion(resultSet.getInt("idPromotion"), resultSet.getString("libellePromotion")));
+		utilisateur.setProfil(new Profil(resultSet.getInt("idProfil"), resultSet.getString("libelleProfil")));
+		utilisateur.setPromotion(new Promotion(resultSet.getInt("idPromotion"), resultSet.getString("libellePromotion")));
         
-        return util;
+        return utilisateur;
         
     }
 }

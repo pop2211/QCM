@@ -13,12 +13,12 @@ import fr.eni.tp.qcm.dal.dao.impl.QuestionDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.SectionTestDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.TestDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.ThemeDAOImpl;
-import fr.eni.tp.qcm.dal.dao.impl.UtilisateurDaoImpl;
+import fr.eni.tp.qcm.dal.dao.impl.UtilisateurDAOImpl;
 
 public class DAOFactory {
 
     public static UtilisateurDAO utilDAO() {
-        return UtilisateurDaoImpl.getInstance();
+        return UtilisateurDAOImpl.getInstance();
     }
     
 	public static QuestionDAO questionDAO() {
@@ -44,5 +44,9 @@ public class DAOFactory {
 	public static SectionTestDAO sectionTestDAO() {
         return SectionTestDAOImpl.getInstance();
 
+	}
+
+	public static UtilisateurDAO utilisateurDAO() {
+        return UtilisateurDAOImpl.getInstance();
 	}
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
+import fr.eni.tp.qcm.dal.dao.UtilisateurDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.EniConstants;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -21,13 +22,14 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class EpreuveDAOImpl implements EpreuveDAO{
 	
-	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, t.idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest";
-    private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, t.idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest where idQuestion = ?";
-    private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur";
+    private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
+    private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
-    private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ? WHERE idEpreuve = ?";
+    private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur WHERE idEpreuve = ?";
 
     private TestDAO testDAO = DAOFactory.testDAO();
+    private UtilisateurDAO utilisateurDAO = DAOFactory.utilisateurDAO();
     
     private static EpreuveDAOImpl instance;
     
@@ -59,6 +61,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	        statement.setInt(5, epreuve.getNoteObtenue());
 	        statement.setInt(6, epreuve.getNiveauObtenu());
 	        statement.setInt(7, epreuve.getTest().getIdTest());
+	        statement.setInt(8, epreuve.getUtilisateur().getIdUtilisateur());
 
 	        if (statement.executeUpdate() == 1) {
 	            resultSet = statement.getGeneratedKeys();
@@ -93,7 +96,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	        statement.setInt(6, epreuve.getNiveauObtenu());
 	        statement.setInt(7, epreuve.getTest().getIdTest());
 	        statement.setInt(8, epreuve.getIdEpreuve());
-            
+	        statement.setInt(9, epreuve.getUtilisateur().getIdUtilisateur());
+
             statement.executeUpdate();
 
         } catch(SQLException e) {
@@ -187,7 +191,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
 		epreuve.setTest(testDAO.resultSetToTest(resultSet));
-		
+		epreuve.setUtilisateur(utilisateurDAO.resultSetToUtilisateur(resultSet));
+
         return epreuve;
         
     }

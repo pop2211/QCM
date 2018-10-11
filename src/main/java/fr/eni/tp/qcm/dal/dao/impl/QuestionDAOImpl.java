@@ -22,7 +22,7 @@ public class QuestionDAOImpl implements QuestionDAO{
 	
 	private static final String SELECT_ALL_QUESTIONS_QUERY = "SELECT idQuestion, enonce, media,  points , idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme";
     private static final String SELECT_ONE_QUESTION_QUERY = "SELECT idQuestion, enonce, media, points, idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme where idQuestion = ?";
-    private static final String SELECT_QUESTION_BY_THEME_QUERY = "SELECT idQuestion, enonce, media, points, idTheme, libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme WHERE idTheme = ?";
+    private static final String SELECT_QUESTION_BY_THEME_QUERY = "SELECT QUESTION.idQuestion, QUESTION.enonce, QUESTION.media, QUESTION.points, QUESTION.idTheme, THEME.libelleTheme FROM QUESTION INNER JOIN THEME ON QUESTION.idTheme = THEME.idTheme WHERE QUESTION.idTheme = ?";
     private static final String INSERT_QUESTION_QUERY = "INSERT INTO QUESTION(enonce, media, points, idTheme) VALUES (?, ?, ?, ?)";
     private static final String DELETE_QUESTION_QUERY = "DELETE FROM QUESTION WHERE idQuestion = ?";
     private static final String UPDATE_QUESTION_QUERY = "UPDATE QUESTION SET enonce = ?, media = ?, points = ?, idTheme = ? WHERE idQuestion = ?";
