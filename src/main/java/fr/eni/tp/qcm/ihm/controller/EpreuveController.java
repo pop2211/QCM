@@ -36,7 +36,6 @@ public class EpreuveController extends HttpServlet {
 		List<Epreuve> epreuves = null;
 		try {
 			epreuves = epreuveManager.findAll();
-            System.out.println(epreuves);
             request.setAttribute("epreuves", epreuves);
             request.getRequestDispatcher("/consulterResultat").forward(request, response);
                
@@ -45,8 +44,6 @@ public class EpreuveController extends HttpServlet {
         	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-		
-		System.out.println("EpreuveController - doGet");
 	}
 
 	/**

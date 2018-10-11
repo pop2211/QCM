@@ -39,7 +39,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>consulterResultatJSP</servlet-name>
-    <url-pattern>/consulterResultat/</url-pattern>
+    <url-pattern>/consulterResultat</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>connexion</servlet-name>

@@ -23,8 +23,8 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class EpreuveDAOImpl implements EpreuveDAO{
 	
-	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, libelle, description, duree, seuil_haut, seuil_bas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest";
-    private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, libelle, description, duree, seuil_haut, seuil_bas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest where idQuestion = ?";
+	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, t.idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest";
+    private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT idEpreuve, dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, t.idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest where idQuestion = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ? WHERE idEpreuve = ?";
@@ -56,7 +56,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	            
 	        statement.setTimestamp(1,  new Timestamp(epreuve.getDateDebutValidite().getTime()));
 	        statement.setTimestamp(2,  new Timestamp(epreuve.getDateFinValidite().getTime()));
-	        statement.setInt(3, epreuve.getTempsEcoule());
+	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
 	        statement.setInt(6, epreuve.getNiveauObtenu());
@@ -89,7 +89,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
             
             statement.setTimestamp(1,  new Timestamp(epreuve.getDateDebutValidite().getTime()));
 	        statement.setTimestamp(2,  new Timestamp(epreuve.getDateFinValidite().getTime()));
-	        statement.setInt(3, epreuve.getTempsEcoule());
+	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
 	        statement.setInt(6, epreuve.getNiveauObtenu());
@@ -184,7 +184,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setIdEpreuve(resultSet.getInt("idEpreuve"));
 		epreuve.setDateDebutValidite(new Date(resultSet.getTimestamp("dateDebutValidite").getTime()));
 		epreuve.setDateFinValidite(new Date(resultSet.getTimestamp("dateFinValidite").getTime()));
-		epreuve.setTempsEcoule(resultSet.getInt("tempsEcoule"));
+		epreuve.setTempsEcoule(resultSet.getTime("tempsEcoule"));
 		epreuve.setEtat(resultSet.getString("etat"));
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));

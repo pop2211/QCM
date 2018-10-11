@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,8 +19,6 @@
 		
 		<h1>Vos résultats</h1>	
 	
-	  ${epreuves}
-	
 	<table class="table">
   <thead>
     <tr>
@@ -35,7 +34,7 @@
   <tbody>
   <c:forEach items="${epreuves}" var="epreuve">
     <tr>
-      <td>${epreuve.id}</td>
+      <td>${epreuve.idEpreuve}</td>
       <td>${epreuve.dateDebutValidite}</td>
       <td>${epreuve.dateFinValidite}</td>
       <td>${epreuve.tempsEcoule}</td>
