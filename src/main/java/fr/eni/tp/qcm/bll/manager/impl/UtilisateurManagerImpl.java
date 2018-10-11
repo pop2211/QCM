@@ -32,7 +32,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	@Override
 	public Utilisateur Connexion(String email, String password) throws ManagerException {
 		
-		Utilisateur util= null;
+		Utilisateur util = null;
 		
 		ValidationUtil.checkNotBlank(email);
 		ValidationUtil.checkNotBlank(password);

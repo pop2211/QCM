@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controller;
+package fr.eni.tp.qcm.ihm.controler;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,9 +34,12 @@ public class Connexion extends HttpServlet {
 			if(util != null) {
 				request.getRequestDispatcher("/accueil").forward(request, response);
 			}
+			else {
+				request.getRequestDispatcher("/connexion").forward(request, response);
+			}
 			
 		} catch (ManagerException e) {
-			LOGGER.error("Validation error", e);
+			e.printStackTrace();
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, "Email ou password invalide");
 		}
 		
