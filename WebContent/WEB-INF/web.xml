@@ -4,16 +4,14 @@
   <welcome-file-list>
     <welcome-file>connexion</welcome-file>
   </welcome-file-list>
-  <!-- servlet question -->
   <servlet-mapping>
-    <servlet-name>questionController</servlet-name>
+    <servlet-name>questionControler</servlet-name>
     <url-pattern>/gestionQuestion</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>questionController</servlet-name>
-    <servlet-class>fr.eni.tp.qcm.ihm.controller.QuestionController</servlet-class>
+    <servlet-name>questionControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.QuestionControler</servlet-class>
   </servlet>
-  <!--  jsp question -->
   <servlet>
     <servlet-name>questionJSP</servlet-name>
     <jsp-file>/WEB-INF/jsp/question.jsp</jsp-file>
@@ -22,16 +20,14 @@
     <servlet-name>questionJSP</servlet-name>
     <url-pattern>/question/</url-pattern>
   </servlet-mapping>
-  <!-- servlet epreuve -->
-    <servlet>
-    <servlet-name>epreuveController</servlet-name>
-    <servlet-class>fr.eni.tp.qcm.ihm.controller.EpreuveController</servlet-class>
+  <servlet>
+    <servlet-name>epreuveControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.EpreuveControler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>epreuveController</servlet-name>
+    <servlet-name>epreuveControler</servlet-name>
     <url-pattern>/gestion/consulterResultat</url-pattern>
   </servlet-mapping>
-  <!--  jsp consulter resultat -->
   <servlet>
     <servlet-name>consulterResultatJSP</servlet-name>
     <jsp-file>/WEB-INF/jsp/consulterResultat.jsp</jsp-file>
@@ -41,20 +37,52 @@
     <url-pattern>/consulterResultat</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>consulterTestControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.ConsulterTestControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>consulterTestControler</servlet-name>
+    <url-pattern>/selectionnerTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>selectionnerTestJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/selectionnerTest.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>selectionnerTestJSP</servlet-name>
+    <url-pattern>/consulterTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>detailTestControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.DetailTestControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>detailTestControler</servlet-name>
+    <url-pattern>/detailTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>consulterDetailTestJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/consulterDetailTest.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>consulterDetailTestJSP</servlet-name>
+    <url-pattern>/consulterDetailTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>connexion</servlet-name>
     <jsp-file>/WEB-INF/connexion.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-	<servlet-name>connexion</servlet-name>
-	<url-pattern>/connexion</url-pattern>
+    <servlet-name>connexion</servlet-name>
+    <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
   <servlet>
-	<servlet-name>accueil</servlet-name>
-	<jsp-file>/WEB-INF/jsp/accueil.jsp</jsp-file>
+    <servlet-name>accueil</servlet-name>
+    <jsp-file>/WEB-INF/jsp/accueil.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-	<servlet-name>accueil</servlet-name>
-	<url-pattern>/accueil</url-pattern>
+    <servlet-name>accueil</servlet-name>
+    <url-pattern>/accueil</url-pattern>
   </servlet-mapping>
    <servlet>
     <servlet-name>logout</servlet-name>

@@ -5,20 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Epreuve;
-import fr.eni.tp.qcm.bo.Question;
-import fr.eni.tp.qcm.bo.Theme;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
-import fr.eni.tp.qcm.dal.dao.QuestionDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
+import fr.eni.tp.web.common.EniConstants;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
+import fr.eni.tp.web.common.util.DateUtil;
 import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class EpreuveDAOImpl implements EpreuveDAO{
@@ -54,8 +52,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	            
 	        statement = connection.prepareStatement(INSERT_EPREUVE_QUERY, Statement.RETURN_GENERATED_KEYS);
 	            
-	        statement.setTimestamp(1,  new Timestamp(epreuve.getDateDebutValidite().getTime()));
-	        statement.setTimestamp(2,  new Timestamp(epreuve.getDateFinValidite().getTime()));
+	        statement.setString(1,  epreuve.getDateDebutValidite());
+	        statement.setString(2,  epreuve.getDateFinValidite());
 	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
@@ -87,8 +85,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
             
             statement = connection.prepareStatement(UPDATE_EPREUVE_QUERY);
             
-            statement.setTimestamp(1,  new Timestamp(epreuve.getDateDebutValidite().getTime()));
-	        statement.setTimestamp(2,  new Timestamp(epreuve.getDateFinValidite().getTime()));
+            statement.setString(1,  epreuve.getDateDebutValidite());
+	        statement.setString(2, epreuve.getDateFinValidite());
 	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
@@ -182,14 +180,14 @@ public class EpreuveDAOImpl implements EpreuveDAO{
         
 		Epreuve epreuve = new Epreuve();
 		epreuve.setIdEpreuve(resultSet.getInt("idEpreuve"));
-		epreuve.setDateDebutValidite(new Date(resultSet.getTimestamp("dateDebutValidite").getTime()));
-		epreuve.setDateFinValidite(new Date(resultSet.getTimestamp("dateFinValidite").getTime()));
+		epreuve.setDateDebutValidite(DateUtil.format(new Date(resultSet.getTimestamp("dateDebutValidite").getTime()), EniConstants.OUTPUT_DATE_TIME_FORMATTER));
+		epreuve.setDateFinValidite(DateUtil.format(new Date(resultSet.getTimestamp("dateFinValidite").getTime()), EniConstants.OUTPUT_DATE_TIME_FORMATTER));
 		epreuve.setTempsEcoule(resultSet.getTime("tempsEcoule"));
 		epreuve.setEtat(resultSet.getString("etat"));
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
 		epreuve.setTest(testDAO.resultSetToTest(resultSet));
-        
+		
         return epreuve;
         
     }
