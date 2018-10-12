@@ -48,11 +48,13 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
 	public QuestionTirage saveOne(QuestionTirage questionTirage) throws ManagerException, FunctionalException {
 		try {
             ValidationUtil.checkNotNull(questionTirage);
-            if(questionTirage.getEpreuve().getIdEpreuve() != null && questionTirage.getQuestion().getIdQuestion() != null) {
-            	questionTirageDAO.update(questionTirage);
-            } else {
+//            if(questionTirage.getEpreuve().getIdEpreuve() != null && questionTirage.getQuestion().getIdQuestion() != null) {
+//            	System.out.println("update");
+//            	questionTirageDAO.update(questionTirage);
+//            } else {
+            	System.out.println("insert");
             	questionTirageDAO.insert(questionTirage);
-            }
+            //}
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
 

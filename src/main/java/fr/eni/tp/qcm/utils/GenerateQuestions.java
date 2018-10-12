@@ -20,17 +20,13 @@ import fr.eni.tp.web.common.exception.FunctionalException;
 public class GenerateQuestions {
     private static SectionTestManager sectionThemeManager = ManagerFactory.sectionThemeManager();
     private static QuestionManager questionManager = ManagerFactory.questionManager();
-    private static ThemeManager themeManager = ManagerFactory.themeManager();
     private static QuestionTirageManager questionTirageManager = ManagerFactory.questionTirageManager();
     private static EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
 
-		public void generate() {
+		public void generate(Integer testId, Integer epreuveId) {
 		//themeManager.findOne(sectiontest.getTest());
 		//Fluch sur le taleau des question pour chaques theme de section theme
 		//Prendre le nombre de questions, les enregister dans question tirage
-
-		Integer testId = 1;
-		Integer epreuveId = 1;
 
 		try {
 			//find all sections test with the test id
@@ -65,7 +61,7 @@ public class GenerateQuestions {
 			//Save final list into questions generated
 			System.out.println(finalList);
 			
-			for(int l = 0; l < finalList.size(); l++) {
+			for(int l = 1; l < finalList.size(); l++) {
 				
 				QuestionTirage quesTirage = new QuestionTirage();
 				quesTirage.setNumOrdre(l);
@@ -81,7 +77,6 @@ public class GenerateQuestions {
 					e.printStackTrace();
 				}
 			}
-			
 			
 		} catch (ElementNotFoundException e) {
 			e.printStackTrace();
