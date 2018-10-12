@@ -27,15 +27,15 @@ public class RestrictionFilter implements Filter {
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
 
-        /**
-         * Si l'objet utilisateur n'existe pas dans la session en cours, alors
-         * l'utilisateur n'est pas connecté.
-         */
+        String path = ((HttpServletRequest) request).getServletPath();
         if ( session.getAttribute( ATT_SESSION_USER ) == null ) {
-            /* Redirection vers la page publique */
-            response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
+        	if (!path.equals("/login") && !path.equals("/connexion") && !path.equals("/logout")) {
+        		response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
+        	}
+        	else {
+        		chain.doFilter( request, response );
+        	}
         } else {
-            /* Affichage de la page restreinte */
             chain.doFilter( request, response );
         }
     }

@@ -21,7 +21,6 @@ public class Connexion extends HttpServlet {
     }
     
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    	String vue = "/connexion";
     	
     	/* Préparation de l'objet formulaire */
         ConnexionForm form = new ConnexionForm();
@@ -34,13 +33,12 @@ public class Connexion extends HttpServlet {
         
 		if ( form.getErreurs().isEmpty() && utilisateur != null ) {
             session.setAttribute( ATT_SESSION_USER, utilisateur );
-            vue = "/accueil";
+            response.sendRedirect( request.getContextPath() + "/accueil" );
         } 
 		else {
         	session.setAttribute( ATT_SESSION_USER, null );
             request.setAttribute( ATT_FORM, form );
+            this.getServletContext().getRequestDispatcher("/connexion").forward( request, response );
         }
-		
-		response.sendRedirect( request.getContextPath() + vue );
     }
 }

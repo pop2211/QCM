@@ -15,7 +15,7 @@ public class Deconnexion extends HttpServlet{
 		/* Récupération et destruction de la session en cours */
         HttpSession session = request.getSession();
         session.invalidate();
-        
+        //session.setAttribute("errorConnection", "Vous devez vous connecter pour accéder à cette page.");
         response.sendRedirect( request.getContextPath() + "/connexion" );
     }
     

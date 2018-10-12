@@ -51,19 +51,18 @@ public final class ConnexionForm {
         }
         utilisateur.setPassword( motDePasse );
 		
-		try {
-			utilConnect = utilisateurManager.Connexion(utilisateur.getEmail(), utilisateur.getPassword());
-		} catch (ManagerException e) {
-			e.printStackTrace();
-		}
-		
         /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty() && utilConnect != null) {
-            resultat = "Succ�s de la connexion.";
-        } else {
-    		resultat = "Email ou mot de passe invalide";
+        resultat = "Email ou mot de passe invalide";
+        if ( erreurs.isEmpty()) {
+        	try {
+        		utilConnect = utilisateurManager.Connexion(utilisateur.getEmail(), utilisateur.getPassword());
+    		} catch (ManagerException e) {
+    			e.printStackTrace();
+    		}
+        	if(utilConnect != null) {
+        		resultat = "Succès de la connexion.";
+        	}
         }
-
         return utilConnect;
     }
 
@@ -71,8 +70,12 @@ public final class ConnexionForm {
      * Valide l'adresse email saisie.
      */
     private void validationEmail( String email ) throws Exception {
-        if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-            throw new Exception( "Merci de saisir une adresse mail valide." );
+        if ( email != null) { 
+        		if (!email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
+        			throw new Exception( "Merci de saisir une adresse mail valide." );
+        		}
+        } else {
+        	throw new Exception( "Merci de saisir votre email." );
         }
     }
 
@@ -82,7 +85,7 @@ public final class ConnexionForm {
     private void validationMotDePasse( String motDePasse ) throws Exception {
         if ( motDePasse != null ) {
             if ( motDePasse.length() < 3 ) {
-                throw new Exception( "Le mot de passe doit contenir au moins 3 caract�res." );
+                throw new Exception( "Le mot de passe doit contenir au moins 3 caractères." );
             }
         } else {
             throw new Exception( "Merci de saisir votre mot de passe." );
