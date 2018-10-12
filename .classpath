@@ -15,7 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/eni-tp-web-common-0.0.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-repackaged-2.5.0-b42.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sqljdbc42.jar"/>
