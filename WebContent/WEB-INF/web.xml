@@ -55,7 +55,7 @@
 		<url-pattern>/epreuves</url-pattern>
 	</servlet-mapping>
 	
-	<!--  jsp selectionnerTestJSP -->
+	<!--  jsp listeEpreuvesJSP -->
 	<servlet>
 		<servlet-name>listeEpreuvesJSP</servlet-name>
 		<jsp-file>/WEB-INF/jsp/epreuve/listeEpreuves.jsp</jsp-file>
@@ -65,7 +65,7 @@
 		<url-pattern>/epreuvesJSP</url-pattern>
 	</servlet-mapping>
 	  
-	<!--  jsp detailTestControler -->
+	<!-- detailTestControler -->
 	<servlet>
 		<servlet-name>detailTestControler</servlet-name>
 		<servlet-class>fr.eni.tp.qcm.ihm.controler.epreuve.DetailTestControler</servlet-class>
@@ -83,6 +83,26 @@
 	<servlet-mapping>
 		<servlet-name>consulterDetailTestJSP</servlet-name>
 		<url-pattern>/epreuve/detailTestJSP</url-pattern>
+	</servlet-mapping>
+	
+	<!-- inscriptionCandidatControler -->
+	<servlet>
+		<servlet-name>inscriptionCandidatControler</servlet-name>
+		<servlet-class>fr.eni.tp.qcm.ihm.controler.responsable.InscriptionCandidatControler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>inscriptionCandidatControler</servlet-name>
+		<url-pattern>/responsable/inscriptionCandidat</url-pattern>
+	</servlet-mapping>
+	  
+	<!--  jsp inscriptionCandidatJSP -->
+	<servlet>
+		<servlet-name>inscriptionCandidatJSP</servlet-name>
+		<jsp-file>/WEB-INF/jsp/responsable/inscriptionCandidat.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>inscriptionCandidatJSP</servlet-name>
+		<url-pattern>/responsable/inscriptionCandidatJSP</url-pattern>
 	</servlet-mapping>
 	  
 	<!--  jsp connexionJSP -->

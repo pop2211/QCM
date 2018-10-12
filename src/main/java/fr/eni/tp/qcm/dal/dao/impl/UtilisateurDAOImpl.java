@@ -24,7 +24,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	private static final String JOINTURE = "left join PROFIL on u.idProfil= PROFIL.idProfil left join PROMOTION on u.idPromotion = PROMOTION.idPromotion";
     private static final String SELECT_FOR_CONNEXION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion from UTILISATEUR u " + JOINTURE + " where email = ? and password = ?";
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
-	private static final String SELECT_UTILISATEUR_CANDIDAT = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE libelleProfil = eleves";
+	private static final String SELECT_UTILISATEUR_CANDIDAT = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE libelleProfil = 'eleve'";
 	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion FROM UTILISATEUR u " + JOINTURE;
     
 	private static UtilisateurDAOImpl instance;
