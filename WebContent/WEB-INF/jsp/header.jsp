@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href='${param.contextPath}/welcome'>Plateforme ECF</a>
+	<a class="navbar-brand" href='${param.contextPath}/accueil'>Plateforme ECF</a>
 	
 	<div class="navbar" id="nav-content">   
 		<ul class="navbar-nav mr-auto">
