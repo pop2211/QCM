@@ -14,5 +14,7 @@ public interface QuestionDAO extends GenericDAO<Question, Integer>{
 
 	List<Question> selectByIdTheme(Integer idTest) throws DaoException;
 
+	Question resultSetToQuestionOut(ResultSet resultSet) throws SQLException;
+
 
 }

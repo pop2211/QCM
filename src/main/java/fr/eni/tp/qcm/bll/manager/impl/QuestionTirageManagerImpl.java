@@ -42,6 +42,14 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
 
 	@Override
 	public void deleteOne(Integer id) throws ManagerException {
+		try {
+            ValidationUtil.checkNotNull(id);
+            questionTirageDAO.delete(id);
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
 	}
 
 	@Override
@@ -62,6 +70,18 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
             throw new ManagerException("La question n'est pas valide", e);
         }
         return questionTirage;
+	}
+
+	@Override
+	public List<QuestionTirage> findAllByEpreuve(Integer id) throws ManagerException, ElementNotFoundException {
+		List<QuestionTirage> questionTirage = null;    
+        try {
+        	questionTirage =  questionTirageDAO.selectByIdEpreuve(id);
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return questionTirage;	
 	}
 
 }

@@ -206,7 +206,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
         return epreuves;
 	}
 	
-	private Epreuve resultSetToEpreuve(ResultSet resultSet) throws SQLException {
+	@Override
+	public Epreuve resultSetToEpreuve(ResultSet resultSet) throws SQLException {
         
 		Epreuve epreuve = new Epreuve();
 		epreuve.setIdEpreuve(resultSet.getInt("idEpreuve"));

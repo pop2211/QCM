@@ -13,7 +13,10 @@ public interface QuestionTirageManager {
     
 	QuestionTirage findOne(Integer id) throws ManagerException, ElementNotFoundException;
     
+	List<QuestionTirage> findAllByEpreuve(Integer id) throws ManagerException, ElementNotFoundException;
+
     void deleteOne(Integer id) throws ManagerException;
 
     QuestionTirage saveOne(QuestionTirage questionTirage) throws ManagerException, FunctionalException;
+
 }

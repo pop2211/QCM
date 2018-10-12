@@ -5,9 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.QuestionTirage;
+import fr.eni.tp.qcm.bo.SectionTest;
+import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
+import fr.eni.tp.qcm.dal.dao.QuestionDAO;
 import fr.eni.tp.qcm.dal.dao.QuestionTirageDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.qcm.dal.dao.ThemeDAO;
@@ -19,14 +23,15 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 
 
-    private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve WHERE idQuestionTirage = ?";
+    private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve WHERE idQuestion = ?";
+    private static final String SELECT_QUESTION_TIRAGE_QUERY_BY_EPREUVE = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ?";
 
     private static final String INSERT_QUESTION_TIRAGE_QUERY = "INSERT INTO QUESTION_TIRAGE(estMarquee, numOrdre, IdEpreuve, idQuestion) VALUES (?, ?, ?, ?)";
-    private static final String DELETE_QUESTION_TIRAGE_QUERY = "DELETE FROM QUESTION_TIRAGE WHERE idQuestionTirage = ?";
+    private static final String DELETE_QUESTION_TIRAGE_QUERY = "DELETE FROM QUESTION_TIRAGE WHERE idEpreuve = ?";
     private static final String UPDATE_QUESTION_TIRAGE_QUERY = "UPDATE QUESTION_TIRAGE SET estMarquee = ?, numOrdre = ?, idEpreuve = ?, idQuestion = ? WHERE idQuestionTirage = ?";
     
-    private ThemeDAO themeDAO = DAOFactory.themeDAO();
-    private TestDAO testDAO = DAOFactory.testDAO();
+    private QuestionDAO questionDAO = DAOFactory.questionDAO();
+    private EpreuveDAO epreuveDAO = DAOFactory.epreuveDAO();
 
     private static QuestionTirageDAOImpl instance;
     
@@ -94,7 +99,50 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 
 	@Override
 	public void delete(Integer id) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = MSSQLConnectionFactory.get();
+            
+            statement = connection.prepareStatement(DELETE_QUESTION_TIRAGE_QUERY);
+            
+            statement.setInt(1, id);
+            
+            statement.executeUpdate();
+
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+	}
+
+	@Override
+	public List<QuestionTirage> selectByIdEpreuve(Integer id) throws DaoException {
 		
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<QuestionTirage> questionTirage = new ArrayList<>();
+
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_QUESTION_TIRAGE_QUERY_BY_EPREUVE);
+            
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	questionTirage.add(resultSetToQuestionTirage(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return questionTirage;
 	}
 
 	@Override
@@ -107,4 +155,19 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 		return null;
 	}
 
+	
+	
+	private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException {
+        
+		//estMarquee, numOrdre, IdEpreuve, idQuestion
+		
+		QuestionTirage questionTirage = new QuestionTirage();
+		questionTirage.setEstMarque(resultSet.getBoolean("estMarquee"));
+		questionTirage.setNumOrdre(resultSet.getInt("numOrdre"));
+		questionTirage.setQuestion(questionDAO.resultSetToQuestionOut(resultSet));
+		questionTirage.setEpreuve(epreuveDAO.resultSetToEpreuve(resultSet));
+
+        return questionTirage;
+        
+    }
 }

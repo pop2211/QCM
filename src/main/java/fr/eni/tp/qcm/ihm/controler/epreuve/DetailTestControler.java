@@ -34,6 +34,9 @@ public class DetailTestControler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String testIdParam = request.getParameter("testId");
+		String epreuveId= request.getParameter("epreuveId");
+
+		request.setAttribute("epreuveId", epreuveId);
 		try {
 			Test test = testManager.findOne(Integer.valueOf(testIdParam));
             request.setAttribute("test", test);

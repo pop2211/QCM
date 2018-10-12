@@ -27,6 +27,15 @@ public class GenerateQuestions {
 		//themeManager.findOne(sectiontest.getTest());
 		//Fluch sur le taleau des question pour chaques theme de section theme
 		//Prendre le nombre de questions, les enregister dans question tirage
+		
+		try {
+			questionTirageManager.deleteOne(epreuveId);
+			System.out.println("supression des anciennes données");
+		} catch (ManagerException e1) {
+			System.out.println("erreur de suppression");
+			e1.printStackTrace();
+		}
+		
 		try {
 			//find all sections test with the test id
 			List<SectionTest> sectionTest = sectionThemeManager.selectByIdTest(testId);
