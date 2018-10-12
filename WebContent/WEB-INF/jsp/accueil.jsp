@@ -18,9 +18,7 @@
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 <div class="container">
-	<div class="col-md-6 center">
-		<h2>c'est l'accueil</h2>
-	</div>
+	<h2>c'est l'accueil, bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur}, je pense que tu ne devrais plus jamais faire de JAVA</h2>
 </div>
 </body>
 </html>
