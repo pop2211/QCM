@@ -27,7 +27,6 @@ public class GenerateQuestions {
 		//themeManager.findOne(sectiontest.getTest());
 		//Fluch sur le taleau des question pour chaques theme de section theme
 		//Prendre le nombre de questions, les enregister dans question tirage
-
 		try {
 			//find all sections test with the test id
 			List<SectionTest> sectionTest = sectionThemeManager.selectByIdTest(testId);
@@ -59,16 +58,16 @@ public class GenerateQuestions {
 			}
 			
 			//Save final list into questions generated
-			System.out.println(finalList);
-			
-			for(int l = 1; l < finalList.size(); l++) {
-				
+
+			for(int l = 0; l < finalList.size(); l++) {
+
 				QuestionTirage quesTirage = new QuestionTirage();
-				quesTirage.setNumOrdre(l);
+				quesTirage.setNumOrdre(l+1);
 				quesTirage.setEstMarque(false);
 				quesTirage.setQuestion(questionManager.findOne(finalList.get(l)));
 				quesTirage.setEpreuve(epreuveManager.findOne(epreuveId));
 				
+
 				try {
 					questionTirageManager.saveOne(quesTirage);
 					System.out.println("question tirage saved");

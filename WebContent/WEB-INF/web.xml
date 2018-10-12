@@ -6,7 +6,7 @@
   </welcome-file-list>
   <servlet-mapping>
     <servlet-name>questionControler</servlet-name>
-    <url-pattern>/gestionQuestion</url-pattern>
+    <url-pattern>/epreuveQuestions</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>questionControler</servlet-name>
@@ -18,7 +18,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>questionJSP</servlet-name>
-    <url-pattern>/question/</url-pattern>
+    <url-pattern>/question</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>epreuveControler</servlet-name>
@@ -31,14 +31,6 @@
   <servlet-mapping>
     <servlet-name>epreuveControler</servlet-name>
     <url-pattern>/gestion/consulterResultat</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>generatorQuestions</servlet-name>
-    <servlet-class>fr.eni.tp.qcm.ihm.controler.QuestionControler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>generatorQuestions</servlet-name>
-    <url-pattern>/generator</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>consulterResultatJSP</servlet-name>
