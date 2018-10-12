@@ -3,6 +3,7 @@ package fr.eni.tp.qcm.bll.factory;
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
+import fr.eni.tp.qcm.bll.manager.QuestionTirageManager;
 import fr.eni.tp.qcm.bll.manager.SectionTestManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
@@ -10,6 +11,7 @@ import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bll.manager.impl.EpreuveManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.PropositionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionManagerImpl;
+import fr.eni.tp.qcm.bll.manager.impl.QuestionTirageManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.SectionTestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.TestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.ThemeManagerImpl;
@@ -43,5 +45,9 @@ public class ManagerFactory {
 	
 	public static EpreuveManager epreuveManager() {
         return EpreuveManagerImpl.getInstance();
+	}
+
+	public static QuestionTirageManager questionTirageManager() {
+		return QuestionTirageManagerImpl.getInstance();
 	}
 }
