@@ -30,6 +30,7 @@ public class RestrictionFilter implements Filter {
         if ( session.getAttribute( ATT_SESSION_USER ) == null ) {
         	if (!path.equals("/login") &&
         		!path.equals("/logout") &&
+        		!path.equals("/connexion") &&
         		!path.startsWith("/css") && 
         		!path.startsWith("/js") &&
         		!path.startsWith("jsp/commons/")
