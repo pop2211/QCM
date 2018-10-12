@@ -13,7 +13,6 @@ import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
-import fr.eni.tp.qcm.dal.dao.UtilisateurDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.EniConstants;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -24,6 +23,7 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class EpreuveDAOImpl implements EpreuveDAO{
 	
 	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur";
+	private static final String SELECT_ALL_EPREUVES_UTILISATEUR_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?";
     private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
@@ -154,6 +154,32 @@ public class EpreuveDAOImpl implements EpreuveDAO{
         }
         
         return epreuve;
+	}
+	
+	@Override
+	public List<Epreuve> selectByUtilisateur(Integer id) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Epreuve> epreuves = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_ALL_EPREUVES_UTILISATEUR_QUERY);
+            
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	epreuves.add(resultSetToEpreuve(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return epreuves;
 	}
 
 	@Override
