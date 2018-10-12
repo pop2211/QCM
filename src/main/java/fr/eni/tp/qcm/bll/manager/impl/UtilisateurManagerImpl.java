@@ -3,6 +3,7 @@ package fr.eni.tp.qcm.bll.manager.impl;
 import java.util.List;
 
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
+import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.UtilisateurDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
@@ -72,8 +73,14 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public List<Utilisateur> findAllCandidat() throws ManagerException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Utilisateur> utilisateurs = null;    
+        try {
+        	utilisateurs = utilDAO.selectAllCandidat();
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return utilisateurs;
 	}
 
 }

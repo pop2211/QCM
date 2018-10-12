@@ -13,6 +13,9 @@
                 <li class="nav-item">
                 	<a class="nav-link" href='${param.contextPath}/epreuves'>Choix du test</a>
                 </li>
+                <li class="nav-item">
+                	<a class="nav-link" href='${param.contextPath}/responsable/inscriptionCandidat'>Inscrire un candidat</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                	<li class="nav-item"><a class="nav-link" href='${param.contextPath}/logout'>Déconnexion</a></li>
