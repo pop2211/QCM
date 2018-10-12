@@ -33,7 +33,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 	    
     public static UtilisateurDAOImpl getInstance() {
-        if(instance == null) {
+        if(instance == null) {                   
             instance = new UtilisateurDAOImpl();
         }
         return instance;

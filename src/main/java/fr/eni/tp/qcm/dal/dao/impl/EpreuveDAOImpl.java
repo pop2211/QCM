@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Epreuve;
+import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.qcm.dal.dao.UtilisateurDAO;
@@ -29,7 +30,6 @@ public class EpreuveDAOImpl implements EpreuveDAO{
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur WHERE idEpreuve = ?";
 
     private TestDAO testDAO = DAOFactory.testDAO();
-    private UtilisateurDAO utilisateurDAO = DAOFactory.utilisateurDAO();
     
     private static EpreuveDAOImpl instance;
     
@@ -190,8 +190,16 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setEtat(resultSet.getString("etat"));
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
-		epreuve.setTest(testDAO.resultSetToTest(resultSet));
-		epreuve.setUtilisateur(utilisateurDAO.resultSetToUtilisateur(resultSet));
+		epreuve.setTest(testDAO.resultSetToTest(resultSet));		
+		
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setIdUtilisateur(resultSet.getInt("idUtilisateur"));
+		utilisateur.setNomUtilisateur(resultSet.getString("nomUtilisateur"));
+		utilisateur.setPrenomUtilisateur(resultSet.getString("prenomUtilisateur"));
+		utilisateur.setEmail(resultSet.getString("email"));
+		utilisateur.setPassword(resultSet.getString("password"));
+		
+		epreuve.setUtilisateur(utilisateur);
 
         return epreuve;
         
