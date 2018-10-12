@@ -16,25 +16,27 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
-	
-	<div class="container">		
-		<h1 class="titre">Détail du test</h1>	
-		
-		<div class="card">
-  			<div class="card-header">
-    			${test.libelleTest}
-  			</div>
-	  		<div class="card-body">
-	    		<h5 class="card-title"><i class="far fa-clock"></i> ${test.duree}</h5>
-	    		<p class="card-text">${test.description}</p>
-	  		</div>
-		</div>
-		
-		<div class="row justify-content-center">
-			<div class="col-2">
-				<button type="button" class="btn btn-primary style_bouton ">Passer le test</button>	
+	<form method="post" action="/generator">
+		<div class="container">		
+			<h1 class="titre">Détail du test</h1>	
+			
+			<div class="card">
+	  			<div class="card-header">
+	    			${test.libelleTest}
+	  			</div>
+		  		<div class="card-body">
+		    		<h5 class="card-title"><i class="far fa-clock"></i> ${test.duree}</h5>
+		    		<p class="card-text">${test.description}</p>
+		  		</div>
+			</div>
+			
+			<div class="row justify-content-center">
+				<div class="col-2">
+					<button type="button" class="btn btn-primary style_bouton ">Passer le test</button>	
+					<input type="hidden" name="idTest" value="idTest" id="idTest">
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

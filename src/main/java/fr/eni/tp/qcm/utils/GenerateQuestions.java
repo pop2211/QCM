@@ -5,26 +5,28 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
+import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
+import fr.eni.tp.qcm.bll.manager.QuestionTirageManager;
 import fr.eni.tp.qcm.bll.manager.SectionTestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
 import fr.eni.tp.qcm.bo.Question;
+import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.SectionTest;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.exception.FunctionalException;
 
 public class GenerateQuestions {
     private static SectionTestManager sectionThemeManager = ManagerFactory.sectionThemeManager();
     private static QuestionManager questionManager = ManagerFactory.questionManager();
+    private static QuestionTirageManager questionTirageManager = ManagerFactory.questionTirageManager();
+    private static EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
 
-    private ThemeManager themeManager = ManagerFactory.themeManager();
-
-		public void generate() {
+		public void generate(Integer testId, Integer epreuveId) {
 		//themeManager.findOne(sectiontest.getTest());
 		//Fluch sur le taleau des question pour chaques theme de section theme
 		//Prendre le nombre de questions, les enregister dans question tirage
-
-		Integer testId = 1;
 		try {
 			//find all sections test with the test id
 			List<SectionTest> sectionTest = sectionThemeManager.selectByIdTest(testId);
@@ -56,7 +58,24 @@ public class GenerateQuestions {
 			}
 			
 			//Save final list into questions generated
-			System.out.println(finalList);
+
+			for(int l = 0; l < finalList.size(); l++) {
+
+				QuestionTirage quesTirage = new QuestionTirage();
+				quesTirage.setNumOrdre(l+1);
+				quesTirage.setEstMarque(false);
+				quesTirage.setQuestion(questionManager.findOne(finalList.get(l)));
+				quesTirage.setEpreuve(epreuveManager.findOne(epreuveId));
+				
+
+				try {
+					questionTirageManager.saveOne(quesTirage);
+					System.out.println("question tirage saved");
+				} catch (FunctionalException e) {
+					System.out.println("question tirage failed");
+					e.printStackTrace();
+				}
+			}
 			
 		} catch (ElementNotFoundException e) {
 			e.printStackTrace();

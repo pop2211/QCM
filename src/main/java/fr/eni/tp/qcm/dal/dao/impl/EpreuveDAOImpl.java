@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Epreuve;
+import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
-import fr.eni.tp.qcm.dal.dao.UtilisateurDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.EniConstants;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -23,13 +23,13 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class EpreuveDAOImpl implements EpreuveDAO{
 	
 	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur";
+	private static final String SELECT_ALL_EPREUVES_UTILISATEUR_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?";
     private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur WHERE idEpreuve = ?";
 
     private TestDAO testDAO = DAOFactory.testDAO();
-    private UtilisateurDAO utilisateurDAO = DAOFactory.utilisateurDAO();
     
     private static EpreuveDAOImpl instance;
     
@@ -155,6 +155,32 @@ public class EpreuveDAOImpl implements EpreuveDAO{
         
         return epreuve;
 	}
+	
+	@Override
+	public List<Epreuve> selectByUtilisateur(Integer id) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Epreuve> epreuves = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_ALL_EPREUVES_UTILISATEUR_QUERY);
+            
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	epreuves.add(resultSetToEpreuve(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return epreuves;
+	}
 
 	@Override
 	public List<Epreuve> selectAll() throws DaoException {
@@ -190,8 +216,16 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setEtat(resultSet.getString("etat"));
 		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
 		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
-		epreuve.setTest(testDAO.resultSetToTest(resultSet));
-		epreuve.setUtilisateur(utilisateurDAO.resultSetToUtilisateur(resultSet));
+		epreuve.setTest(testDAO.resultSetToTest(resultSet));		
+		
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setIdUtilisateur(resultSet.getInt("idUtilisateur"));
+		utilisateur.setNomUtilisateur(resultSet.getString("nomUtilisateur"));
+		utilisateur.setPrenomUtilisateur(resultSet.getString("prenomUtilisateur"));
+		utilisateur.setEmail(resultSet.getString("email"));
+		utilisateur.setPassword(resultSet.getString("password"));
+		
+		epreuve.setUtilisateur(utilisateur);
 
         return epreuve;
         

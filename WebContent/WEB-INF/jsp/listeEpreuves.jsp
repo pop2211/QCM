@@ -20,8 +20,8 @@
 		<h1 class="titre">Veuillez choisir un test</h1>	
 		
 		<ul class="list-group">
-			<c:forEach items="${tests}" var="test">
-		  		<li class="list-group-item"><a href="${pageContext.request.contextPath}/detailTest?testId=${test.idTest}" value="${test.idTest}">${test.libelleTest}</a></li>
+			<c:forEach items="${epreuves}" var="epreuve">
+		  		<li class="list-group-item"><a href="${pageContext.request.contextPath}/detailTest?testId=${epreuve.test.idTest}&epreuveId=${epreuve.idEpreuve}">${epreuve.test.libelleTest}</a></li>
 			</c:forEach>
 		</ul>
 	</div>

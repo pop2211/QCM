@@ -24,6 +24,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	private static final String JOINTURE = "left join PROFIL on u.idProfil= PROFIL.idProfil left join PROMOTION on u.idPromotion = PROMOTION.idPromotion";
     private static final String SELECT_FOR_CONNEXION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion from UTILISATEUR u " + JOINTURE + " where email = ? and password = ?";
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
+	private static final String SELECT_UTILISATEUR_CANDIDAT = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE libelleProfil = eleves";
 	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion FROM UTILISATEUR u " + JOINTURE;
     
 	private static UtilisateurDAOImpl instance;
@@ -33,7 +34,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 	    
     public static UtilisateurDAOImpl getInstance() {
-        if(instance == null) {
+        if(instance == null) {                   
             instance = new UtilisateurDAOImpl();
         }
         return instance;
@@ -157,6 +158,30 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             connection = MSSQLConnectionFactory.get();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SELECT_ALL_UTILISATEUR);
+
+            while (resultSet.next()) {
+                list.add(resultSetToUtilisateur(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return list;
+	}
+	
+	@Override
+	public List<Utilisateur> selectAllCandidat() throws DaoException {
+		Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        List<Utilisateur> list = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SELECT_UTILISATEUR_CANDIDAT);
 
             while (resultSet.next()) {
                 list.add(resultSetToUtilisateur(resultSet));

@@ -70,4 +70,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		return null;
 	}
 
+	@Override
+	public List<Utilisateur> findAllCandidat() throws ManagerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

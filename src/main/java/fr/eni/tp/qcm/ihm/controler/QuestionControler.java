@@ -27,7 +27,10 @@ public class QuestionControler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("salut");
-		generateQuestions.generate();
+		Integer idTest = 1;
+		Integer idEpreuve = 1;
+
+		generateQuestions.generate(idTest, idEpreuve);
 		//generateQuestions.generate();
 		//request.getRequestDispatcher("/question").forward(request, response);
 	}
