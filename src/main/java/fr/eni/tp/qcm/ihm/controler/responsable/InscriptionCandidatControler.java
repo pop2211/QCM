@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controler;
+package fr.eni.tp.qcm.ihm.controler.responsable;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,10 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
+import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
+import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
+import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 
@@ -25,7 +28,7 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
  */
 public class InscriptionCandidatControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TestManager testManager = ManagerFactory.testManager();
+	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
 	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
 
@@ -33,12 +36,14 @@ public class InscriptionCandidatControler extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Test> tests = null;
-		List<Utilisateur> utilisateur = null;
+		List<Epreuve> epreuves = null;
+		List<Utilisateur> utilisateurs = null;
 		try {
-			tests = testManager.findAll();
-            request.setAttribute("tests", tests);
-            request.getRequestDispatcher("/consulterTest").forward(request, response);
+			epreuves = epreuveManager.findAll();
+			utilisateurs = utilisateurManager.findAllCandidat();
+            request.setAttribute("epreuves", epreuves);
+            request.setAttribute("utilisateurs", utilisateurs);
+            request.getRequestDispatcher("/responsable/inscriptionCandidatJSP").forward(request, response);
                
         } catch (ManagerException e) {
         	e.printStackTrace();

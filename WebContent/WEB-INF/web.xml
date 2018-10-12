@@ -55,7 +55,7 @@
 		<url-pattern>/epreuves</url-pattern>
 	</servlet-mapping>
 	
-	<!--  jsp selectionnerTestJSP -->
+	<!--  jsp listeEpreuvesJSP -->
 	<servlet>
 		<servlet-name>listeEpreuvesJSP</servlet-name>
 		<jsp-file>/WEB-INF/jsp/epreuve/listeEpreuves.jsp</jsp-file>
@@ -65,7 +65,7 @@
 		<url-pattern>/epreuvesJSP</url-pattern>
 	</servlet-mapping>
 	  
-	<!--  jsp detailTestControler -->
+	<!-- detailTestControler -->
 	<servlet>
 		<servlet-name>detailTestControler</servlet-name>
 		<servlet-class>fr.eni.tp.qcm.ihm.controler.epreuve.DetailTestControler</servlet-class>
@@ -83,6 +83,26 @@
 	<servlet-mapping>
 		<servlet-name>consulterDetailTestJSP</servlet-name>
 		<url-pattern>/epreuve/detailTestJSP</url-pattern>
+	</servlet-mapping>
+	
+	<!-- inscriptionCandidatControler -->
+	<servlet>
+		<servlet-name>inscriptionCandidatControler</servlet-name>
+		<servlet-class>fr.eni.tp.qcm.ihm.controler.responsable.InscriptionCandidatControler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>inscriptionCandidatControler</servlet-name>
+		<url-pattern>/responsable/inscriptionCandidat</url-pattern>
+	</servlet-mapping>
+	  
+	<!--  jsp inscriptionCandidatJSP -->
+	<servlet>
+		<servlet-name>inscriptionCandidatJSP</servlet-name>
+		<jsp-file>/WEB-INF/jsp/responsable/inscriptionCandidat.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>inscriptionCandidatJSP</servlet-name>
+		<url-pattern>/responsable/inscriptionCandidatJSP</url-pattern>
 	</servlet-mapping>
 	  
 	<!--  jsp connexionJSP -->
@@ -127,12 +147,28 @@
 	  
 	<!-- filter -->
 	<filter>
-	<filter-name>RestrictionFilter</filter-name>
-	<filter-class>fr.eni.tp.qcm.filters.RestrictionFilter</filter-class>
+		<filter-name>RestrictionFilter</filter-name>
+		<filter-class>fr.eni.tp.qcm.filters.RestrictionFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	<filter-name>RestrictionFilter</filter-name>
-	<url-pattern>/*</url-pattern>
+		<filter-name>RestrictionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+    <filter-name>Set Character Encoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>ignore</param-name>
+        <param-value>false</param-value>
+    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>Set Character Encoding</filter-name>
+	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	  
 	<!-- error -->
