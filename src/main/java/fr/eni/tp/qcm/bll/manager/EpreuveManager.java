@@ -12,6 +12,8 @@ public interface EpreuveManager {
 	List<Epreuve> findAll() throws ManagerException;
     
 	Epreuve findOne(Integer id) throws ManagerException, ElementNotFoundException;
+	
+	List<Epreuve> findAllByIdUtilisateur(Integer id) throws ManagerException, ElementNotFoundException;
     
     void deleteOne(Integer id) throws ManagerException;
     

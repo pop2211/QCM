@@ -94,4 +94,21 @@ public class EpreuveManagerImpl implements EpreuveManager{
         return epreuve;
 	}
 
+	@Override
+	public List<Epreuve> findAllByIdUtilisateur(Integer id) throws ManagerException, ElementNotFoundException {
+		List<Epreuve> epreuves = null;       
+        try {
+            ValidationUtil.checkNotNull(id);
+            epreuves = epreuveDAO.selectByUtilisateur(id);
+            if(epreuves == null) {
+                throw new ElementNotFoundException("L'épreuve n'existe pas", null);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
+        return epreuves;
+	}
+
 }

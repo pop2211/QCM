@@ -11,6 +11,8 @@ public interface UtilisateurManager {
 	Utilisateur Connexion(String email, String password) throws ManagerException;;
 	
 	List<Utilisateur> findAll() throws ManagerException;
+	
+	List<Utilisateur> findAllCandidat() throws ManagerException;
     
 	Utilisateur findOne(Integer id) throws ManagerException, ElementNotFoundException;
     
