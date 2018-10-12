@@ -7,12 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href='/QCM/css/style.css'>
 <title>Choisir un test</title>
-<jsp:include page="/WEB-INF/jsp/head.jsp">
+<jsp:include page="/WEB-INF/jsp/commons/head.jsp">
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/header.jsp">
+	<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 	
@@ -21,7 +21,7 @@
 		
 		<ul class="list-group">
 			<c:forEach items="${epreuves}" var="epreuve">
-		  		<li class="list-group-item"><a href="${pageContext.request.contextPath}/detailTest?testId=${epreuve.test.idTest}&epreuveId=${epreuve.idEpreuve}">${epreuve.test.libelleTest}</a></li>
+		  		<li class="list-group-item"><a href="${pageContext.request.contextPath}/epreuve/detailTest?testId=${epreuve.test.idTest}&epreuveId=${epreuve.idEpreuve}">${epreuve.test.libelleTest}</a></li>
 			</c:forEach>
 		</ul>
 	</div>

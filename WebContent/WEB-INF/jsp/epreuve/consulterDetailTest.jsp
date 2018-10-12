@@ -8,12 +8,12 @@
 <link rel="stylesheet" href='/QCM/css/style.css'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <title>Détail du test</title>
-<jsp:include page="/WEB-INF/jsp/head.jsp">
+<jsp:include page="/WEB-INF/jsp/commons/head.jsp">
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/header.jsp">
+	<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 	<form method="post" action="/generator">

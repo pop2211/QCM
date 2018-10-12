@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                	<a class="nav-link" href='${param.contextPath}/gestion/consulterResultat'>Consulter les résultats</a>
+                	<a class="nav-link" href='${param.contextPath}/resultats'>Consulter les résultats</a>
                 </li>
                 <li class="nav-item">
-                	<a class="nav-link" href='${param.contextPath}/selectionnerTest'>Choix du test</a>
+                	<a class="nav-link" href='${param.contextPath}/epreuves'>Choix du test</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">

@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controler;
+package fr.eni.tp.qcm.ihm.controler.epreuve;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,6 +18,7 @@ import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
+import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -42,7 +43,7 @@ public class ConsulterTestControler extends HttpServlet {
 		try {
 			epreuves = epreuveManager.findAllByIdUtilisateur(utilisateur.getIdUtilisateur());
             request.setAttribute("epreuves", epreuves);
-            request.getRequestDispatcher("/consulterTest").forward(request, response);
+            request.getRequestDispatcher("/epreuvesJSP").forward(request, response);
                
         } catch (ManagerException | ElementNotFoundException e) {
         	e.printStackTrace();

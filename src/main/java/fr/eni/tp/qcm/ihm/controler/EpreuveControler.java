@@ -35,7 +35,7 @@ public class EpreuveControler extends HttpServlet {
 		try {
 			epreuves = epreuveManager.findAll();
             request.setAttribute("epreuves", epreuves);
-            request.getRequestDispatcher("/consulterResultat").forward(request, response);
+            request.getRequestDispatcher("/resultatsJSP").forward(request, response);
                
         } catch (ManagerException e) {
         	e.printStackTrace();

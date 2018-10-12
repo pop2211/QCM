@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controler;
+package fr.eni.tp.qcm.ihm.controler.epreuve;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Test;
+import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -36,7 +37,7 @@ public class DetailTestControler extends HttpServlet {
 		try {
 			Test test = testManager.findOne(Integer.valueOf(testIdParam));
             request.setAttribute("test", test);
-            request.getRequestDispatcher("/consulterDetailTest").forward(request, response);
+            request.getRequestDispatcher("/epreuve/detailTestJSP").forward(request, response);
                
         } catch (ManagerException | NumberFormatException | ElementNotFoundException e) {
         	e.printStackTrace();

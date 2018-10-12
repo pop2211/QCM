@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controler;
+package fr.eni.tp.qcm.ihm.controler.epreuve;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class QuestionControler extends HttpServlet {
 
 		generateQuestions.generate(idTest, idEpreuve);
 		//generateQuestions.generate();
-		//request.getRequestDispatcher("/question").forward(request, response);
+		//request.getRequestDispatcher("/epreuve/questionsJSP").forward(request, response);
 	}
 
 	/**

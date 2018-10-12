@@ -8,13 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Connexion</title>
 
-<jsp:include page="/WEB-INF/jsp/head.jsp">
+<jsp:include page="/WEB-INF/jsp/commons/head.jsp">
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
 <link rel="stylesheet" type="text/css" href="/QCM/css/connexion.css">
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/header.jsp">
+<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 <div class="container">
