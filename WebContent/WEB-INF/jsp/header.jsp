@@ -8,7 +8,7 @@
 	<div class="navbar" id="nav-content">   
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href='gestion/consulterResultat'>Consulter les résultats</a>
+				<a class="nav-link" href='/gestion/consulterResultat'>Consulter les résultats</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">Link 2</a>
@@ -18,7 +18,7 @@
 	<div class="navbar justify-content-end" id="nav-content"> 
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href='gestion/consulterResultat'>Déconnexion</a>
+				<a class="nav-link" href='/logout'>Déconnexion</a>
 			</li>
 		</ul>
 	</div>
