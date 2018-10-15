@@ -58,6 +58,9 @@ public class QuestionControler extends HttpServlet {
 		String numQuestion = request.getParameter("numQuestion");
 		System.out.println(request.getParameter("numQuestion"));
 
+		
+		
+		
 		try {
 			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(idEpreuve));
 			if(questionTirage.isEmpty()) {
