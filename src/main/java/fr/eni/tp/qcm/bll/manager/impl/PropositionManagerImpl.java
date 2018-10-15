@@ -54,7 +54,7 @@ public class PropositionManagerImpl implements PropositionManager{
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'id ne peut pas être null", e);
+            throw new ManagerException("L'id ne peut pas ï¿½tre null", e);
         }
         return proposition;
 	}
@@ -67,7 +67,7 @@ public class PropositionManagerImpl implements PropositionManager{
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'id ne peut pas être null", e);
+            throw new ManagerException("L'id ne peut pas ï¿½tre null", e);
         }
 		
 	}
@@ -93,20 +93,20 @@ public class PropositionManagerImpl implements PropositionManager{
 	}
 
 	@Override
-	public Proposition findByQuestion(Integer idQuestion) throws ManagerException, ElementNotFoundException {
-		Proposition proposition = null;    
+	public List<Proposition> findByQuestion(Integer idQuestion) throws ManagerException, ElementNotFoundException {
+		List<Proposition> propositions = null;    
         try {
             ValidationUtil.checkNotNull(idQuestion);
-            proposition = propositionDAO.selectByIdQuestion(idQuestion);
-            if(proposition == null) {
+            propositions = propositionDAO.selectByIdQuestion(idQuestion);
+            if(propositions == null) {
                 throw new ElementNotFoundException("La proposition n'existe pas", null);
             }
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new ManagerException("L'id ne peut pas être null", e);
+            throw new ManagerException("L'id ne peut pas ï¿½tre null", e);
         }
-        return proposition;
+        return propositions;
 	}
 
 }

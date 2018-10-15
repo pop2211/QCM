@@ -21,10 +21,13 @@ public class PropositionDAOImpl implements PropositionDAO{
 	
 	private static final String SELECT_ALL_PROPOSITION_QUERY = "SELECT idProposition, p.enonce, estBonne, idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme";
     private static final String SELECT_ONE_PROPOSITION_QUERY = "SELECT idProposition, enonce, estBonne, idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme where idProposition = ?";
-    private static final String SELECT_PROPOSITION_BY_QUESTION_QUERY = "SELECT idProposition, enonce, estBonne , idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme where idQuestion = ?";
+   // private static final String SELECT_PROPOSITION_BY_QUESTION_QUERY = "SELECT idProposition, enonce, estBonne , idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme where idQuestion = ?";
+    private static final String SELECT_PROPOSITION_BY_QUESTION_QUERY = "SELECT * FROM PROPOSITION WHERE idQuestion = ?";
     private static final String INSERT_PROPOSITION_QUERY = "INSERT INTO PROPOSITION(enonce, estBonne, idQuestion) VALUES (?, ?, ?)";
     private static final String DELETE_PROPOSITION_QUERY = "DELETE FROM PROPOSITION WHERE idProposition = ?";
     private static final String UPDATE_PROPOSITION_QUERY = "UPDATE PROPOSITION SET enonce = ?, estBonne = ?, idQuestion = ? WHERE idProposition = ?";
+
+    
 
     private QuestionDAO questionDAO = DAOFactory.questionDAO();
     
@@ -106,7 +109,7 @@ public class PropositionDAOImpl implements PropositionDAO{
 
 	/* (non-Javadoc)
 	 * @see fr.eni.tp.qcm.dal.dao.GenericDAO#delete(java.lang.Object)
-	 * Permet de supprimer une proposition à l'aide de son id
+	 * Permet de supprimer une proposition ï¿½ l'aide de son id
 	 */
 	@Override
 	public void delete(Integer id) throws DaoException {
@@ -132,7 +135,7 @@ public class PropositionDAOImpl implements PropositionDAO{
 
 	/* (non-Javadoc)
 	 * @see fr.eni.tp.qcm.dal.dao.GenericDAO#selectById(java.lang.Object)
-	 * Permet de récuperer une proposition en fonction de son id
+	 * Permet de rï¿½cuperer une proposition en fonction de son id
 	 */
 	@Override
 	public Proposition selectById(Integer id) throws DaoException {
@@ -161,7 +164,7 @@ public class PropositionDAOImpl implements PropositionDAO{
 	}
 
 	/* (non-Javadoc)
-	 * Permet de récuperer toutes les propositions
+	 * Permet de rï¿½cuperer toutes les propositions
 	 */
 	@Override
 	public List<Proposition> selectAll() throws DaoException {
@@ -188,17 +191,17 @@ public class PropositionDAOImpl implements PropositionDAO{
 	}
 	
 	/**
-	 * Permet de récupérer une proposition en fonction d'une question
+	 * Permet de rï¿½cupï¿½rer une proposition en fonction d'une question
 	 * @param idQuestion
 	 * @return proposition
 	 * @throws DaoException
 	 */
 	@Override
-	public Proposition selectByIdQuestion(Integer idQuestion) throws DaoException {
+	public List<Proposition> selectByIdQuestion(Integer idQuestion) throws DaoException {
 		Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Proposition proposition = null;
+        List<Proposition> propositions = new ArrayList<>();
         
         try {
             connection = MSSQLConnectionFactory.get();
@@ -208,7 +211,7 @@ public class PropositionDAOImpl implements PropositionDAO{
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-            	proposition = resultSetToProposition(resultSet);
+            	propositions.add(resultSetToPropositions(resultSet));
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);
@@ -216,11 +219,11 @@ public class PropositionDAOImpl implements PropositionDAO{
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
         
-        return proposition;
+        return propositions;
 	}
 	
 	/**
-	 * Permet la création du resultset de proposition
+	 * Permet la crï¿½ation du resultset de proposition
 	 * @param resultSet
 	 * @return proposition
 	 * @throws SQLException
@@ -237,4 +240,15 @@ public class PropositionDAOImpl implements PropositionDAO{
         
     }
 
+	private Proposition resultSetToPropositions(ResultSet resultSet) throws SQLException {
+        
+		Proposition proposition = new Proposition();
+		proposition.setIdProposition(resultSet.getInt("idProposition"));
+		proposition.setEnonce(resultSet.getString("enonceProposition"));
+		proposition.setEstBonne(resultSet.getBoolean("estBonne"));
+			       
+        return proposition;
+        
+    }
+	
 }

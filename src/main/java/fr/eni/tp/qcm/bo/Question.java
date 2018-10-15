@@ -1,5 +1,7 @@
 package fr.eni.tp.qcm.bo;
 
+import java.util.List;
+
 public class Question {
 	
 	private Integer idQuestion;
@@ -7,7 +9,8 @@ public class Question {
 	private String media;
 	private Integer points;
 	private Theme theme;
-	
+	private List<Proposition> propositions;
+
 	
 	public Question(Integer idQuestion, String enonce, String media, Integer points, Theme theme) {
 		super();
@@ -59,6 +62,14 @@ public class Question {
 
 	public void setTheme(Theme theme) {
 		this.theme = theme;
+	}
+
+	public List<Proposition> getPropositions() {
+		return propositions;
+	}
+
+	public void setPropositions(List<Proposition> propositions) {
+		this.propositions = propositions;
 	}
 	
 	
