@@ -18,6 +18,10 @@
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 <div class="container">
+	<c:if test="${accesError != null}">
+		<div class="alert alert-danger mt-5">${accesError}</div>
+	</c:if>
+	
 	<h2>c'est l'accueil, bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur}, je pense que tu ne devrais plus jamais faire de JAVA</h2>
 </div>
 </body>
