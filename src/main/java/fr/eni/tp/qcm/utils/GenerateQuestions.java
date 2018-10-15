@@ -71,7 +71,7 @@ public class GenerateQuestions {
 			for(int l = 0; l < finalList.size(); l++) {
 
 				QuestionTirage quesTirage = new QuestionTirage();
-				quesTirage.setNumOrdre(l+1);
+				quesTirage.setNumOrdre(l);
 				quesTirage.setEstMarque(false);
 				quesTirage.setQuestion(questionManager.findOne(finalList.get(l)));
 				quesTirage.setEpreuve(epreuveManager.findOne(epreuveId));
