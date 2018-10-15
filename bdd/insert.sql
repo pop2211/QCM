@@ -8,7 +8,9 @@ insert into PROFIL(libelleProfil) values ('eleve');
 insert into PROMOTION(libellePromotion) values ('CDI2017');
 insert into PROMOTION(libellePromotion) values ('CDI2018');
 
-insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('pop','popPrenom','pop@pop.fr', 'pop', 3, 1);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('pop','popPrenom','pop@pop.fr', 'pop', 3, null);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('sar','Sandra','sar@sar.fr', 'sar', 4, 1);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('jea','Jean','jea@jea.fr', 'jea', 4, 1);
 
 insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 14, 8);
 insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 14, 8);

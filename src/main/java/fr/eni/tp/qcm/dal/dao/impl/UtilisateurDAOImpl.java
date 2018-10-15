@@ -23,7 +23,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	private static final String DELETE_UTILISATEUR_QUERY = "DELETE FROM UTILISATEUR WHERE idUtilisateur = ?";
 	private static final String JOINTURE = "left join PROFIL on u.idProfil= PROFIL.idProfil left join PROMOTION on u.idPromotion = PROMOTION.idPromotion";
     private static final String SELECT_FOR_CONNEXION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion from UTILISATEUR u " + JOINTURE + " where email = ? and password = ?";
-	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
+	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE idUtilisateur = ?";
+	private static final String SELECT_UTILISATEUR_BY_PROMOTION = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE PROMOTION.idPromotion = ?";
 	private static final String SELECT_UTILISATEUR_CANDIDAT = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, PROMOTION.libellePromotion FROM UTILISATEUR u " + JOINTURE + " WHERE libelleProfil = 'eleve'";
 	private static final String SELECT_ALL_UTILISATEUR = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, email, password, PROFIL.idProfil, libelleProfil, PROMOTION.idPromotion, libellePromotion FROM UTILISATEUR u " + JOINTURE;
     
@@ -224,6 +225,32 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 	
 	@Override
+	public List<Utilisateur> selectByIdPromotion(Integer idPromotion) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Utilisateur> utilisateurs = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_UTILISATEUR_BY_PROMOTION);
+            
+            statement.setInt(1, idPromotion);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	utilisateurs.add(resultSetToUtilisateur(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return utilisateurs;
+	}
+	
+	@Override
     public Utilisateur resultSetToUtilisateur(ResultSet resultSet) throws SQLException {
 		
 		Utilisateur utilisateur = new Utilisateur();
@@ -239,4 +266,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         return utilisateur;
         
     }
+
+
 }

@@ -14,9 +14,11 @@ import org.slf4j.LoggerFactory;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
+import fr.eni.tp.qcm.bll.manager.PromotionManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bo.Epreuve;
+import fr.eni.tp.qcm.bo.Promotion;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
@@ -26,27 +28,29 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.exception.FunctionalException;
 
 /**
- * Servlet implementation class InscriptionCandidatControler
+ * Servlet implementation class InscriptionPromotionControler
  */
-public class InscriptionCandidatControler extends HttpServlet {
+public class InscriptionPromotionControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TestManager testManager = ManagerFactory.testManager();
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
 	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
+	private PromotionManager promotionManager = ManagerFactory.promotionManager();
+       
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Test> tests = null;
-		List<Utilisateur> utilisateurs = null;
+		List<Promotion> promotions = null;
 		try {
 			tests = testManager.findAll();
-			utilisateurs = utilisateurManager.findAllCandidat();
+			promotions = promotionManager.findAll();
             request.setAttribute("tests", tests);
-            request.setAttribute("utilisateurs", utilisateurs);
-            request.getRequestDispatcher("/responsable/inscriptionCandidatJSP").forward(request, response);
+            request.setAttribute("promotions", promotions);
+            request.getRequestDispatcher("/responsable/inscriptionPromotionJSP").forward(request, response);
                
         } catch (ManagerException e) {
         	e.printStackTrace();
@@ -60,7 +64,7 @@ public class InscriptionCandidatControler extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idTest = request.getParameter("idTest");
-		String idUtilisateur = request.getParameter("idUtilisateur");
+		String idPromotion = request.getParameter("idPromotion");
 		String dateDebutValidite = request.getParameter("dateDebutValidite");
 		String dateFinValidite = request.getParameter("dateFinValidite");
 		String heureDebut = request.getParameter("heureDebut");
@@ -68,14 +72,16 @@ public class InscriptionCandidatControler extends HttpServlet {
 			
 		try {
 			Test test = testManager.findOne(Integer.valueOf(idTest));
-			Utilisateur utilisateur = utilisateurManager.findOne(Integer.valueOf(idUtilisateur));
-			if(test != null && utilisateur != null){
+			if(test != null && idPromotion != null){
+				List<Utilisateur> utilisateurs = utilisateurManager.findByIdPromotion(Integer.valueOf(idPromotion));
 				String dateDebut = dateDebutValidite + " " + heureDebut + ":00";
 				String dateFin = dateFinValidite + " " + heureFin + ":00";
 				
-				Epreuve epreuve = new Epreuve(test,dateDebut, dateFin, null, "EA",0,0,utilisateur);
-				epreuveManager.saveOne(epreuve);
-				request.setAttribute("inscription","Inscription du candidat réussite");
+				for(Utilisateur utilisateur : utilisateurs){
+					Epreuve epreuve = new Epreuve(test,dateDebut, dateFin, null, "EA",0,0,utilisateur);
+					epreuveManager.saveOne(epreuve);
+				}											
+				request.setAttribute("inscriptionPromotion","Inscription de la promotion réussite");
 				request.getRequestDispatcher("/accueil" ).forward(request, response);
 			}
 		} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
@@ -85,8 +91,6 @@ public class InscriptionCandidatControler extends HttpServlet {
 		} catch (FunctionalException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 }

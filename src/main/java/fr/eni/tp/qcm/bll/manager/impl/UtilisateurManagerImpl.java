@@ -55,8 +55,19 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public Utilisateur findOne(Integer id) throws ManagerException, ElementNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Utilisateur utilisateur = null;    
+        try {
+            ValidationUtil.checkNotNull(id);
+            utilisateur = utilDAO.selectById(id);
+            if(utilisateur == null) {
+                throw new ElementNotFoundException("L'utilisateur n'existe pas", null);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas �tre null", e);
+        }
+        return utilisateur;
 	}
 
 	@Override
@@ -76,6 +87,18 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		List<Utilisateur> utilisateurs = null;    
         try {
         	utilisateurs = utilDAO.selectAllCandidat();
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return utilisateurs;
+	}
+
+	@Override
+	public List<Utilisateur> findByIdPromotion(Integer idPromotion) throws ManagerException {
+		List<Utilisateur> utilisateurs = null;    
+        try {
+        	utilisateurs = utilDAO.selectByIdPromotion(idPromotion);
             
         } catch (DaoException e) {
             throw new ManagerException(e.getMessage(), e);

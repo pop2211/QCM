@@ -18,6 +18,20 @@
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
 <div class="container">
+	<c:set var="inscriptionReussite" value="${inscription}" />
+	<c:if test="${not empty inscriptionReussite}">
+		<div class="alert alert-success" role="alert">
+  			${inscription}
+		</div>
+	</c:if>
+	
+	<c:set var="inscriptionPromotionReussite" value="${inscriptionPromotion}" />
+	<c:if test="${not empty inscriptionPromotionReussite}">
+		<div class="alert alert-success" role="alert">
+  			${inscriptionPromotion}
+		</div>
+	</c:if>
+	
 	<h2>c'est l'accueil, bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur}, je pense que tu ne devrais plus jamais faire de JAVA</h2>
 </div>
 </body>

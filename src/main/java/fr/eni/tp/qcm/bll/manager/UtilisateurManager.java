@@ -13,6 +13,8 @@ public interface UtilisateurManager {
 	List<Utilisateur> findAll() throws ManagerException;
 	
 	List<Utilisateur> findAllCandidat() throws ManagerException;
+	
+	List<Utilisateur> findByIdPromotion(Integer idPromotion) throws ManagerException;
     
 	Utilisateur findOne(Integer id) throws ManagerException, ElementNotFoundException;
     

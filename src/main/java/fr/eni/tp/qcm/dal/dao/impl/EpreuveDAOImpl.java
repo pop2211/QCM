@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
     private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
-    private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur WHERE idEpreuve = ?";
+    private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur = ? WHERE idEpreuve = ?";
 
     private TestDAO testDAO = DAOFactory.testDAO();
     
@@ -54,8 +55,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	            
 	        statement = connection.prepareStatement(INSERT_EPREUVE_QUERY, Statement.RETURN_GENERATED_KEYS);
 	            
-	        statement.setString(1,  epreuve.getDateDebutValidite());
-	        statement.setString(2,  epreuve.getDateFinValidite());
+	        statement.setTimestamp(1, Timestamp.valueOf(epreuve.getDateDebutValidite()));
+	        statement.setTimestamp(2,  Timestamp.valueOf(epreuve.getDateFinValidite()));
 	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
@@ -94,9 +95,9 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	        statement.setString(4, epreuve.getEtat());
 	        statement.setInt(5, epreuve.getNoteObtenue());
 	        statement.setInt(6, epreuve.getNiveauObtenu());
-	        statement.setInt(7, epreuve.getTest().getIdTest());
-	        statement.setInt(8, epreuve.getIdEpreuve());
-	        statement.setInt(9, epreuve.getUtilisateur().getIdUtilisateur());
+	        statement.setInt(7, epreuve.getTest().getIdTest());        
+	        statement.setInt(8, epreuve.getUtilisateur().getIdUtilisateur());
+	        statement.setInt(9, epreuve.getIdEpreuve());
 
             statement.executeUpdate();
 
