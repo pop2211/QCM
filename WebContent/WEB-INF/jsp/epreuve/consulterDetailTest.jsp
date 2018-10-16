@@ -16,7 +16,7 @@
 	<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
-	<form method="post" action="/QCM/epreuve/questions">
+	<form method="get" action="/QCM/epreuve/questions">
 		<div class="container">		
 			<h1 class="titre">Détail du test</h1>	
 			
@@ -29,8 +29,6 @@
 		    		<p class="card-text">${test.description}</p>
 		  		</div>
 			</div>
-			<input type="hidden" name="idTest" value="${test.idTest}">
-			<input type="hidden" name="idEpreuve" value="${epreuveId}">
 			<div class="row justify-content-center">
 				<div class="col-2">
 					<button type="submit" class="btn btn-primary style_bouton">Passer le test</button>	

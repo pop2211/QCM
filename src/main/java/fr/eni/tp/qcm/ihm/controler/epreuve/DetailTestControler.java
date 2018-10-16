@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,11 @@ public class DetailTestControler extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String testIdParam = request.getParameter("testId");
 		String epreuveId= request.getParameter("epreuveId");
+		
+		 HttpSession session = request.getSession();
+		 session.setAttribute("testId", testIdParam);
+		 session.setAttribute("epreuveId", epreuveId);
+		 session.setAttribute("numQuestion", "0");
 
 		request.setAttribute("epreuveId", epreuveId);
 		try {

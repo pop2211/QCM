@@ -41,39 +41,59 @@ public class QuestionControler extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("get");		
-	}
+		HttpSession session = request.getSession();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		String idTest = request.getParameter("idTest");
-		String idEpreuve = request.getParameter("idEpreuve");
-		request.setAttribute("idTest", request.getParameter("idTest"));
-		request.setAttribute("idEpreuve", request.getParameter("idEpreuve"));
-		String numQuestion = request.getParameter("numQuestion");
-		System.out.println(request.getParameter("numQuestion"));
+		String numQuestion =(String) session.getAttribute("numQuestion");
 
+		String changeNumQuestion = request.getParameter("numQuestion");
+		String incrementNumQuestion = request.getParameter("incrementNumQuestion");
+		String decrementNumQuestion = request.getParameter("decrementNumQuestion");
+
+		if(changeNumQuestion != null) {
+			session.setAttribute("numQuestion", (String) changeNumQuestion);
+			numQuestion =(String) session.getAttribute("numQuestion");
+
+		}
 		
-		
+		String epreuveId = (String) session.getAttribute("epreuveId");
+		String testId = (String) session.getAttribute("testId");
+
 		
 		try {
-			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(idEpreuve));
+			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(epreuveId));
 			if(questionTirage.isEmpty()) {
-				generateQuestions.generate(Integer.valueOf(idTest), Integer.valueOf(idEpreuve));
-			}
-			if(numQuestion == null) {
-				numQuestion = "0";
+				generateQuestions.generate(Integer.valueOf(testId), Integer.valueOf(epreuveId));
 			}
 			List<Proposition> propositions = null;
 			for(int i = 0; i < questionTirage.size(); i++) {
 				propositions = propositionManager.findByQuestion((questionTirage.get(i).getQuestion().getIdQuestion()));
 				questionTirage.get(i).getQuestion().setPropositions(propositions);
 			}
+
+			if(incrementNumQuestion != null) {
+				numQuestion =(String) session.getAttribute("numQuestion");
+				Integer intNum = Integer.valueOf(numQuestion);
+				if( intNum < questionTirage.size()-1) {
+					intNum++;
+					session.setAttribute("numQuestion", String.valueOf(intNum));
+				}else{
+					session.setAttribute("numQuestion", "0");	
+				}
+				numQuestion =(String) session.getAttribute("numQuestion");
+			}
+
+			if(decrementNumQuestion != null) {
+				numQuestion =(String) session.getAttribute("numQuestion");
+				Integer intNum = Integer.valueOf(numQuestion);
+				if( intNum > 0) {
+					intNum--;
+					session.setAttribute("numQuestion", String.valueOf(intNum));
+				}else{
+					session.setAttribute("numQuestion", String.valueOf(questionTirage.size()-1));	
+				}
+				numQuestion =(String) session.getAttribute("numQuestion");
+			}
+			
 			QuestionTirage currentQuestion = questionTirage.get(Integer.parseInt(numQuestion));
 
 			request.setAttribute("question", currentQuestion);
@@ -88,6 +108,13 @@ public class QuestionControler extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("/epreuve/questionsJSP").forward(request, response);
+
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	}
 
 }

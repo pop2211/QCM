@@ -40,12 +40,22 @@
 							  	</div>
 						  	</div>
 						  	<div style="margin-top: 2%;">
-						  		<button class="btn btn-primary btn-lg card-link">
-						  			<i class="fas fa-arrow-left"></i>
-						  		</button>
-						  		<button class="btn btn-primary btn-lg card-link">
-						  			<i class="fas fa-arrow-right"></i>
-						  		</button>
+						  	<a class="btn btn-link btn-lg card-link">
+  								<form method="GET" action="/QCM/epreuve/questions">
+									<input type="hidden" name="decrementNumQuestion" value="1">
+							  		<button type="submit" class="btn btn-primary btn-lg card-link">
+							  			<i class="fas fa-arrow-left"></i>
+							  		</button>
+						  		</form>
+					  		</a>
+  							<a class="btn btn-link btn-lg card-link">
+						  		<form method="GET" action="/QCM/epreuve/questions">
+									<input type="hidden" name="incrementNumQuestion" value="1">
+							  		<button type="submit" class="btn btn-primary btn-lg card-link">
+							  			<i class="fas fa-arrow-right"></i>
+							  		</button>
+						  		</form>
+					  		</a>
 				  			</div>
 				  		</div>
 					</div>
@@ -54,9 +64,7 @@
 				<div class="card" >
 					<ul class="list-group">
 						<c:forEach var="question" items="${questions}">
-							<form method="POST" action="/QCM/epreuve/questions">
-								<input type="hidden" name="idTest" value="${idTest}">
-								<input type="hidden" name="idEpreuve" value="${idEpreuve}">
+							<form method="GET" action="/QCM/epreuve/questions">
 								<input type="hidden" name="numQuestion" value="${question.getNumOrdre()}">
 								<button type="submit" class="btn btn-link">
 								  <li class="list-group-item d-flex justify-content-between align-items-center">
