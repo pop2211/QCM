@@ -23,7 +23,7 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 
     private static final String SELECT_REPONSE_TIRAGE_QUERY = "";
-    private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION = "SELECT * FROM REPONSE_TIRAGE rt INNER JOIN QUESTION q ON rt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON rt.idEpreuve = e.idEpreuve  INNER JOIN PROPOSITION p ON rt.idProposition = p.idProposition WHERE idQuestion = ? AND idEpreuve = ?";
+    private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION = "SELECT * FROM REPONSE_TIRAGE rt INNER JOIN QUESTION q ON rt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON rt.idEpreuve = e.idEpreuve INNER JOIN PROPOSITION p ON rt.idProposition = p.idProposition INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON e.idTest = te.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur WHERE rt.idQuestion = ? AND rt.idEpreuve = ?";
 
     private static final String INSERT_REPONSE_TIRAGE_QUERY = "INSERT INTO REPONSE_TIRAGE(idProposition, idQuestion, idEpreuve) VALUES(?, ?, ?)";
     private static final String DELETE_REPONSE_TIRAGE_QUERY = "DELETE FROM REPONSE_TIRAGE WHERE idProposition = ? AND idQuestion = ? AND idEpreuve = ?";

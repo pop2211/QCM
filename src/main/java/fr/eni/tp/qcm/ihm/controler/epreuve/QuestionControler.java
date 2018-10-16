@@ -66,7 +66,7 @@ public class QuestionControler extends HttpServlet {
 		
 		String epreuveId = (String) session.getAttribute("epreuveId");
 		String testId = (String) session.getAttribute("testId");
-
+		List<ReponseTirage> reponseTirage = null;
 		
 		try {
 			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(epreuveId));
@@ -75,7 +75,16 @@ public class QuestionControler extends HttpServlet {
 			}
 			List<Proposition> propositions = null;
 			for(int i = 0; i < questionTirage.size(); i++) {
+				reponseTirage = reponseTirageManager.findAllByQuestionAndEpreuve(questionTirage.get(i).getQuestion().getIdQuestion(), Integer.valueOf(epreuveId));
+				
 				propositions = propositionManager.findByQuestion((questionTirage.get(i).getQuestion().getIdQuestion()));
+				for(int j = 0; j < propositions.size() ; j++) {
+					for(int k = 0; k < reponseTirage.size(); k++) {
+						if(propositions.get(j).getIdProposition() == reponseTirage.get(k).getProposition().getIdProposition()) {
+							propositions.get(j).setChecked(true);;
+						}
+					}
+				}
 				questionTirage.get(i).getQuestion().setPropositions(propositions);
 			}
 
@@ -128,8 +137,8 @@ public class QuestionControler extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String proposition0 = request.getParameter("checkbox0");
-		String proposition1 = request.getParameter("checkBox1");
-		String proposition2 = request.getParameter("checkBox2");
+		String proposition1 = request.getParameter("checkbox1");
+		String proposition2 = request.getParameter("checkbox2");
 		String questionId = request.getParameter("questionId");
 		String epreuveId = (String) session.getAttribute("epreuveId");
 		

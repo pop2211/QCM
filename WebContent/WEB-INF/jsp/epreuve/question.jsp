@@ -30,6 +30,13 @@
 			 		</button>
 					</form>
 				</div>
+				<div style="margin: 2%;">
+					<form method="GET" action="/QCM/epreuve/listeQuestions">
+						<button type="submit" class="btn btn-primary card-link">
+			 			<i class="fas fa-kiwi-bird"></i> Terminer le test
+			 		</button>
+					</form>
+				</div>
 	
 					<div class="card text-center" style="margin-bottom:5%; padding: 1em;">
 			    		<h5 class="card-title">${question.getQuestion().getEnonce() }</h5>
@@ -42,16 +49,34 @@
 									   		<div class="col">
 						   			  			<div class="form-group form-check">
 							   			  			<c:if test="${loop.index == 0}">
-											    		<input type="checkbox" class="form-check-input" name="checkbox0" value="${proposition.getIdProposition()}" id="checkbox">
-											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						   			  					<c:if test="${proposition.getChecked()}">
+			  												<input type="checkbox" class="form-check-input" name="checkbox0" checked value="${proposition.getIdProposition()}" id="checkbox">
+											    			<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    							</c:if>
+						   			  					<c:if test="${!proposition.getChecked()}">
+			  												<input type="checkbox" class="form-check-input" name="checkbox0" value="${proposition.getIdProposition()}" id="checkbox">
+											    			<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    							</c:if>
 						    						</c:if>
    				   			  						<c:if test="${loop.index == 1}">
-											    		<input type="checkbox" class="form-check-input" name="checkbox1" value="${proposition.getIdProposition()}" id="checkbox">
-											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						   			  					<c:if test="${proposition.getChecked()}">
+												    		<input type="checkbox" class="form-check-input" name="checkbox1" checked value="${proposition.getIdProposition()}" id="checkbox">
+												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    							</c:if>
+						   			  					<c:if test="${!proposition.getChecked()}">
+												    		<input type="checkbox" class="form-check-input" name="checkbox1" value="${proposition.getIdProposition()}" id="checkbox">
+												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    							</c:if>
 						    						</c:if>
     								   			  	<c:if test="${loop.index == 2}">
-											    		<input type="checkbox" class="form-check-input" name="checkbox2" value="${proposition.getIdProposition()}" id="checkbox">
-											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						   			  					<c:if test="${proposition.getChecked()}">
+												    		<input type="checkbox" class="form-check-input" name="checkbox2" checked value="${proposition.getIdProposition()}" id="checkbox">
+												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+							    						</c:if>
+						    							<c:if test="${!proposition.getChecked()}">
+												    		<input type="checkbox" class="form-check-input" name="checkbox2" value="${proposition.getIdProposition()}" id="checkbox">
+												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+							    						</c:if>
 						    						</c:if>
 								  				</div>	
 									   		</div>
@@ -61,7 +86,7 @@
 							   		<div class="row">
 								   		<div class="col">
 										  	<a class="btn btn-link btn-lg" style="margin-top: 2%;">
-										  		<button type="submit" class="btn btn-success card-link">
+										  		<button type="submit" class="btn btn-outline-success card-link">
 										  			<i style="margin-right: 10px;" class="fas fa-check"></i> Valider
 										  		</button>
 									  		</a>
