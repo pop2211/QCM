@@ -85,6 +85,22 @@
     <url-pattern>/responsable/inscriptionCandidatJSP</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>inscriptionPromotionControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.responsable.InscriptionPromotionControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>inscriptionPromotionControler</servlet-name>
+    <url-pattern>/responsable/inscriptionPromotion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>inscriptionPromotionJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/responsable/inscriptionPromotion.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>inscriptionPromotionJSP</servlet-name>
+    <url-pattern>/responsable/inscriptionPromotionJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>connexion</servlet-name>
     <jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
   </servlet>

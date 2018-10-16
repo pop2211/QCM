@@ -14,6 +14,8 @@ public interface UtilisateurDAO extends GenericDAO<Utilisateur, Integer> {
 
 	Utilisateur resultSetToUtilisateur(ResultSet resultSet) throws SQLException;
 	
-	 List<Utilisateur> selectAllCandidat() throws DaoException;
+	List<Utilisateur> selectAllCandidat() throws DaoException;
+	
+	List<Utilisateur> selectByIdPromotion(Integer id) throws DaoException;
 	
 }

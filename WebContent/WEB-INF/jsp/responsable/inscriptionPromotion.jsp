@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,12 +15,12 @@
 	<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
 		<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 	</jsp:include>
-	<form method="post" action="/QCM/responsable/inscriptionCandidat">
+	<form method="post" action="/QCM/responsable/inscriptionPromotion">
 		<div class="container">		
-			<h1 class="titre">Inscription d'un candidat à une épreuve</h1>
+			<h1 class="titre">Inscription d'une promotion à une épreuve</h1>
   			<div class="form-group">
     			<label for="exampleFormControlSelect1">Tests</label>
-    			<select class="form-control" id="exampleFormControlSelect1" name="idTest">
+    			<select class="form-control" id="idTest" name="idTest">
     				<c:forEach items="${tests}" var="test">
 			      		<option value="${test.idTest}">${test.libelleTest}</option>
 			      		</c:forEach>
@@ -47,10 +47,10 @@
   				</div>
 			</div>
   			<div class="form-group">
-    			<label for="exampleFormControlSelect1">Candidats</label>
-    			<select class="form-control" id="exampleFormControlSelect1" name="idUtilisateur">
-    				<c:forEach items="${utilisateurs}" var="utilisateur">
-			      		<option value="${utilisateur.idUtilisateur}"> ${utilisateur.prenomUtilisateur} ${utilisateur.nomUtilisateur}</option>
+    			<label for="exampleFormControlSelect1">Promotions</label>
+    			<select class="form-control" id="idPromotion" name="idPromotion">
+    				<c:forEach items="${promotions}" var="promotion">
+			      		<option value="${promotion.idPromotion}"> ${promotion.libellePromotion}</option>
 			      	</c:forEach>
 			    </select>
   			</div>		

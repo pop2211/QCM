@@ -15,8 +15,7 @@ public class Epreuve {
 	private Integer niveauObtenu;
 	private Utilisateur utilisateur;
 	
-	public Epreuve(Integer idEpreuve, Test test, String dateDebutValidite, String dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu, Utilisateur utilisateur) {
-		this.idEpreuve = idEpreuve;
+	public Epreuve(Test test, String dateDebutValidite, String dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu, Utilisateur utilisateur) {
 		this.test = test;
 		this.dateDebutValidite = dateDebutValidite;
 		this.dateFinValidite = dateFinValidite;

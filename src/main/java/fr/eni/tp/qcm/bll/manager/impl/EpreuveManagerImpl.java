@@ -4,9 +4,7 @@ import java.util.List;
 
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bo.Epreuve;
-import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
-import fr.eni.tp.qcm.dal.dao.QuestionDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
