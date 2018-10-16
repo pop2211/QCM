@@ -26,6 +26,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur";
 	private static final String SELECT_ALL_EPREUVES_UTILISATEUR_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?";
     private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
+    private static final String SELECT_EPREUVE_BY_TEST_UTILISATEUR_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where t.idTest = ? AND u.idUtilisateur = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur = ? WHERE idEpreuve = ?";
@@ -143,6 +144,33 @@ public class EpreuveDAOImpl implements EpreuveDAO{
             statement = connection.prepareStatement(SELECT_ONE_EPREUVE_QUERY);
             
             statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	epreuve = resultSetToEpreuve(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return epreuve;
+	}
+	
+	@Override
+	public Epreuve selectByIdTestIdUtilisateur(Integer idTest, Integer idUtilisateur) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Epreuve epreuve = null;
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_EPREUVE_BY_TEST_UTILISATEUR_QUERY);
+            
+            statement.setInt(1, idTest);
+            statement.setInt(2, idUtilisateur);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

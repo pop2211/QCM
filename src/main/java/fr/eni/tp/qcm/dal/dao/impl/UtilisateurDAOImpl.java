@@ -56,7 +56,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             statement.setString(3, util.getEmail());
             statement.setString(4, util.getPassword());
             statement.setInt(5, util.getProfil().getIdProfil());
-            statement.setInt(6, util.getPromotion().getIdPromotion());
+            if(util.getPromotion()!= null && util.getPromotion().getIdPromotion() != null){
+            	statement.setInt(6, util.getPromotion().getIdPromotion());
+            }else {
+            	statement.setNull(6, java.sql.Types.INTEGER);
+            }
 
             if (statement.executeUpdate() == 1) {
                 resultSet = statement.getGeneratedKeys();
@@ -90,7 +94,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
             statement.setString(3, util.getEmail());
             statement.setString(4, util.getPassword());
             statement.setInt(5, util.getProfil().getIdProfil());
-            statement.setInt(6, util.getPromotion().getIdPromotion());
+            if(util.getPromotion()!= null && util.getPromotion().getIdPromotion() != null){
+            	statement.setInt(6, util.getPromotion().getIdPromotion());
+            }else {
+            	statement.setNull(6, java.sql.Types.INTEGER);
+            }
+            
             
             statement.executeUpdate();
 

@@ -1,6 +1,7 @@
 package fr.eni.tp.qcm.bll.factory;
 
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
+import fr.eni.tp.qcm.bll.manager.ProfilManager;
 import fr.eni.tp.qcm.bll.manager.PromotionManager;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
@@ -10,6 +11,7 @@ import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
 import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bll.manager.impl.EpreuveManagerImpl;
+import fr.eni.tp.qcm.bll.manager.impl.ProfilManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.PromotionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.PropositionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionManagerImpl;
@@ -55,6 +57,10 @@ public class ManagerFactory {
 	
 	public static PromotionManager promotionManager() {
 		return PromotionManagerImpl.getInstance();
+	}
+	
+	public static ProfilManager profilManager() {
+		return ProfilManagerImpl.getInstance();
 	}
 	
 }

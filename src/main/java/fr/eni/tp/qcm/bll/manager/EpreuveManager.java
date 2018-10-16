@@ -13,6 +13,8 @@ public interface EpreuveManager {
     
 	Epreuve findOne(Integer id) throws ManagerException, ElementNotFoundException;
 	
+	Epreuve findByIdTestIdUtilisateur(Integer idTest, Integer idUtilisateur) throws ManagerException, ElementNotFoundException;
+	
 	List<Epreuve> findAllByIdUtilisateur(Integer id) throws ManagerException, ElementNotFoundException;
     
     void deleteOne(Integer id) throws ManagerException;
