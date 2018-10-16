@@ -10,15 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
+import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
+import fr.eni.tp.qcm.bll.manager.QuestionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionTirageManager;
+import fr.eni.tp.qcm.bll.manager.ReponseTirageManager;
+import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Proposition;
 import fr.eni.tp.qcm.bo.Question;
 import fr.eni.tp.qcm.bo.QuestionTirage;
+import fr.eni.tp.qcm.bo.ReponseTirage;
 import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.utils.GenerateQuestions;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.exception.FunctionalException;
 
 /**
  * Servlet implementation class QuestionController
@@ -28,7 +34,10 @@ public class QuestionControler extends HttpServlet {
     private QuestionTirageManager questionTirageManager = ManagerFactory.questionTirageManager();
     private PropositionManager propositionManager = ManagerFactory.propositionManager();
 	private GenerateQuestions generateQuestions = new GenerateQuestions();
-
+	private ReponseTirageManager reponseTirageManager = ManagerFactory.reponseTirageManager();
+	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
+	private QuestionManager questionManager = ManagerFactory.questionManager();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -114,7 +123,92 @@ public class QuestionControler extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+
+		String proposition0 = request.getParameter("checkbox0");
+		String proposition1 = request.getParameter("checkBox1");
+		String proposition2 = request.getParameter("checkBox2");
+		String questionId = request.getParameter("questionId");
+		String epreuveId = (String) session.getAttribute("epreuveId");
+		
+		
+		if(questionId != null) {
+			System.out.println(proposition0);
+			System.out.println(proposition1);
+			System.out.println(proposition2);
+			if(proposition0 != null) {
+				Epreuve epreuve;
+				Proposition proposition;
+				Question question;
+				try {
+					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+
+					proposition = propositionManager.findOne(Integer.valueOf(proposition0));
+					question = questionManager.findOne(Integer.valueOf(questionId));
+					
+					ReponseTirage reponseTirage = new ReponseTirage();
+					reponseTirage.setEpreuve(epreuve);
+					reponseTirage.setProposition(proposition);
+					reponseTirage.setQuestion(question);
+					reponseTirageManager.saveOne(reponseTirage);
+
+				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
+					e.printStackTrace();
+				} catch (FunctionalException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(proposition1 != null) {
+				Epreuve epreuve;
+				Proposition proposition;
+				Question question;
+				try {
+					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+
+					proposition = propositionManager.findOne(Integer.valueOf(proposition1));
+					question = questionManager.findOne(Integer.valueOf(questionId));
+					
+					ReponseTirage reponseTirage = new ReponseTirage();
+					reponseTirage.setEpreuve(epreuve);
+					reponseTirage.setProposition(proposition);
+					reponseTirage.setQuestion(question);
+					reponseTirageManager.saveOne(reponseTirage);
+
+				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
+					e.printStackTrace();
+				} catch (FunctionalException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(proposition2 != null) {
+				Epreuve epreuve;
+				Proposition proposition;
+				Question question;
+				try {
+					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+
+					proposition = propositionManager.findOne(Integer.valueOf(proposition2));
+					question = questionManager.findOne(Integer.valueOf(questionId));
+					
+					ReponseTirage reponseTirage = new ReponseTirage();
+					reponseTirage.setEpreuve(epreuve);
+					reponseTirage.setProposition(proposition);
+					reponseTirage.setQuestion(question);
+					reponseTirageManager.saveOne(reponseTirage);
+
+				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
+					e.printStackTrace();
+				} catch (FunctionalException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		doGet(request, response);
+	}
 
 }

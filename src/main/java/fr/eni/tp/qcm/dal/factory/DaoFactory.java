@@ -5,6 +5,7 @@ import fr.eni.tp.qcm.dal.dao.PromotionDAO;
 import fr.eni.tp.qcm.dal.dao.PropositionDAO;
 import fr.eni.tp.qcm.dal.dao.QuestionDAO;
 import fr.eni.tp.qcm.dal.dao.QuestionTirageDAO;
+import fr.eni.tp.qcm.dal.dao.ReponseTirageDAO;
 import fr.eni.tp.qcm.dal.dao.SectionTestDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.qcm.dal.dao.ThemeDAO;
@@ -14,6 +15,7 @@ import fr.eni.tp.qcm.dal.dao.impl.PromotionDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.PropositionDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.QuestionDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.QuestionTirageDAOImpl;
+import fr.eni.tp.qcm.dal.dao.impl.ReponseTirageDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.SectionTestDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.TestDAOImpl;
 import fr.eni.tp.qcm.dal.dao.impl.ThemeDAOImpl;
@@ -60,6 +62,10 @@ public class DAOFactory {
 	
 	public static PromotionDAO promotionDAO() {
 		return PromotionDAOImpl.getInstance();
+	}
+
+	public static ReponseTirageDAO reponseTirageDAO() {
+		return ReponseTirageDAOImpl.getInstance();
 	}
 	
 }

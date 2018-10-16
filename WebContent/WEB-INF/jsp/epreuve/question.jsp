@@ -35,32 +35,56 @@
 			    		<h5 class="card-title">${question.getQuestion().getEnonce() }</h5>
 					  	<div class="card-body">
 					  		<div class="container">
-						  		<div class="row">
-								  	<c:forEach var="proposition" items="${question.getQuestion().getPropositions()}">
+ 								<form method="POST" action="/QCM/epreuve/questions">
+									<input type="hidden" name="questionId" value="${question.getQuestion().getIdQuestion()}">
+							  		<div class="row">
+									  	<c:forEach var="proposition" items="${question.getQuestion().getPropositions()}" varStatus="loop">
+									   		<div class="col">
+						   			  			<div class="form-group form-check">
+							   			  			<c:if test="${loop.index == 0}">
+											    		<input type="checkbox" class="form-check-input" name="checkbox0" value="${proposition.getIdProposition()}" id="checkbox">
+											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    						</c:if>
+   				   			  						<c:if test="${loop.index == 1}">
+											    		<input type="checkbox" class="form-check-input" name="checkbox1" value="${proposition.getIdProposition()}" id="checkbox">
+											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    						</c:if>
+    								   			  	<c:if test="${loop.index == 2}">
+											    		<input type="checkbox" class="form-check-input" name="checkbox2" value="${proposition.getIdProposition()}" id="checkbox">
+											    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+						    						</c:if>
+								  				</div>	
+									   		</div>
+								   		</c:forEach>
+							   		</div>
+							   		
+							   		<div class="row">
 								   		<div class="col">
-					   			  			<div class="form-group form-check">
-									    		<input type="checkbox" class="form-check-input" id="exampleCheck1">
-									    		
-									    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
-							  				</div>	
+										  	<a class="btn btn-link btn-lg" style="margin-top: 2%;">
+										  		<button type="submit" class="btn btn-success card-link">
+										  			<i style="margin-right: 10px;" class="fas fa-check"></i> Valider
+										  		</button>
+									  		</a>
 								   		</div>
-							   		</c:forEach>
-							  	</div>
+								  	</div>
+						  		</form>
 						  	</div>
+						  	
 						  	<div style="margin-top: 2%;">
 							  	<a class="btn btn-link btn-lg card-link">
 	  								<form method="GET" action="/QCM/epreuve/questions">
 										<input type="hidden" name="decrementNumQuestion" value="1">
-								  		<button type="submit" class="btn btn-primary btn-lg card-link">
-								  			<i class="fas fa-arrow-left"></i>
+								  		<button type="submit" class="btn btn-primary card-link">
+								  			Question précédente <i style="margin-left: 10px;" class="fas fa-arrow-left"></i>
 								  		</button>
 							  		</form>
 						  		</a>
+						  							  		
 	  							<a class="btn btn-link btn-lg card-link">
 							  		<form method="GET" action="/QCM/epreuve/questions">
 										<input type="hidden" name="incrementNumQuestion" value="1">
-								  		<button type="submit" class="btn btn-primary btn-lg card-link">
-								  			<i class="fas fa-arrow-right"></i>
+								  		<button type="submit" class="btn btn-primary card-link">
+								  			<i style="margin-right: 10px;" class="fas fa-arrow-right"></i>  Question suivante
 								  		</button>
 							  		</form>
 						  		</a>

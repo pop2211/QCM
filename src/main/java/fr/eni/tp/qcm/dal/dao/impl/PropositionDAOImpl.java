@@ -20,7 +20,7 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class PropositionDAOImpl implements PropositionDAO{
 	
 	private static final String SELECT_ALL_PROPOSITION_QUERY = "SELECT idProposition, p.enonce, estBonne, idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme";
-    private static final String SELECT_ONE_PROPOSITION_QUERY = "SELECT idProposition, enonce, estBonne, idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme where idProposition = ?";
+    private static final String SELECT_ONE_PROPOSITION_QUERY = "SELECT * FROM PROPOSITION p INNER JOIN QUESTION q ON p.idQuestion = q.idQuestion INNER JOIN THEME t ON t.idTheme = q.idTheme where idProposition = ?";
    // private static final String SELECT_PROPOSITION_BY_QUESTION_QUERY = "SELECT idProposition, enonce, estBonne , idQuestion, t.enonce, media, points, idTheme, libelleTheme FROM PROPOSITION p INNER JOIN QUESTION q ON p.idProposition = q.idProposition INNER JOIN THEME t ON t.idTheme = q.idTheme where idQuestion = ?";
     private static final String SELECT_PROPOSITION_BY_QUESTION_QUERY = "SELECT * FROM PROPOSITION WHERE idQuestion = ?";
     private static final String INSERT_PROPOSITION_QUERY = "INSERT INTO PROPOSITION(enonce, estBonne, idQuestion) VALUES (?, ?, ?)";
@@ -228,14 +228,15 @@ public class PropositionDAOImpl implements PropositionDAO{
 	 * @return proposition
 	 * @throws SQLException
 	 */
-	private Proposition resultSetToProposition(ResultSet resultSet) throws SQLException {
+	@Override
+	public Proposition resultSetToProposition(ResultSet resultSet) throws SQLException {
         
 		Proposition proposition = new Proposition();
 		proposition.setIdProposition(resultSet.getInt("idProposition"));
 		proposition.setEnonce(resultSet.getString("enonce"));
 		proposition.setEstBonne(resultSet.getBoolean("estBonne"));
 		proposition.setQuestion(questionDAO.resultSetToQuestion(resultSet));
-			       
+
         return proposition;
         
     }
@@ -246,7 +247,7 @@ public class PropositionDAOImpl implements PropositionDAO{
 		proposition.setIdProposition(resultSet.getInt("idProposition"));
 		proposition.setEnonce(resultSet.getString("enonceProposition"));
 		proposition.setEstBonne(resultSet.getBoolean("estBonne"));
-			       
+
         return proposition;
         
     }

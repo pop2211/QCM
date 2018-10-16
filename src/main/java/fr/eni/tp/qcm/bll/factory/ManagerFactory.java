@@ -5,6 +5,7 @@ import fr.eni.tp.qcm.bll.manager.PromotionManager;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionManager;
 import fr.eni.tp.qcm.bll.manager.QuestionTirageManager;
+import fr.eni.tp.qcm.bll.manager.ReponseTirageManager;
 import fr.eni.tp.qcm.bll.manager.SectionTestManager;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
@@ -14,6 +15,7 @@ import fr.eni.tp.qcm.bll.manager.impl.PromotionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.PropositionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.QuestionTirageManagerImpl;
+import fr.eni.tp.qcm.bll.manager.impl.ReponseTirageManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.SectionTestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.TestManagerImpl;
 import fr.eni.tp.qcm.bll.manager.impl.ThemeManagerImpl;
@@ -55,6 +57,10 @@ public class ManagerFactory {
 	
 	public static PromotionManager promotionManager() {
 		return PromotionManagerImpl.getInstance();
+	}
+
+	public static ReponseTirageManager reponseTirageManager() {
+		return ReponseTirageManagerImpl.getInstance();
 	}
 	
 }
