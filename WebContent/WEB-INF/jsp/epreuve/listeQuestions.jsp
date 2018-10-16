@@ -18,10 +18,18 @@
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
 <div style="margin-top: 2%;">
-	<h2 class="text-center" style="margin-bottom: 2%;">Répondez aux questions : </h2>
   	<div class="container-fluid">
 	  	<div class="row">
-		  	<div class="col-9 offset-1">
+		  	<div class="col-10 offset-1">
+		  		<h2 class="text-center" style="margin-bottom: 2%;">Répondez aux questions : </h2>
+					<div style="margin: 2%;">
+					<form method="GET" action="/QCM/epreuve/questions">
+						<button type="submit" class="btn btn-primary card-link">
+			 			<i class="fas fa-hand-point-left"></i> Revenir à la question
+			 		</button>
+					</form>
+				</div>
+				
 				<c:forEach var="question" items="${questions}">
 					<div class="card text-center" style="margin-bottom:5%; padding: 1em;">
 			    		<h5 class="card-title">${question.getQuestion().getEnonce() }</h5>
@@ -44,27 +52,6 @@
 				  		</div>
 					</div>
 				</c:forEach>
-			</div>
-			<div class="col-1">
-				<div class="card" >
-					<ul class="list-group">
-						<c:forEach var="question" items="${questions}">
-					  		<a href="#">
-							  <li class="list-group-item d-flex justify-content-between align-items-center">
-							  	<div class="alert alert-info" role="alert" style="margin: 0;">
-							  
-								    ${question.getNumOrdre()}
-								    <c:if test="${question.getEstMarque()}">
-   								   		<span class="badge badge-primary badge-pill">
-		    							<i class="fas fa-flag"></i>
-		    							</span>
-								    </c:if>
-							    </div>
-							  	</li>
-				  			</a>
-					  	</c:forEach>
-					</ul>
-				</div>
 			</div>
 		</div>
 	</div>

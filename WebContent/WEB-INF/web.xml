@@ -20,6 +20,23 @@
     <servlet-name>questionJSP</servlet-name>
     <url-pattern>/epreuve/questionsJSP</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>listeQuestionsControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.epreuve.ListeQuestionsControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listeQuestionsControler</servlet-name>
+    <url-pattern>/epreuve/listeQuestions</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>listeQuestionsJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/epreuve/listeQuestions.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listeQuestionsJSP</servlet-name>
+    <url-pattern>/epreuve/listeQuestionsJSP</url-pattern>
+  </servlet-mapping>
+  <!--  -->
   <servlet>
     <servlet-name>epreuveControler</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controler.EpreuveControler</servlet-class>

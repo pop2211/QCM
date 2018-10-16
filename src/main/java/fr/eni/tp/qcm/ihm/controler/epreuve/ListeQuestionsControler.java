@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.PropositionManager;
@@ -36,21 +37,12 @@ public class ListeQuestionsControler extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		HttpSession session = request.getSession();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		String idTest = request.getParameter("idTest");
-		String idEpreuve = request.getParameter("idEpreuve");
-		//generateQuestions.generate(Integer.valueOf(idTest), Integer.valueOf(idEpreuve));
-		
+		String epreuveId = (String) session.getAttribute("epreuveId");
+
 		try {
-			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(idEpreuve));
+			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(epreuveId));
 //			for(int i = 0; i < questionTirage.size(); i++) {
 //				List<Proposition> propositions = propositionManager.findByQuestion((questionTirage.get(i).getQuestion().getIdQuestion()));
 //				questionTirage.get(i).getQuestion().setPropositions(propositions);
@@ -60,7 +52,6 @@ public class ListeQuestionsControler extends HttpServlet {
 			List<Proposition> propositions = null;
 			for(int i = 0; i < questionTirage.size(); i++) {
 				propositions = propositionManager.findByQuestion((questionTirage.get(i).getQuestion().getIdQuestion()));
-				System.out.println(questionTirage.get(i).getEstMarque());
 				questionTirage.get(i).getQuestion().setPropositions(propositions);
 			}
 			
@@ -75,6 +66,12 @@ public class ListeQuestionsControler extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("/epreuve/listeQuestionsJSP").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

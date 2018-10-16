@@ -18,13 +18,21 @@
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
 <div style="margin-top: 2%;">
-	<h2 class="text-center" style="margin-bottom: 2%;">Répondez aux questions : </h2>
+		  			
   	<div class="container-fluid">
 	  	<div class="row">
 		  	<div class="col-9 offset-1">
+		  		<h2 class="text-center" style="margin-bottom: 2%;">Répondez aux questions : </h2>
+				<div style="margin: 2%;">
+					<form method="GET" action="/QCM/epreuve/listeQuestions">
+						<button type="submit" class="btn btn-primary card-link">
+			 			<i class="fas fa-list-ul"></i> Voir l'ensemble des questions
+			 		</button>
+					</form>
+				</div>
+	
 					<div class="card text-center" style="margin-bottom:5%; padding: 1em;">
 			    		<h5 class="card-title">${question.getQuestion().getEnonce() }</h5>
-					
 					  	<div class="card-body">
 					  		<div class="container">
 						  		<div class="row">
@@ -40,22 +48,22 @@
 							  	</div>
 						  	</div>
 						  	<div style="margin-top: 2%;">
-						  	<a class="btn btn-link btn-lg card-link">
-  								<form method="GET" action="/QCM/epreuve/questions">
-									<input type="hidden" name="decrementNumQuestion" value="1">
-							  		<button type="submit" class="btn btn-primary btn-lg card-link">
-							  			<i class="fas fa-arrow-left"></i>
-							  		</button>
-						  		</form>
-					  		</a>
-  							<a class="btn btn-link btn-lg card-link">
-						  		<form method="GET" action="/QCM/epreuve/questions">
-									<input type="hidden" name="incrementNumQuestion" value="1">
-							  		<button type="submit" class="btn btn-primary btn-lg card-link">
-							  			<i class="fas fa-arrow-right"></i>
-							  		</button>
-						  		</form>
-					  		</a>
+							  	<a class="btn btn-link btn-lg card-link">
+	  								<form method="GET" action="/QCM/epreuve/questions">
+										<input type="hidden" name="decrementNumQuestion" value="1">
+								  		<button type="submit" class="btn btn-primary btn-lg card-link">
+								  			<i class="fas fa-arrow-left"></i>
+								  		</button>
+							  		</form>
+						  		</a>
+	  							<a class="btn btn-link btn-lg card-link">
+							  		<form method="GET" action="/QCM/epreuve/questions">
+										<input type="hidden" name="incrementNumQuestion" value="1">
+								  		<button type="submit" class="btn btn-primary btn-lg card-link">
+								  			<i class="fas fa-arrow-right"></i>
+								  		</button>
+							  		</form>
+						  		</a>
 				  			</div>
 				  		</div>
 					</div>
