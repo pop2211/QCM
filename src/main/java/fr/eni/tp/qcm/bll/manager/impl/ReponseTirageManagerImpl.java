@@ -1,6 +1,9 @@
 package fr.eni.tp.qcm.bll.manager.impl;
 
+import java.util.List;
+
 import fr.eni.tp.qcm.bll.manager.ReponseTirageManager;
+import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.ReponseTirage;
 import fr.eni.tp.qcm.dal.dao.ReponseTirageDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
@@ -40,6 +43,32 @@ public class ReponseTirageManagerImpl implements ReponseTirageManager{
 		}
 	
 	  return reponseTirage;
+	}
+
+	@Override
+	public void deleteOne(Integer idProposition, Integer idQuestion, Integer idEpreuve) throws ManagerException {
+		try {
+            ValidationUtil.checkNotNull(idProposition);
+            ValidationUtil.checkNotNull(idQuestion);
+            ValidationUtil.checkNotNull(idEpreuve);
+            reponseTirageDAO.delete(idProposition, idQuestion, idEpreuve);
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
+	}
+
+	@Override
+	public List<ReponseTirage> findAllByQuestionAndEpreuve(Integer idQuestion, Integer idEpreuve) throws ManagerException {
+		List<ReponseTirage> reponseTirage = null;    
+        try {
+        	reponseTirage =  reponseTirageDAO.selectByQuestionAndEpreuve(idQuestion, idEpreuve);
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return reponseTirage;	
 	}
     
 }

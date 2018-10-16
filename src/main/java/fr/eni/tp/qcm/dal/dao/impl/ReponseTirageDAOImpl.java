@@ -23,14 +23,14 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 
     private static final String SELECT_REPONSE_TIRAGE_QUERY = "";
-    private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE = "";
+    private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION = "SELECT * FROM REPONSE_TIRAGE rt INNER JOIN QUESTION q ON rt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON rt.idEpreuve = e.idEpreuve  INNER JOIN PROPOSITION p ON rt.idProposition = p.idProposition WHERE idQuestion = ? AND idEpreuve = ?";
 
     private static final String INSERT_REPONSE_TIRAGE_QUERY = "INSERT INTO REPONSE_TIRAGE(idProposition, idQuestion, idEpreuve) VALUES(?, ?, ?)";
-    private static final String DELETE_REPONSE_TIRAGE_QUERY = "";
-    private static final String UPDATE_REPONSE_TIRAGE_QUERY = "";
+    private static final String DELETE_REPONSE_TIRAGE_QUERY = "DELETE FROM REPONSE_TIRAGE WHERE idProposition = ? AND idQuestion = ? AND idEpreuve = ?";
     
-    private QuestionTirageDAO questionTirageDAO = DAOFactory.questionTirageDAO();
+    private QuestionDAO questionDAO = DAOFactory.questionDAO();
     private PropositionDAO propositionDAO = DAOFactory.propositionDAO();
+    private EpreuveDAO epreuveDAO = DAOFactory.epreuveDAO();
 
     private static ReponseTirageDAOImpl instance;
     
@@ -78,7 +78,57 @@ public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 	}
 
 	@Override
+	public void delete(Integer idProposition, Integer idQuestion, Integer idEpreuve) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = MSSQLConnectionFactory.get();
+            
+            statement = connection.prepareStatement(DELETE_REPONSE_TIRAGE_QUERY);
+            
+            statement.setInt(1, idProposition);
+            statement.setInt(2, idQuestion);
+            statement.setInt(3, idEpreuve);
+
+            statement.executeUpdate();
+
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+	}
+	@Override
+	public List<ReponseTirage> selectByQuestionAndEpreuve(Integer idQuestion, Integer idEpreuve) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<ReponseTirage> reponseTirage = new ArrayList<>();
+
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION);
+            
+            statement.setInt(1, idQuestion);
+            statement.setInt(2, idEpreuve);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	reponseTirage.add(resultSetToReponseTirage(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return reponseTirage;
+	}
+	
+	@Override
 	public void delete(Integer id) throws DaoException {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -98,11 +148,12 @@ public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 	public ReponseTirage resultSetToReponseTirage(ResultSet resultSet) throws SQLException {
 
 		ReponseTirage reponseTirage = new ReponseTirage();
-//		reponseTirage.setProposition(propositionDAO.resultSetToProposition(resultSet));
-//		
-//		reponseTirage.setQuestion(questionTirageDAO.resultSetToQuestionTirage(resultSet));
+		reponseTirage.setProposition(propositionDAO.resultSetToProposition(resultSet));
+		reponseTirage.setQuestion(questionDAO.resultSetToQuestion(resultSet));
+		reponseTirage.setEpreuve(epreuveDAO.resultSetToEpreuve(resultSet));
 
         return reponseTirage;
         
     }
+
 }
