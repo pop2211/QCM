@@ -62,7 +62,7 @@
 	</c:if>
 	
 	<h2 class="titre">Bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur} ${sessionScope.sessionUtilisateur.nomUtilisateur}, bienvenue sur la plateforme ECF.</h2>
-	<img class="rounded mx-auto d-block" src="/QCM/image/cage.jpg" alt="">
+	<img class="rounded mx-auto d-block" src="/QCM/image/kiki.jpg" alt="">
 </div>
 </body>
 </html>

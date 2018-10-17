@@ -31,7 +31,8 @@ public class RestrictionFilter implements Filter {
         	if (!path.equals("/login") &&
         		!path.equals("/logout") &&
         		!path.equals("/connexion") &&
-        		!path.startsWith("/css") && 
+        		!path.startsWith("/css") &&
+        		!path.startsWith("/image") &&
         		!path.startsWith("/js") &&
         		!path.startsWith("jsp/commons/")
         		) {
