@@ -41,7 +41,7 @@
 									 	</div>
 									 	
 									 	<div class="col">
-										 	<form method="GET" action="/QCM/epreuve/resultat">
+										 	<form method="GET" action="/QCM/resultat">
 												<button type="submit" class="btn btn-lg btn-outline-success card-link">
 									 				<i class="fas fa-dragon"></i> Mettre fin au test
 								 				</button>
