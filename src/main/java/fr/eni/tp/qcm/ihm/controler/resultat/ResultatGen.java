@@ -33,48 +33,60 @@ public class ResultatGen extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.setAttribute("epreuveId", "1");
-		Integer idEpreuve = Integer.parseInt(session.getAttribute("epreuveId").toString());
+		//session.setAttribute("epreuveId", "1");
 		Result result = null;
+		Epreuve epreuve = null;
+		Integer idEpreuve;
 		
-		try {
-			result = epreuveDao.GetResult(idEpreuve);
-			Float scoreTotal = result.getTotal();
-			String niveau = AppConstants.niveau.ACQUIS.toString();
-			
-			//update de l'état de l'épreuve
-			Epreuve epreuve = epreuveManager.findOne(idEpreuve);
-			epreuve.setEtat(AppConstants.StatutEpreuve.TERMINE.toString());
-			epreuve.setNoteObtenue(scoreTotal);
-			
-			//calcul du niveau
-			Integer seuilBas = epreuve.getTest().getSeuilBas();
-			Integer seuilHaut = epreuve.getTest().getSeuilHaut();
-			if(scoreTotal < seuilBas) {
-				niveau = AppConstants.niveau.NON_ACQUIS.toString();
-			} else if(scoreTotal < seuilHaut){
-				niveau = AppConstants.niveau.EN_COURS_ACQUISITION.toString();
+		if(request.getParameter("idEpreuve") != null){
+			idEpreuve = Integer.valueOf(request.getParameter("idEpreuve"));
+			try {
+				epreuve = epreuveManager.findOne(idEpreuve);
+			} catch (ElementNotFoundException | ManagerException e) {
+				e.printStackTrace();
 			}
-			epreuve.setNiveauObtenu(niveau);
-			
-			epreuveDao.update(epreuve);
-			
-			request.setAttribute("epreuve", epreuve);
-			request.setAttribute("result", result);
-			request.getRequestDispatcher("/resultatDetail").forward(request, response);
-			
-			
-		} catch (DaoException e) {
-			e.printStackTrace();
-		} catch (ElementNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		else {
 		
-		System.out.println(result.getTotal());
+			idEpreuve = Integer.parseInt(session.getAttribute("epreuveId").toString());
+			
+			try {
+				result = epreuveDao.GetResult(idEpreuve);
+				Float scoreTotal = result.getTotal();
+				String niveau = AppConstants.niveau.ACQUIS.toString();
+				
+				//update de l'état de l'épreuve
+				epreuve = epreuveManager.findOne(idEpreuve);
+				epreuve.setEtat(AppConstants.StatutEpreuve.TERMINE.toString());
+				epreuve.setNoteObtenue(scoreTotal);
+				
+				//calcul du niveau
+				Integer seuilBas = epreuve.getTest().getSeuilBas();
+				Integer seuilHaut = epreuve.getTest().getSeuilHaut();
+				if(scoreTotal < seuilBas) {
+					niveau = AppConstants.niveau.NON_ACQUIS.toString();
+				} else if(scoreTotal < seuilHaut){
+					niveau = AppConstants.niveau.EN_COURS_ACQUISITION.toString();
+				}
+				epreuve.setNiveauObtenu(niveau);
+				
+				epreuveDao.update(epreuve);
+				
+			} catch (DaoException e) {
+				e.printStackTrace();
+			} catch (ElementNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ManagerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		System.out.println(idEpreuve);
+		request.setAttribute("epreuve", epreuve);
+		request.setAttribute("result", result);
+		request.getRequestDispatcher("/resultatDetail").forward(request, response);
 		
 	}
 	
