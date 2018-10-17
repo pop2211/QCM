@@ -33,7 +33,7 @@ public class Connexion extends HttpServlet {
         
 		if ( form.getErreurs().isEmpty() && utilisateur != null ) {
             session.setAttribute( ATT_SESSION_USER, utilisateur );
-            response.sendRedirect( request.getContextPath() + "/accueil" );
+            response.sendRedirect( request.getContextPath() + "/accueil");
         } 
 		else {
         	session.setAttribute( ATT_SESSION_USER, null );

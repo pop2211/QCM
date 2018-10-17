@@ -1,5 +1,6 @@
 package fr.eni.tp.qcm.dal.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.eni.tp.qcm.bo.Epreuve;
@@ -15,6 +17,7 @@ import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.dao.TestDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
+import fr.eni.tp.qcm.utils.Result;
 import fr.eni.tp.web.common.EniConstants;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
@@ -26,10 +29,12 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	private static final String SELECT_ALL_EPREUVES_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur";
 	private static final String SELECT_ALL_EPREUVES_UTILISATEUR_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?";
     private static final String SELECT_ONE_EPREUVE_QUERY = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur where idEpreuve = ?";
+    private static final String SELECT_BY_UTIL_AND_STATUT = "SELECT * FROM EPREUVE e INNER JOIN TEST t ON e.idTest = t.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur WHERE e.idUtilisateur = ? AND etat = ?";
     private static final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(dateDebutValidite, dateFinValidite, tempsEcoule, etat, noteObtenue, niveauObtenu, idTest, idUtilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EPREUVE_QUERY = "DELETE FROM EPREUVE WHERE idEpreuve = ?";
     private static final String UPDATE_EPREUVE_QUERY = "UPDATE EPREUVE SET dateDebutValidite = ?, dateFinValidite = ?, tempsEcoule = ?, etat = ?, noteObtenue = ?, niveauObtenu = ?, idTest = ?, idUtilisateur = ? WHERE idEpreuve = ?";
-
+    private static final String GET_RESULT = "EXEC GetResult @Epreuve = ?"; 
+    
     private TestDAO testDAO = DAOFactory.testDAO();
     
     private static EpreuveDAOImpl instance;
@@ -59,8 +64,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	        statement.setTimestamp(2,  Timestamp.valueOf(epreuve.getDateFinValidite()));
 	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
-	        statement.setInt(5, epreuve.getNoteObtenue());
-	        statement.setInt(6, epreuve.getNiveauObtenu());
+	        statement.setFloat(5, epreuve.getNoteObtenue());
+	        statement.setString(6, epreuve.getNiveauObtenu());
 	        statement.setInt(7, epreuve.getTest().getIdTest());
 	        statement.setInt(8, epreuve.getUtilisateur().getIdUtilisateur());
 
@@ -93,8 +98,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	        statement.setString(2, epreuve.getDateFinValidite());
 	        statement.setTime(3, epreuve.getTempsEcoule());
 	        statement.setString(4, epreuve.getEtat());
-	        statement.setInt(5, epreuve.getNoteObtenue());
-	        statement.setInt(6, epreuve.getNiveauObtenu());
+	        statement.setFloat(5, epreuve.getNoteObtenue());
+	        statement.setString(6, epreuve.getNiveauObtenu());
 	        statement.setInt(7, epreuve.getTest().getIdTest());        
 	        statement.setInt(8, epreuve.getUtilisateur().getIdUtilisateur());
 	        statement.setInt(9, epreuve.getIdEpreuve());
@@ -208,6 +213,33 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 	}
 	
 	@Override
+	public List<Epreuve> selectByUtilAndStatut(Integer idUtil, String statut) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Epreuve> epreuves = new ArrayList<>();
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_BY_UTIL_AND_STATUT);
+            
+            statement.setInt(1, idUtil);
+            statement.setString(2, statut);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	epreuves.add(resultSetToEpreuve(resultSet));
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return epreuves;
+	}
+	
+	@Override
 	public Epreuve resultSetToEpreuve(ResultSet resultSet) throws SQLException {
         
 		Epreuve epreuve = new Epreuve();
@@ -216,8 +248,8 @@ public class EpreuveDAOImpl implements EpreuveDAO{
 		epreuve.setDateFinValidite(DateUtil.format(new Date(resultSet.getTimestamp("dateFinValidite").getTime()), EniConstants.OUTPUT_DATE_TIME_FORMATTER));
 		epreuve.setTempsEcoule(resultSet.getTime("tempsEcoule"));
 		epreuve.setEtat(resultSet.getString("etat"));
-		epreuve.setNoteObtenue(resultSet.getInt("noteObtenue"));
-		epreuve.setNiveauObtenu(resultSet.getInt("niveauObtenu"));
+		epreuve.setNoteObtenue(resultSet.getFloat("noteObtenue"));
+		epreuve.setNiveauObtenu(resultSet.getString("niveauObtenu"));
 		epreuve.setTest(testDAO.resultSetToTest(resultSet));		
 		
 		Utilisateur utilisateur = new Utilisateur();
@@ -232,5 +264,33 @@ public class EpreuveDAOImpl implements EpreuveDAO{
         return epreuve;
         
     }
+	
+	public Result GetResult(Integer idEpreuve) throws DaoException {
+		Connection connection = null;
+		CallableStatement statement = null;
+        ResultSet resultSet = null;
+        HashMap<Integer, Float> hm = new HashMap<>();
+        Result result = null;
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            
+            statement = connection.prepareCall(GET_RESULT);  
+            statement.setInt(1, 1);  
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	hm.put(resultSet.getInt("idQuestion"), resultSet.getFloat("pts"));
+            }
+            result = new Result(hm);
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return result;
+	}
+
 
 }

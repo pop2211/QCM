@@ -21,20 +21,36 @@
     <url-pattern>/epreuve/questionsJSP</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>epreuveControler</servlet-name>
-    <servlet-class>fr.eni.tp.qcm.ihm.controler.EpreuveControler</servlet-class>
+    <servlet-name>ResultatControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.resultat.ResultatControler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>epreuveControler</servlet-name>
+    <servlet-name>ResultatControler</servlet-name>
     <url-pattern>/resultats</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>resultatGen</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.resultat.ResultatGen</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>resultatGen</servlet-name>
+    <url-pattern>/resultat</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>consulterResultatJSP</servlet-name>
-    <jsp-file>/WEB-INF/jsp/consulterResultat.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/resultat/consulterResultat.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>consulterResultatJSP</servlet-name>
     <url-pattern>/resultatsJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ResultatDetail</servlet-name>
+    <jsp-file>/WEB-INF/jsp/resultat/resultatDetail.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResultatDetail</servlet-name>
+    <url-pattern>/resultatDetail</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>consulterTestControler</servlet-name>

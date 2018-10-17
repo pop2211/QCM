@@ -12,9 +12,9 @@ insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idPr
 insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('sar','Sandra','sar@sar.fr', 'sar', 4, 1);
 insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('jea','Jean','jea@jea.fr', 'jea', 4, 1);
 
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 14, 8);
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 14, 8);
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('PHP', 'Ceci est un test php', '02:00:00', 14, 8);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 70, 40);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 70, 40);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('PHP', 'Ceci est un test php', '02:00:00', 70, 40);
 
 insert into THEME(libelleTheme) values ('Les variables java');
 insert into THEME(libelleTheme) values ('Les servlets java');

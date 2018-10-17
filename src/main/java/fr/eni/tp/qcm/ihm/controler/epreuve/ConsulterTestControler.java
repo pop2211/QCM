@@ -18,7 +18,6 @@ import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
-import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -29,7 +28,6 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
 public class ConsulterTestControler extends HttpServlet {
 	public static final String ATT_SESSION_USER = "sessionUtilisateur";
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private static final long serialVersionUID = 1L;       
 
 	/**
@@ -47,7 +45,6 @@ public class ConsulterTestControler extends HttpServlet {
                
         } catch (ManagerException | ElementNotFoundException e) {
         	e.printStackTrace();
-        	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }	
 	}

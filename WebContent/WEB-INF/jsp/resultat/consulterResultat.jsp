@@ -40,7 +40,7 @@
       <td>${epreuve.dateFinValidite}</td>
       <td>${epreuve.tempsEcoule}</td>
       <td>${epreuve.etat}</td>
-      <td>${epreuve.noteObtenue}</td>
+      <td>${epreuve.noteObtenue} %</td>
       <td>${epreuve.niveauObtenu}</td>
     </tr>
      </c:forEach>

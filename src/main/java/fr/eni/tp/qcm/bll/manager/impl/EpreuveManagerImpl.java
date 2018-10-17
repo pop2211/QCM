@@ -6,6 +6,7 @@ import fr.eni.tp.qcm.bll.manager.EpreuveManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
+import fr.eni.tp.qcm.utils.AppConstants;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 import fr.eni.tp.web.common.dal.exception.DaoException;
@@ -98,6 +99,24 @@ public class EpreuveManagerImpl implements EpreuveManager{
         try {
             ValidationUtil.checkNotNull(id);
             epreuves = epreuveDAO.selectByUtilisateur(id);
+            if(epreuves == null) {
+                throw new ElementNotFoundException("L'épreuve n'existe pas", null);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
+        return epreuves;
+	}
+
+	@Override
+	public List<Epreuve> findByUtilAndStatut(Integer idUtil, String statut) throws  ManagerException, ElementNotFoundException {
+		List<Epreuve> epreuves = null;       
+        try {
+            ValidationUtil.checkNotNull(idUtil);
+            ValidationUtil.checkNotBlank(statut);
+            epreuves = epreuveDAO.selectByUtilAndStatut(idUtil, statut);
             if(epreuves == null) {
                 throw new ElementNotFoundException("L'épreuve n'existe pas", null);
             }
