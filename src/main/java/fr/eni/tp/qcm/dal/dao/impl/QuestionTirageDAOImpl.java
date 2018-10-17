@@ -25,7 +25,7 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 
 
     private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve WHERE idQuestion = ?";
-    private static final String SELECT_QUESTION_TIRAGE_QUERY_BY_EPREUVE = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ?";
+    private static final String SELECT_QUESTION_TIRAGE_QUERY_BY_EPREUVE = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ? ORDER BY qt.numOrdre ASC";
     private static final String SELECT_QUESTION_EPREUVE_BY_EPREUVE_AND_QUESTION_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ? AND qt.idQuestion = ?";
     
     private static final String INSERT_QUESTION_TIRAGE_QUERY = "INSERT INTO QUESTION_TIRAGE(estMarquee, numOrdre, IdEpreuve, idQuestion) VALUES (?, ?, ?, ?)";
