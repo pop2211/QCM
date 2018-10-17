@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href='/QCM/css/style.css'>
 <title>Connexion</title>
 
 <jsp:include page="/WEB-INF/jsp/commons/head.jsp">
@@ -46,7 +47,22 @@
 		</div>
 	</c:if>
 	
-	<h2>c'est l'accueil, bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur}, je pense que tu ne devrais plus jamais faire de JAVA</h2>
+	<c:set var="modificationReussite" value="${modification}" />
+	<c:if test="${not empty modificationReussite}">
+		<div class="alert alert-success" role="alert">
+  			${modification}
+		</div>
+	</c:if>
+	
+	<c:set var="ajoutTestReussit" value="${ajoutTest}" />
+	<c:if test="${not empty ajoutTestReussit}">
+		<div class="alert alert-success" role="alert">
+  			${ajoutTest}
+		</div>
+	</c:if>
+	
+	<h2 class="titre">Bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur} ${sessionScope.sessionUtilisateur.nomUtilisateur}, bienvenue sur la plateforme ECF.</h2>
+	<img class="rounded mx-auto d-block" src="/QCM/image/cage.jpg" alt="">
 </div>
 </body>
 </html>

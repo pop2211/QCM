@@ -36,7 +36,6 @@ public class AjouterUtilisateurControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PromotionManager promotionManager = ManagerFactory.promotionManager();
 	private ProfilManager profilManager = ManagerFactory.profilManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
        
     /**
@@ -62,7 +61,6 @@ public class AjouterUtilisateurControler extends HttpServlet {
                
         } catch (ManagerException e) {
         	e.printStackTrace();
-        	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 	}
@@ -123,7 +121,6 @@ public class AjouterUtilisateurControler extends HttpServlet {
 			
 		} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 			e.printStackTrace();
-			LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		} catch (FunctionalException e) {
 			e.printStackTrace();

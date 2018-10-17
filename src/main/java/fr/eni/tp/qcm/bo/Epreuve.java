@@ -11,11 +11,11 @@ public class Epreuve {
 	private String dateFinValidite;
 	private Time tempsEcoule;
 	private String etat;
-	private Integer noteObtenue;
-	private Integer niveauObtenu;
+	private Float noteObtenue;
+	private String niveauObtenu;
 	private Utilisateur utilisateur;
 	
-	public Epreuve(Test test, String dateDebutValidite, String dateFinValidite, Time tempsEcoule, String etat, Integer noteObtenue, Integer niveauObtenu, Utilisateur utilisateur) {
+	public Epreuve(Test test, String dateDebutValidite, String dateFinValidite, Time tempsEcoule, String etat, Float noteObtenue, String niveauObtenu, Utilisateur utilisateur) {
 		this.test = test;
 		this.dateDebutValidite = dateDebutValidite;
 		this.dateFinValidite = dateFinValidite;
@@ -86,19 +86,19 @@ public class Epreuve {
 		this.etat = etat;
 	}
 
-	public Integer getNoteObtenue() {
+	public Float getNoteObtenue() {
 		return noteObtenue;
 	}
 
-	public void setNoteObtenue(Integer noteObtenue) {
+	public void setNoteObtenue(Float noteObtenue) {
 		this.noteObtenue = noteObtenue;
 	}
 
-	public Integer getNiveauObtenu() {
+	public String getNiveauObtenu() {
 		return niveauObtenu;
 	}
 
-	public void setNiveauObtenu(Integer niveauObtenu) {
+	public void setNiveauObtenu(String niveauObtenu) {
 		this.niveauObtenu = niveauObtenu;
 	}
 }

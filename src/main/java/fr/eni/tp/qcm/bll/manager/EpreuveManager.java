@@ -20,4 +20,6 @@ public interface EpreuveManager {
     void deleteOne(Integer id) throws ManagerException;
     
     Epreuve saveOne(Epreuve epreuve) throws ManagerException, FunctionalException;
+    
+    List<Epreuve> findByUtilAndStatut(Integer idUtil, String statut) throws ManagerException, ElementNotFoundException;;
 }

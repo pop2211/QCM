@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Test;
-import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -26,7 +25,6 @@ import fr.eni.tp.web.common.bll.exception.ManagerException;
  */
 public class DetailTestControler extends HttpServlet {
 	private TestManager testManager = ManagerFactory.testManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private static final long serialVersionUID = 1L;  
        
 
@@ -50,7 +48,6 @@ public class DetailTestControler extends HttpServlet {
                
         } catch (ManagerException | NumberFormatException | ElementNotFoundException e) {
         	e.printStackTrace();
-        	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 	}

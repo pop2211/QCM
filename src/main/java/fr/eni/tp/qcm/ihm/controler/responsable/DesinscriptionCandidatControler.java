@@ -19,7 +19,6 @@ import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
-import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -31,7 +30,6 @@ public class DesinscriptionCandidatControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TestManager testManager = ManagerFactory.testManager();
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
 
 
@@ -50,7 +48,6 @@ public class DesinscriptionCandidatControler extends HttpServlet {
                
         } catch (ManagerException e) {
         	e.printStackTrace();
-        	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 	}
@@ -71,7 +68,6 @@ public class DesinscriptionCandidatControler extends HttpServlet {
 			}
 		} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 			e.printStackTrace();
-			LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}

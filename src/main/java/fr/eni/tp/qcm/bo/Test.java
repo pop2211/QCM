@@ -20,6 +20,14 @@ public class Test {
 		SeuilBas = seuilBas;
 	}
 	
+	public Test(String libelleTest, String description, Time duree, int seuilHaut, int seuilBas) {
+		this.libelleTest = libelleTest;
+		this.description = description;
+		this.duree = duree;
+		this.seuilHaut = seuilHaut;
+		SeuilBas = seuilBas;
+	}
+	
 	public Test() {
 		
 	}

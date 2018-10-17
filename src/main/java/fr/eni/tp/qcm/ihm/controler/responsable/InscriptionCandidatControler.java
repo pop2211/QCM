@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.EpreuveManager;
@@ -19,7 +15,6 @@ import fr.eni.tp.qcm.bll.manager.UtilisateurManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.qcm.bo.Utilisateur;
-import fr.eni.tp.qcm.ihm.controler.EpreuveControler;
 import fr.eni.tp.web.common.HttpStatus;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
@@ -32,7 +27,6 @@ public class InscriptionCandidatControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TestManager testManager = ManagerFactory.testManager();
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
-	private static final Logger LOGGER = LoggerFactory.getLogger(EpreuveControler.class);
 	private UtilisateurManager utilisateurManager = ManagerFactory.utilisateurManager();
 
 	/**
@@ -50,7 +44,6 @@ public class InscriptionCandidatControler extends HttpServlet {
                
         } catch (ManagerException e) {
         	e.printStackTrace();
-        	LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 	}
@@ -73,14 +66,13 @@ public class InscriptionCandidatControler extends HttpServlet {
 				String dateDebut = dateDebutValidite + " " + heureDebut + ":00";
 				String dateFin = dateFinValidite + " " + heureFin + ":00";
 				
-				Epreuve epreuve = new Epreuve(test,dateDebut, dateFin, null, "EA",0,0,utilisateur);
+				Epreuve epreuve = new Epreuve(test, dateDebut, dateFin, null, "EA", 0f, null, utilisateur);
 				epreuveManager.saveOne(epreuve);
 				request.setAttribute("inscription","Inscription du candidat réussite");
 				request.getRequestDispatcher("/accueil" ).forward(request, response);
 			}
 		} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 			e.printStackTrace();
-			LOGGER.error("Technical error", e);
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		} catch (FunctionalException e) {
 			e.printStackTrace();

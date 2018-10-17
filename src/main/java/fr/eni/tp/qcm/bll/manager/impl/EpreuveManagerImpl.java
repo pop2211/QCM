@@ -110,8 +110,24 @@ public class EpreuveManagerImpl implements EpreuveManager{
 	}
 
 	@Override
-	public Epreuve findByIdTestIdUtilisateur(Integer idTest, Integer idUtilisateur)
-			throws ManagerException, ElementNotFoundException {
+	public List<Epreuve> findByUtilAndStatut(Integer idUtil, String statut) throws  ManagerException, ElementNotFoundException {
+		List<Epreuve> epreuves = null;       
+        try {
+            ValidationUtil.checkNotNull(idUtil);
+            ValidationUtil.checkNotBlank(statut);
+            epreuves = epreuveDAO.selectByUtilAndStatut(idUtil, statut);
+            if(epreuves == null) {
+            	throw new ElementNotFoundException("L'épreuve n'existe pas", null);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
+        return epreuves;
+	}
+	
+	public Epreuve findByIdTestIdUtilisateur(Integer idTest, Integer idUtilisateur) throws ManagerException, ElementNotFoundException {
 		Epreuve epreuve = null;    
         try {
             ValidationUtil.checkNotNull(idTest);

@@ -9,13 +9,14 @@ insert into PROMOTION(libellePromotion) values ('CDI2017');
 insert into PROMOTION(libellePromotion) values ('CDI2018');
 
 insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('pop','popPrenom','pop@pop.fr', 'pop', 2, null);
-insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('sar','Sandra','sar@sar.fr', 'sar', 4, 1);
-insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('jea','Jean','jea@jea.fr', 'jea', 4, 1);
-insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('admin','admin','admin@admin.fr', 'admin', 1, null);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('SAR','Sandra','sar@sar.fr', 'sar', 4, 1);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('DUPONT','Jean','jea@jea.fr', 'jea', 4, 1);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('MARTIN','Admin','admin@admin.fr', 'admin', 1, null);
+insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('DUPUIS','formateur','formateur@formateur.fr', 'formateur', 3, null);
 
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 14, 8);
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 14, 8);
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('PHP', 'Ceci est un test php', '02:00:00', 14, 8);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 70, 40);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 70, 40);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('PHP', 'Ceci est un test php', '02:00:00', 70, 40);
 
 insert into THEME(libelleTheme) values ('Les variables java');
 insert into THEME(libelleTheme) values ('Les servlets java');

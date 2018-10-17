@@ -56,17 +56,37 @@
     <servlet-name>epreuveControler</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controler.EpreuveControler</servlet-class>
   </servlet>
+  <servlet>
+ 	<servlet-name>ResultatControler</servlet-name>
+ 	<servlet-class>fr.eni.tp.qcm.ihm.controler.resultat.ResultatControler</servlet-class>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>epreuveControler</servlet-name>
+    <servlet-name>ResultatControler</servlet-name>
     <url-pattern>/resultats</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>resultatGen</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.resultat.ResultatGen</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>resultatGen</servlet-name>
+    <url-pattern>/resultat</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>consulterResultatJSP</servlet-name>
-    <jsp-file>/WEB-INF/jsp/consulterResultat.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/resultat/consulterResultat.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>consulterResultatJSP</servlet-name>
     <url-pattern>/resultatsJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ResultatDetail</servlet-name>
+    <jsp-file>/WEB-INF/jsp/resultat/resultatDetail.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResultatDetail</servlet-name>
+    <url-pattern>/resultatDetail</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>consulterTestControler</servlet-name>
@@ -163,6 +183,54 @@
   <servlet-mapping>
     <servlet-name>ajouterUtilisateurJSP</servlet-name>
     <url-pattern>/ajouterUtilisateurJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>consulterTestsControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.formateur.ConsulterTestsControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>consulterTestsControler</servlet-name>
+    <url-pattern>/formateur/consulterTests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>consulterTestsJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/formateur/consulterTests.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>consulterTestsJSP</servlet-name>
+    <url-pattern>/formateur/consulterTestsJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>modifierTestControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.formateur.ModifierTestControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifierTestControler</servlet-name>
+    <url-pattern>/formateur/modifierTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>modifierTestJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/formateur/modifierTest.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifierTestJSP</servlet-name>
+    <url-pattern>/formateur/modifierTestJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ajouterTestControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.formateur.AjouterTestControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajouterTestControler</servlet-name>
+    <url-pattern>/formateur/ajouterTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ajouterTestJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/formateur/ajouterTest.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajouterTestJSP</servlet-name>
+    <url-pattern>/formateur/ajouterTestJSP</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>connexion</servlet-name>

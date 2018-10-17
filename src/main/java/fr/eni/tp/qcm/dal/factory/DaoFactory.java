@@ -51,7 +51,6 @@ public class DAOFactory {
 
 	public static SectionTestDAO sectionTestDAO() {
         return SectionTestDAOImpl.getInstance();
-
 	}
 
 	public static UtilisateurDAO utilisateurDAO() {
