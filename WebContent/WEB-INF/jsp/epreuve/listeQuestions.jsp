@@ -40,9 +40,14 @@
 							  	<c:forEach var="proposition" items="${question.getQuestion().getPropositions()}">
 							   		<div class="col">
 				   			  			<div class="form-group form-check">
-								    		<input type="checkbox" class="form-check-input" id="exampleCheck1">
-								    		
-								    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+		   			  						<c:if test="${proposition.getChecked()}">
+  												<input disabled type="checkbox" class="form-check-input" checked>
+								    			<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+			    							</c:if>
+			   			  					<c:if test="${!proposition.getChecked()}">
+  												<input disabled type="checkbox" class="form-check-input" id="checkbox">
+								    			<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
+			    							</c:if>
 						  				</div>	
 							   		</div>
 						   		</c:forEach>
