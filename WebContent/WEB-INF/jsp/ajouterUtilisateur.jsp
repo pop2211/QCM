@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href='/QCM/css/style.css'>
 <title>Ajouter un utilisateur</title>
 <jsp:include page="/WEB-INF/jsp/commons/head.jsp">
@@ -28,7 +28,7 @@
     			<input class="form-control" type="text" id="nomUtilisateur" name="nomUtilisateur">
 			</div>
 			<div class="form-group row">
-  				<label for="example-text-input">Prénom</label>
+  				<label for="example-text-input">PrÃ©nom</label>
     			<input class="form-control" type="text" id="prenomUtilisateur" name ="prenomUtilisateur">
 			</div>
 			<div class="form-group row">
@@ -86,11 +86,11 @@
 <script type="text/javascript">
 $(document).ready(function() {
  
-	$('#lblPromotion').hide(); // on cache le champ par défaut
+	$('#lblPromotion').hide(); // on cache le champ par dÃ©faut
     $('#idPromotion').hide(); 
         
     $('select[name="idProfil"]').change(function() { // lorsqu'on change de valeur dans la liste
-    var valeur = $(this).val(); // valeur sélectionnée
+    var valeur = $(this).val(); // valeur sÃ©lectionnÃ©e
      
         if(valeur != '') { // si non vide
             if(valeur == 4) { // si 4 : eleve

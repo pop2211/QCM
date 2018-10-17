@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href='/QCM/css/style.css'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<title>Détail du test</title>
+<title>DÃ©tail du test</title>
 <jsp:include page="/WEB-INF/jsp/commons/head.jsp">
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
 </jsp:include>
@@ -18,7 +18,7 @@
 	</jsp:include>
 	<form method="get" action="/QCM/epreuve/questions">
 		<div class="container">		
-			<h1 class="titre">Détail du test</h1>	
+			<h1 class="titre">DÃ©tail du test</h1>	
 			
 			<div class="card">
 	  			<div class="card-header">

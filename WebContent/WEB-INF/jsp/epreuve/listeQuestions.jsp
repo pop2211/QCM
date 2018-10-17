@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Questions</title>
 <jsp:include page="/WEB-INF/jsp/commons/head.jsp">
 	<jsp:param name="contextPath" value="${pageContext.request.contextPath}"/>
@@ -21,11 +21,11 @@
   	<div class="container-fluid">
 	  	<div class="row">
 		  	<div class="col-10 offset-1">
-		  		<h2 class="text-center" style="margin-bottom: 2%;">Répondez aux questions : </h2>
+		  		<h2 class="text-center" style="margin-bottom: 2%;">RÃ©pondez aux questions : </h2>
 					<div style="margin: 2%;">
 					<form method="GET" action="/QCM/epreuve/questions">
 						<button type="submit" class="btn btn-primary card-link">
-			 			<i class="fas fa-hand-point-left"></i> Revenir à la question
+			 			<i class="fas fa-hand-point-left"></i> Revenir Ã  la question
 			 		</button>
 					</form>
 				</div>

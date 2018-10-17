@@ -46,6 +46,20 @@
 		</div>
 	</c:if>
 	
+	<c:set var="modificationReussite" value="${modification}" />
+	<c:if test="${not empty modificationReussite}">
+		<div class="alert alert-success" role="alert">
+  			${modification}
+		</div>
+	</c:if>
+	
+	<c:set var="ajoutTestReussit" value="${ajoutTest}" />
+	<c:if test="${not empty ajoutTestReussit}">
+		<div class="alert alert-success" role="alert">
+  			${ajoutTest}
+		</div>
+	</c:if>
+	
 	<h2>c'est l'accueil, bonjour ${sessionScope.sessionUtilisateur.prenomUtilisateur}, je pense que tu ne devrais plus jamais faire de JAVA</h2>
 </div>
 </body>

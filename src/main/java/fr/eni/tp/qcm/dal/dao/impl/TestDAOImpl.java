@@ -22,7 +22,7 @@ public class TestDAOImpl implements TestDAO {
     private static final String SELECT_TEST_QUERY = "SELECT idTest, libelleTest, description, duree, seuilHaut, seuilBas FROM TEST WHERE idTest = ?";
     private static final String INSERT_TEST_QUERY = "INSERT INTO TEST(libelleTest, description, duree, seuilHaut, seuilBas) VALUES (?, ?, ?, ?, ?)";
     private static final String DELETE_TEST_QUERY = "DELETE FROM TEST WHERE idTest = ?";
-    private static final String UPDATE_TEST_QUERY = "UPDATE TEST SET libelleTest = ?, descripion = ?, duree = ?, seuilHaut = ?, seuilBas = ? WHERE idTest = ?";
+    private static final String UPDATE_TEST_QUERY = "UPDATE TEST SET libelleTest = ?, description = ?, duree = ?, seuilHaut = ?, seuilBas = ? WHERE idTest = ?";
     
     private static TestDAOImpl instance;
     
@@ -50,8 +50,8 @@ public class TestDAOImpl implements TestDAO {
             statement.setString(1, test.getLibelleTest());
             statement.setString(2, test.getDescription());
             statement.setTime(3, test.getDuree());
-            statement.setInt(4, test.getSeuilBas());
-            statement.setInt(5, test.getSeuilHaut());
+            statement.setInt(4, test.getSeuilHaut());
+            statement.setInt(5, test.getSeuilBas());
 
 
             if (statement.executeUpdate() == 1) {
@@ -85,6 +85,7 @@ public class TestDAOImpl implements TestDAO {
             statement.setTime(3, test.getDuree());
             statement.setInt(4, test.getSeuilHaut());
             statement.setInt(5, test.getSeuilBas());
+            statement.setInt(6, test.getIdTest());
             
             statement.executeUpdate();
 
