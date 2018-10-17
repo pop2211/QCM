@@ -101,6 +101,22 @@
     <url-pattern>/responsable/inscriptionCandidatJSP</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>desinscriptionCandidatControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.responsable.DesinscriptionCandidatControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>desinscriptionCandidatControler</servlet-name>
+    <url-pattern>/responsable/desinscriptionCandidat</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>desinscriptionCandidatJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/responsable/desinscriptionCandidat.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>desinscriptionCandidatJSP</servlet-name>
+    <url-pattern>/responsable/desinscriptionCandidatJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>inscriptionPromotionControler</servlet-name>
     <servlet-class>fr.eni.tp.qcm.ihm.controler.responsable.InscriptionPromotionControler</servlet-class>
   </servlet>
@@ -115,6 +131,22 @@
   <servlet-mapping>
     <servlet-name>inscriptionPromotionJSP</servlet-name>
     <url-pattern>/responsable/inscriptionPromotionJSP</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ajouterUtilisateurControler</servlet-name>
+    <servlet-class>fr.eni.tp.qcm.ihm.controler.AjouterUtilisateurControler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajouterUtilisateurControler</servlet-name>
+    <url-pattern>/ajouterUtilisateur</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ajouterUtilisateurJSP</servlet-name>
+    <jsp-file>/WEB-INF/jsp/ajouterUtilisateur.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajouterUtilisateurJSP</servlet-name>
+    <url-pattern>/ajouterUtilisateurJSP</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>connexion</servlet-name>

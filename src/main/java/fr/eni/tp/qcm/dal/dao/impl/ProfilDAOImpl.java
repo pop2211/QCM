@@ -8,39 +8,38 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.tp.qcm.bo.Promotion;
-import fr.eni.tp.qcm.bo.Question;
-import fr.eni.tp.qcm.dal.dao.PromotionDAO;
+import fr.eni.tp.qcm.bo.Profil;
+import fr.eni.tp.qcm.dal.dao.ProfilDAO;
 import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.dal.factory.MSSQLConnectionFactory;
 import fr.eni.tp.web.common.util.ResourceUtil;
 
-public class PromotionDAOImpl implements PromotionDAO{
+public class ProfilDAOImpl implements ProfilDAO{
 	
-	private static final String SELECT_ALL_PROMOTIONS_QUERY = "SELECT * FROM PROMOTION";
-	private static final String SELECT_ONE_PROMOTION_QUERY = "SELECT * FROM PROMOTION where idPromotion= ?";
+	private static final String SELECT_ALL_PROFILS_QUERY = "SELECT * FROM PROFIL";
+	private static final String SELECT_ONE_PROFIL_QUERY = "SELECT * FROM PROFIL where idProfil= ?";
 	
-	private static PromotionDAOImpl instance;
+	private static ProfilDAOImpl instance;
     
-    private PromotionDAOImpl() {
+    private ProfilDAOImpl() {
         
     }
     
-    public static PromotionDAOImpl getInstance() {
+    public static ProfilDAOImpl getInstance() {
         if(instance == null) {
-            instance = new PromotionDAOImpl();
+            instance = new ProfilDAOImpl();
         }
         return instance;
     }
 
 	@Override
-	public Promotion insert(Promotion element) throws DaoException {
+	public Profil insert(Profil element) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(Promotion element) throws DaoException {
+	public void update(Profil element) throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -52,21 +51,21 @@ public class PromotionDAOImpl implements PromotionDAO{
 	}
 
 	@Override
-	public Promotion selectById(Integer id) throws DaoException {
+	public Profil selectById(Integer id) throws DaoException {
 		Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Promotion promotion = null;
+        Profil profil = null;
         
         try {
             connection = MSSQLConnectionFactory.get();
-            statement = connection.prepareStatement(SELECT_ONE_PROMOTION_QUERY);
+            statement = connection.prepareStatement(SELECT_ONE_PROFIL_QUERY);
             
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-            	promotion = resultSetToPromotion(resultSet);
+            	profil = resultSetToProfil(resultSet);
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);
@@ -74,23 +73,23 @@ public class PromotionDAOImpl implements PromotionDAO{
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
         
-        return promotion;
+        return profil;
 	}
 
 	@Override
-	public List<Promotion> selectAll() throws DaoException {
+	public List<Profil> selectAll() throws DaoException {
 		Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        List<Promotion> promotions = new ArrayList<>();
+        List<Profil> profils = new ArrayList<>();
         
         try {
             connection = MSSQLConnectionFactory.get();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(SELECT_ALL_PROMOTIONS_QUERY);
+            resultSet = statement.executeQuery(SELECT_ALL_PROFILS_QUERY);
 
             while (resultSet.next()) {
-            	promotions.add(resultSetToPromotion(resultSet));
+            	profils.add(resultSetToProfil(resultSet));
             }
         } catch(SQLException e) {
             throw new DaoException(e.getMessage(), e);
@@ -98,16 +97,16 @@ public class PromotionDAOImpl implements PromotionDAO{
             ResourceUtil.safeClose(resultSet, statement, connection);
         }
         
-        return promotions;
+        return profils;
 	}
 	
-	private Promotion resultSetToPromotion(ResultSet resultSet) throws SQLException {
+	private Profil resultSetToProfil(ResultSet resultSet) throws SQLException {
         
-		Promotion promotion = new Promotion();
-		promotion.setIdPromotion(resultSet.getInt("idPromotion"));
-		promotion.setLibellePromotion(resultSet.getString("libellePromotion"));
+		Profil profil = new Profil();
+		profil.setIdProfil(resultSet.getInt("idProfil"));
+		profil.setLibelleProfil(resultSet.getString("libelleProfil"));
 
-        return promotion;
+        return profil;
         
     }
 

@@ -17,7 +17,7 @@
 	</jsp:include>
 	<form method="post" action="/QCM/responsable/inscriptionPromotion">
 		<div class="container">		
-			<h1 class="titre">Inscription d'une promotion à une épreuve</h1>
+			<h1 class="titre">Inscription d'une promotion à un test</h1>
   			<div class="form-group">
     			<label for="exampleFormControlSelect1">Tests</label>
     			<select class="form-control" id="idTest" name="idTest">

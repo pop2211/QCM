@@ -10,6 +10,10 @@ public class Profil {
 		this.libelleProfil = libelleProfil;
 	}
 	
+	public Profil(String libelleProfil) {
+		this.libelleProfil = libelleProfil;
+	}
+	
 	public Profil() {
 		
 	}

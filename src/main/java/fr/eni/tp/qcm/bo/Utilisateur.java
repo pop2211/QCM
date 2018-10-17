@@ -19,8 +19,7 @@ public class Utilisateur {
 		this.password = mdp;
 	}
 
-	public Utilisateur(Integer idUtilisateur, Profil profil, Promotion promotion, String nomUtilisateur, String prenomUtilisateur, String email, String password) {
-		this.idUtilisateur = idUtilisateur;
+	public Utilisateur(Profil profil, Promotion promotion, String nomUtilisateur, String prenomUtilisateur, String email, String password) {
 		this.profil = profil;
 		this.promotion = promotion;
 		this.nomUtilisateur = nomUtilisateur;

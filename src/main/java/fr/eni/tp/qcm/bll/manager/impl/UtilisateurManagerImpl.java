@@ -78,8 +78,25 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public Utilisateur saveOne(Utilisateur util) throws ManagerException, FunctionalException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+            ValidationUtil.checkNotNull(util);
+            ValidationUtil.checkNotBlank(util.getNomUtilisateur());
+            ValidationUtil.checkNotBlank(util.getPrenomUtilisateur());
+            ValidationUtil.checkNotBlank(util.getEmail());
+            ValidationUtil.checkNotBlank(util.getPassword());
+            ValidationUtil.checkNotNull(util.getProfil());
+            if(util.getIdUtilisateur() != null) {
+            	utilDAO.update(util);
+            } else {
+            	utilDAO.insert(util);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'utilisateur n'est pas valide", e);
+        }
+        return util;
 	}
 
 	@Override
