@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.SectionTest;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
@@ -25,10 +26,11 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 
     private static final String SELECT_QUESTION_TIRAGE_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve WHERE idQuestion = ?";
     private static final String SELECT_QUESTION_TIRAGE_QUERY_BY_EPREUVE = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ?";
-
+    private static final String SELECT_QUESTION_EPREUVE_BY_EPREUVE_AND_QUESTION_QUERY = "SELECT * FROM QUESTION_TIRAGE qt INNER JOIN QUESTION q ON qt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON qt.idEpreuve = e.idEpreuve INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON te.idTest = e.idTest INNER JOIN UTILISATEUR us ON us.idUtilisateur = e.idUtilisateur WHERE qt.idEpreuve = ? AND qt.idQuestion = ?";
+    
     private static final String INSERT_QUESTION_TIRAGE_QUERY = "INSERT INTO QUESTION_TIRAGE(estMarquee, numOrdre, IdEpreuve, idQuestion) VALUES (?, ?, ?, ?)";
     private static final String DELETE_QUESTION_TIRAGE_QUERY = "DELETE FROM QUESTION_TIRAGE WHERE idEpreuve = ?";
-    private static final String UPDATE_QUESTION_TIRAGE_QUERY = "UPDATE QUESTION_TIRAGE SET estMarquee = ?, numOrdre = ?, idEpreuve = ?, idQuestion = ? WHERE idQuestionTirage = ?";
+    private static final String UPDATE_QUESTION_TIRAGE_QUERY = "UPDATE QUESTION_TIRAGE SET estMarquee = ?, numOrdre = ? WHERE idEpreuve = ? AND idQuestion = ?";
     
     private QuestionDAO questionDAO = DAOFactory.questionDAO();
     private EpreuveDAO epreuveDAO = DAOFactory.epreuveDAO();
@@ -146,8 +148,30 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 	}
 
 	@Override
-	public QuestionTirage selectById(Integer id) throws DaoException {
-		return null;
+	public QuestionTirage selectById(Integer epreuveId, Integer questionId) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        QuestionTirage questionTirage = null;
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_QUESTION_EPREUVE_BY_EPREUVE_AND_QUESTION_QUERY);
+            
+            statement.setInt(1, epreuveId);
+            statement.setInt(2, questionId);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	questionTirage = resultSetToQuestionTirage(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return questionTirage;
 	}
 
 	@Override
@@ -170,4 +194,11 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
         return questionTirage;
         
     }
+
+	@Override
+	public QuestionTirage selectById(Integer id) throws DaoException {
+		return null;
+	}
+
+
 }

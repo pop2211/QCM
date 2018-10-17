@@ -39,11 +39,12 @@ public class GenerateQuestions {
 		try {
 			//find all sections test with the test id
 			List<SectionTest> sectionTest = sectionThemeManager.selectByIdTest(testId);
-			List<Integer> listquestions =  new ArrayList<Integer>();
 			List<Integer> finalList =  new ArrayList<Integer>();
 
 			//loop over sections
 			for (int i = 0; i < sectionTest.size(); i++) {
+				List<Integer> listquestions =  new ArrayList<Integer>();
+
 				//find all questions of the id theme
 				List<Question> questions =  questionManager.findByIdTheme(sectionTest.get(i).getTheme().getIdTheme());
 				if(!questions.isEmpty()) {
@@ -54,12 +55,15 @@ public class GenerateQuestions {
 					
 					//shuffle the array
 					Collections.shuffle(listquestions);
+
 					int nbQuestions = sectionTest.get(i).getNbQuestionsATrier();
+					for(int p =0; p < listquestions.size(); p++) {
+					}
+
 					//If the list is not enough huge, it take the size of the list instead of the number of questions
 					if(listquestions.size() < nbQuestions ) {
 						nbQuestions = listquestions.size();
 					}
-					
 					for(int k = 0; k < nbQuestions; k++) {
 						finalList.add(listquestions.get(k));
 					}
@@ -79,9 +83,7 @@ public class GenerateQuestions {
 
 				try {
 					questionTirageManager.saveOne(quesTirage);
-					System.out.println("question tirage saved");
 				} catch (FunctionalException e) {
-					System.out.println("question tirage failed");
 					e.printStackTrace();
 				}
 			}

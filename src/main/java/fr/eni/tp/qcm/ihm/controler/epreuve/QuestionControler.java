@@ -24,6 +24,7 @@ import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.utils.GenerateQuestions;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
+import fr.eni.tp.web.common.dal.exception.DaoException;
 import fr.eni.tp.web.common.exception.FunctionalException;
 
 /**
@@ -57,22 +58,26 @@ public class QuestionControler extends HttpServlet {
 		String changeNumQuestion = request.getParameter("numQuestion");
 		String incrementNumQuestion = request.getParameter("incrementNumQuestion");
 		String decrementNumQuestion = request.getParameter("decrementNumQuestion");
-
+		
 		if(changeNumQuestion != null) {
 			session.setAttribute("numQuestion", (String) changeNumQuestion);
 			numQuestion =(String) session.getAttribute("numQuestion");
-
 		}
+
 		
 		String epreuveId = (String) session.getAttribute("epreuveId");
 		String testId = (String) session.getAttribute("testId");
 		List<ReponseTirage> reponseTirage = null;
+
 		
 		try {
 			List<QuestionTirage> questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(epreuveId));
+			
 			if(questionTirage.isEmpty()) {
 				generateQuestions.generate(Integer.valueOf(testId), Integer.valueOf(epreuveId));
+				questionTirage = questionTirageManager.findAllByEpreuve(Integer.valueOf(epreuveId));
 			}
+			
 			List<Proposition> propositions = null;
 			for(int i = 0; i < questionTirage.size(); i++) {
 				reponseTirage = reponseTirageManager.findAllByQuestionAndEpreuve(questionTirage.get(i).getQuestion().getIdQuestion(), Integer.valueOf(epreuveId));
@@ -112,7 +117,8 @@ public class QuestionControler extends HttpServlet {
 				numQuestion =(String) session.getAttribute("numQuestion");
 			}
 			
-			QuestionTirage currentQuestion = questionTirage.get(Integer.parseInt(numQuestion));
+			QuestionTirage currentQuestion = questionTirage.get(Integer.valueOf(numQuestion));
+			
 
 			request.setAttribute("question", currentQuestion);
 			request.setAttribute("questions", questionTirage);
@@ -144,8 +150,45 @@ public class QuestionControler extends HttpServlet {
 		String proposition1delete = request.getParameter("checkbox1delete");
 		String proposition2delete = request.getParameter("checkbox2delete");
 		
+		String addFlag = request.getParameter("addFlag");
+		String removeFlag = request.getParameter("removeFlag");
+		
+		
 		String questionId = request.getParameter("questionId");
 		String epreuveId = (String) session.getAttribute("epreuveId");
+		
+		if( addFlag != null) {
+			QuestionTirage questionTirage;
+			try {
+				questionTirage = questionTirageManager.findOneEpreuveQuestion(Integer.valueOf(epreuveId), Integer.valueOf(questionId));
+				System.out.println("ahhhhhhhhhhhhhhhhhh"+questionTirage.getNumOrdre());
+				questionTirage.setEstMarque(true);
+				questionTirageManager.updateQuestionTirage(questionTirage);
+			} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
+				e.printStackTrace();
+			} catch (FunctionalException e) {
+				e.printStackTrace();
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("removeFlag " + removeFlag);
+
+		if( removeFlag != null) {
+			QuestionTirage questionTirage;
+			try {
+				questionTirage = questionTirageManager.findOneEpreuveQuestion(Integer.valueOf(epreuveId), Integer.valueOf(questionId));
+				questionTirage.setEstMarque(false);
+				questionTirageManager.updateQuestionTirage(questionTirage);
+			} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
+				e.printStackTrace();
+			} catch (FunctionalException e) {
+				e.printStackTrace();
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		if(questionId != null) {
 			if(proposition0 != null) {

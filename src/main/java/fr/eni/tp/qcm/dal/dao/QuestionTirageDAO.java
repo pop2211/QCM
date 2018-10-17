@@ -13,5 +13,6 @@ public interface QuestionTirageDAO extends GenericDAO<QuestionTirage, Integer>{
 
 	QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException;
 
-	
+	QuestionTirage selectById(Integer epreuveId, Integer questionId) throws DaoException;
+
 }

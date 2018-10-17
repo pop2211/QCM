@@ -31,7 +31,7 @@
 					</form>
 				</div>
 				<div style="margin: 2%;">
-					<form method="GET" action="/QCM/epreuve/listeQuestions">
+					<form method="GET" action="/QCM/epreuve/finTest">
 						<button type="submit" class="btn btn-primary card-link">
 			 			<i class="fas fa-kiwi-bird"></i> Terminer le test
 			 		</button>
@@ -102,16 +102,37 @@
 							  	<a class="btn btn-link btn-lg card-link">
 	  								<form method="GET" action="/QCM/epreuve/questions">
 										<input type="hidden" name="decrementNumQuestion" value="1">
-								  		<button type="submit" class="btn btn-primary card-link">
+								  		<button type="submit" class="btn btn-outline-primary card-link">
 								  			Question précédente <i style="margin-left: 10px;" class="fas fa-arrow-left"></i>
 								  		</button>
 							  		</form>
 						  		</a>
-						  							  		
+	  						  	<c:if test="${question.getEstMarque()}">
+	  						  		<a class="btn btn-link btn-lg card-link">
+		  								<form method="POST" action="/QCM/epreuve/questions">
+											<input type="hidden" name="questionId" value="${question.getQuestion().getIdQuestion()}">
+											<input type="hidden" name="removeFlag" value="1">
+									  		<button type="submit" class="btn btn-danger card-link">
+									  			<i class="fas fa-flag"></i>
+									  		</button>
+								  		</form>
+									</a>
+						  		</c:if>
+						  		<c:if test="${!question.getEstMarque()}"> 
+	  		 						<a class="btn btn-link btn-lg card-link">
+		  								<form method=POST action="/QCM/epreuve/questions">
+											<input type="hidden" name="questionId" value="${question.getQuestion().getIdQuestion()}">
+											<input type="hidden" name="addFlag" value="1">
+									  		<button type="submit" class="btn btn-outline-danger card-link">
+									  			<i class="far fa-flag"></i>
+									  		</button>
+								  		</form>
+							  		</a>
+ 						  		</c:if>
 	  							<a class="btn btn-link btn-lg card-link">
 							  		<form method="GET" action="/QCM/epreuve/questions">
 										<input type="hidden" name="incrementNumQuestion" value="1">
-								  		<button type="submit" class="btn btn-primary card-link">
+								  		<button type="submit" class="btn btn-outline-primary card-link">
 								  			<i style="margin-right: 10px;" class="fas fa-arrow-right"></i>  Question suivante
 								  		</button>
 							  		</form>

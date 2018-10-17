@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.tp.qcm.bll.manager.QuestionTirageManager;
 import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.SectionTest;
+import fr.eni.tp.qcm.bo.Utilisateur;
 import fr.eni.tp.qcm.dal.dao.QuestionTirageDAO;
 import fr.eni.tp.qcm.dal.factory.DAOFactory;
 import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
@@ -60,7 +61,6 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
 //            	System.out.println("update");
 //            	questionTirageDAO.update(questionTirage);
 //            } else {
-            	System.out.println("insert");
             	questionTirageDAO.insert(questionTirage);
             //}
         } catch (DaoException e) {
@@ -70,6 +70,18 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
             throw new ManagerException("La question n'est pas valide", e);
         }
         return questionTirage;
+	}
+	
+	@Override
+	public void updateQuestionTirage(QuestionTirage questionTirage) throws ManagerException, FunctionalException, DaoException {
+		try {
+            ValidationUtil.checkNotNull(questionTirage);
+        	System.out.println("update");
+        	questionTirageDAO.update(questionTirage);
+            //}
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("La question n'est pas valide", e);
+        }
 	}
 
 	@Override
@@ -82,6 +94,24 @@ public class QuestionTirageManagerImpl implements QuestionTirageManager{
             throw new ManagerException(e.getMessage(), e);
         }           
         return questionTirage;	
+	}
+
+	@Override
+	public QuestionTirage findOneEpreuveQuestion(Integer epreuveId, Integer questionId) throws ElementNotFoundException, ManagerException {
+		QuestionTirage questionTirage = null;    
+        try {
+            ValidationUtil.checkNotNull(epreuveId);
+            ValidationUtil.checkNotNull(questionId);
+            questionTirage = questionTirageDAO.selectById(epreuveId, questionId);
+            if(questionTirage == null) {
+                throw new ElementNotFoundException("La question n'existe pas", null);
+            }
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ManagerException("L'id ne peut pas être null", e);
+        }
+        return questionTirage;
 	}
 
 }
