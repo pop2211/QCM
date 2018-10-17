@@ -50,7 +50,8 @@
 						   			  			<div class="form-group form-check">
 							   			  			<c:if test="${loop.index == 0}">
 						   			  					<c:if test="${proposition.getChecked()}">
-			  												<input type="checkbox" class="form-check-input" name="checkbox0" checked value="${proposition.getIdProposition()}" id="checkbox">
+			  												<input type="hidden" class="form-check-input" name="checkbox0" value="${proposition.getIdProposition()}" id="checkbox">	
+			  												<input type="checkbox" class="form-check-input" name="checkbox0delete" checked value="${proposition.getIdProposition()}" id="checkbox">
 											    			<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
 						    							</c:if>
 						   			  					<c:if test="${!proposition.getChecked()}">
@@ -60,7 +61,8 @@
 						    						</c:if>
    				   			  						<c:if test="${loop.index == 1}">
 						   			  					<c:if test="${proposition.getChecked()}">
-												    		<input type="checkbox" class="form-check-input" name="checkbox1" checked value="${proposition.getIdProposition()}" id="checkbox">
+			  												<input type="hidden" class="form-check-input" name="checkbox1" value="${proposition.getIdProposition()}" id="checkbox">	
+												    		<input type="checkbox" class="form-check-input" name="checkbox1delete"  checked id="checkbox">
 												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
 						    							</c:if>
 						   			  					<c:if test="${!proposition.getChecked()}">
@@ -70,7 +72,8 @@
 						    						</c:if>
     								   			  	<c:if test="${loop.index == 2}">
 						   			  					<c:if test="${proposition.getChecked()}">
-												    		<input type="checkbox" class="form-check-input" name="checkbox2" checked value="${proposition.getIdProposition()}" id="checkbox">
+			  												<input type="hidden" class="form-check-input" name="checkbox2" value="${proposition.getIdProposition()}" id="checkbox">	
+												    		<input type="checkbox" class="form-check-input" name="checkbox2delete"  checked id="checkbox">
 												    		<label class="form-check-label" for="exampleCheck1"><c:out value="${proposition.getEnonce()}" ></c:out></label>
 							    						</c:if>
 						    							<c:if test="${!proposition.getChecked()}">

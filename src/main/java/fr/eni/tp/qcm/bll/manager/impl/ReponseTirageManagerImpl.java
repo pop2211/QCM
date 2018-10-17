@@ -70,5 +70,17 @@ public class ReponseTirageManagerImpl implements ReponseTirageManager{
         }           
         return reponseTirage;	
 	}
+
+	@Override
+	public ReponseTirage findOneByQuestionAndEpreuveAndProposition(Integer questionId, Integer epreuveId, Integer propositionId) throws ManagerException {
+		ReponseTirage reponseTirage = null;    
+        try {
+        	reponseTirage =  reponseTirageDAO.selectByQuestionAndEpreuveAndProposition(questionId, epreuveId, propositionId);
+            
+        } catch (DaoException e) {
+            throw new ManagerException(e.getMessage(), e);
+        }           
+        return reponseTirage;	
+	}
     
 }

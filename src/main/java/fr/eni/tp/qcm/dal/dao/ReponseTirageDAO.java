@@ -15,4 +15,6 @@ public interface ReponseTirageDAO  extends GenericDAO<ReponseTirage, Integer>{
 
 	List<ReponseTirage> selectByQuestionAndEpreuve(Integer idQuestion, Integer idEpreuve) throws DaoException;
 
+	ReponseTirage selectByQuestionAndEpreuveAndProposition(Integer questionId, Integer epreuveId, Integer propositionId) throws DaoException;
+
 }

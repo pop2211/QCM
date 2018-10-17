@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.ReponseTirage;
 import fr.eni.tp.qcm.dal.dao.EpreuveDAO;
@@ -24,6 +25,7 @@ public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 
     private static final String SELECT_REPONSE_TIRAGE_QUERY = "";
     private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION = "SELECT * FROM REPONSE_TIRAGE rt INNER JOIN QUESTION q ON rt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON rt.idEpreuve = e.idEpreuve INNER JOIN PROPOSITION p ON rt.idProposition = p.idProposition INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON e.idTest = te.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur WHERE rt.idQuestion = ? AND rt.idEpreuve = ?";
+    private static final String SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION_AND_PROPOSITION = "SELECT * FROM REPONSE_TIRAGE rt INNER JOIN QUESTION q ON rt.idQuestion = q.idQuestion INNER JOIN EPREUVE e ON rt.idEpreuve = e.idEpreuve INNER JOIN PROPOSITION p ON rt.idProposition = p.idProposition INNER JOIN THEME t ON q.idTheme = t.idTheme INNER JOIN TEST te ON e.idTest = te.idTest INNER JOIN UTILISATEUR u ON u.idUtilisateur = e.idUtilisateur WHERE rt.idQuestion = ? AND rt.idEpreuve = ? AND rt.idProposition = ?";
 
     private static final String INSERT_REPONSE_TIRAGE_QUERY = "INSERT INTO REPONSE_TIRAGE(idProposition, idQuestion, idEpreuve) VALUES(?, ?, ?)";
     private static final String DELETE_REPONSE_TIRAGE_QUERY = "DELETE FROM REPONSE_TIRAGE WHERE idProposition = ? AND idQuestion = ? AND idEpreuve = ?";
@@ -127,6 +129,35 @@ public class ReponseTirageDAOImpl implements ReponseTirageDAO{
 	}
 	
 	@Override
+	public ReponseTirage selectByQuestionAndEpreuveAndProposition(Integer questionId, Integer epreuveId, Integer propositionId) throws DaoException {
+		Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ReponseTirage reponseTirage = null;
+        
+        try {
+            connection = MSSQLConnectionFactory.get();
+            statement = connection.prepareStatement(SELECT_REPONSE_TIRAGE_QUERY_BY_EPREUVE_AND_QUESTION_AND_PROPOSITION);
+            
+            statement.setInt(1, questionId);
+            statement.setInt(2, epreuveId);
+            statement.setInt(3, propositionId);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	reponseTirage = resultSetToReponseTirage(resultSet);
+            }
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
+        
+        return reponseTirage;
+	}
+
+	
+	@Override
 	public void delete(Integer id) throws DaoException {
 		// TODO Auto-generated method stub
 		
@@ -155,5 +186,6 @@ public class ReponseTirageDAOImpl implements ReponseTirageDAO{
         return reponseTirage;
         
     }
+
 
 }

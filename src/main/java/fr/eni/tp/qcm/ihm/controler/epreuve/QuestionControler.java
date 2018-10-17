@@ -139,29 +139,37 @@ public class QuestionControler extends HttpServlet {
 		String proposition0 = request.getParameter("checkbox0");
 		String proposition1 = request.getParameter("checkbox1");
 		String proposition2 = request.getParameter("checkbox2");
+		
+		String proposition0delete = request.getParameter("checkbox0delete");
+		String proposition1delete = request.getParameter("checkbox1delete");
+		String proposition2delete = request.getParameter("checkbox2delete");
+		
 		String questionId = request.getParameter("questionId");
 		String epreuveId = (String) session.getAttribute("epreuveId");
 		
-		
 		if(questionId != null) {
-			System.out.println(proposition0);
-			System.out.println(proposition1);
-			System.out.println(proposition2);
 			if(proposition0 != null) {
 				Epreuve epreuve;
 				Proposition proposition;
 				Question question;
 				try {
-					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
-
-					proposition = propositionManager.findOne(Integer.valueOf(proposition0));
-					question = questionManager.findOne(Integer.valueOf(questionId));
 					
-					ReponseTirage reponseTirage = new ReponseTirage();
-					reponseTirage.setEpreuve(epreuve);
-					reponseTirage.setProposition(proposition);
-					reponseTirage.setQuestion(question);
-					reponseTirageManager.saveOne(reponseTirage);
+					ReponseTirage responseTirageExist = reponseTirageManager.findOneByQuestionAndEpreuveAndProposition(Integer.valueOf(questionId), Integer.valueOf(epreuveId), Integer.valueOf(proposition0));
+
+					System.out.println("responseTirageExist"+responseTirageExist);
+					if(responseTirageExist != null && proposition0delete == null) {
+						reponseTirageManager.deleteOne(Integer.valueOf(proposition0), Integer.valueOf(questionId), Integer.valueOf(epreuveId));
+					}else{
+						epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+						proposition = propositionManager.findOne(Integer.valueOf(proposition0));
+						question = questionManager.findOne(Integer.valueOf(questionId));
+						
+						ReponseTirage reponseTirage = new ReponseTirage();
+						reponseTirage.setEpreuve(epreuve);
+						reponseTirage.setProposition(proposition);
+						reponseTirage.setQuestion(question);
+						reponseTirageManager.saveOne(reponseTirage);
+					}
 
 				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 					e.printStackTrace();
@@ -170,21 +178,26 @@ public class QuestionControler extends HttpServlet {
 				}
 			}
 			
-			if(proposition1 != null) {
+			if(proposition1 != null && proposition1delete == null) {
 				Epreuve epreuve;
 				Proposition proposition;
 				Question question;
 				try {
-					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+					ReponseTirage responseTirageExist = reponseTirageManager.findOneByQuestionAndEpreuveAndProposition(Integer.valueOf(questionId), Integer.valueOf(epreuveId), Integer.valueOf(proposition1));
 
-					proposition = propositionManager.findOne(Integer.valueOf(proposition1));
-					question = questionManager.findOne(Integer.valueOf(questionId));
-					
-					ReponseTirage reponseTirage = new ReponseTirage();
-					reponseTirage.setEpreuve(epreuve);
-					reponseTirage.setProposition(proposition);
-					reponseTirage.setQuestion(question);
-					reponseTirageManager.saveOne(reponseTirage);
+					if(responseTirageExist != null) {
+						reponseTirageManager.deleteOne(Integer.valueOf(proposition1), Integer.valueOf(questionId), Integer.valueOf(epreuveId));
+					}else{
+						epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+						proposition = propositionManager.findOne(Integer.valueOf(proposition1));
+						question = questionManager.findOne(Integer.valueOf(questionId));
+						
+						ReponseTirage reponseTirage = new ReponseTirage();
+						reponseTirage.setEpreuve(epreuve);
+						reponseTirage.setProposition(proposition);
+						reponseTirage.setQuestion(question);
+						reponseTirageManager.saveOne(reponseTirage);
+					}
 
 				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 					e.printStackTrace();
@@ -193,22 +206,27 @@ public class QuestionControler extends HttpServlet {
 				}
 			}
 			
-			if(proposition2 != null) {
+			if(proposition2 != null && proposition2delete == null) {
 				Epreuve epreuve;
 				Proposition proposition;
 				Question question;
 				try {
-					epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+					ReponseTirage responseTirageExist = reponseTirageManager.findOneByQuestionAndEpreuveAndProposition(Integer.valueOf(questionId), Integer.valueOf(epreuveId), Integer.valueOf(proposition2));
 
-					proposition = propositionManager.findOne(Integer.valueOf(proposition2));
-					question = questionManager.findOne(Integer.valueOf(questionId));
-					
-					ReponseTirage reponseTirage = new ReponseTirage();
-					reponseTirage.setEpreuve(epreuve);
-					reponseTirage.setProposition(proposition);
-					reponseTirage.setQuestion(question);
-					reponseTirageManager.saveOne(reponseTirage);
-
+					if(responseTirageExist != null) {
+						reponseTirageManager.deleteOne(Integer.valueOf(proposition2), Integer.valueOf(questionId), Integer.valueOf(epreuveId));
+					}else{
+						epreuve = epreuveManager.findOne(Integer.valueOf(epreuveId));
+	
+						proposition = propositionManager.findOne(Integer.valueOf(proposition2));
+						question = questionManager.findOne(Integer.valueOf(questionId));
+						
+						ReponseTirage reponseTirage = new ReponseTirage();
+						reponseTirage.setEpreuve(epreuve);
+						reponseTirage.setProposition(proposition);
+						reponseTirage.setQuestion(question);
+						reponseTirageManager.saveOne(reponseTirage);
+					}
 				} catch (NumberFormatException | ElementNotFoundException | ManagerException e) {
 					e.printStackTrace();
 				} catch (FunctionalException e) {

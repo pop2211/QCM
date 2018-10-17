@@ -14,5 +14,7 @@ public interface ReponseTirageManager {
 
 	List<ReponseTirage> findAllByQuestionAndEpreuve(Integer idQuestion, Integer idEpreuve) throws ManagerException;
 
+	ReponseTirage findOneByQuestionAndEpreuveAndProposition(Integer integer, Integer integer2, Integer integer3) throws ManagerException;
+
     
 }
