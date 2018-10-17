@@ -1,4 +1,4 @@
-package fr.eni.tp.qcm.ihm.controler.epreuve;
+package fr.eni.tp.qcm.ihm.controler.formateur;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,36 +16,34 @@ import fr.eni.tp.qcm.bll.factory.ManagerFactory;
 import fr.eni.tp.qcm.bll.manager.TestManager;
 import fr.eni.tp.qcm.bo.Test;
 import fr.eni.tp.web.common.HttpStatus;
-import fr.eni.tp.web.common.bll.exception.ElementNotFoundException;
 import fr.eni.tp.web.common.bll.exception.ManagerException;
 
 /**
- * Servlet implementation class DetailTestControler
+ * Servlet implementation class ConsulterTestsControler
  */
-public class DetailTestControler extends HttpServlet {
+public class ConsulterTestsControler extends HttpServlet {
 	private TestManager testManager = ManagerFactory.testManager();
-	private static final long serialVersionUID = 1L;  
+	private static final long serialVersionUID = 1L;
        
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ConsulterTestsControler() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String testIdParam = request.getParameter("testId");
-		String epreuveId= request.getParameter("epreuveId");
-		
-		 HttpSession session = request.getSession();
-		 session.setAttribute("testId", testIdParam);
-		 session.setAttribute("epreuveId", epreuveId);
-		 session.setAttribute("numQuestion", "0");
-
-		request.setAttribute("epreuveId", epreuveId);
+		List<Test> tests = null;
 		try {
-			Test test = testManager.findOne(Integer.valueOf(testIdParam));
-            request.setAttribute("test", test);
-            request.getRequestDispatcher("/epreuve/detailTestJSP").forward(request, response);
+			tests = testManager.findAll();
+            request.setAttribute("tests", tests);
+            request.getRequestDispatcher("/formateur/consulterTestsJSP").forward(request, response);
                
-        } catch (ManagerException | NumberFormatException | ElementNotFoundException e) {
+        } catch (ManagerException e) {
         	e.printStackTrace();
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }

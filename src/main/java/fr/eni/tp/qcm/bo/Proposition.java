@@ -6,7 +6,7 @@ public class Proposition {
 	private String enonce;
 	private boolean estBonne;
 	private Question question;
-	
+	private Boolean checked;
 	
 	public Proposition(Integer idProposition, String enonce, boolean estBonne, Question question) {
 		super();
@@ -14,6 +14,7 @@ public class Proposition {
 		this.enonce = enonce;
 		this.estBonne = estBonne;
 		this.question = question;
+		this.checked= false;
 	}
 
 	public Proposition() {
@@ -50,6 +51,15 @@ public class Proposition {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+	
 	
 	
 

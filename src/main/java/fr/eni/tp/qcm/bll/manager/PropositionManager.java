@@ -13,7 +13,7 @@ public interface PropositionManager {
     
 	Proposition findOne(Integer id) throws ManagerException, ElementNotFoundException;
 	
-	Proposition findByQuestion(Integer idQuestion) throws ManagerException, ElementNotFoundException;
+	List<Proposition> findByQuestion(Integer idQuestion) throws ManagerException, ElementNotFoundException;
     
     void deleteOne(Integer id) throws ManagerException;
     

@@ -156,8 +156,8 @@ public class QuestionTirageDAOImpl implements QuestionTirageDAO{
 	}
 
 	
-	
-	private QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException {
+	@Override
+	public QuestionTirage resultSetToQuestionTirage(ResultSet resultSet) throws SQLException {
         
 		//estMarquee, numOrdre, IdEpreuve, idQuestion
 		

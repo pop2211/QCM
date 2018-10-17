@@ -18,14 +18,38 @@
 				<a class="nav-link" href='${param.contextPath}/epreuves'>Choix du test</a>
 			</li>
 			</c:if>
-			<c:if test="${sessionScope.sessionUtilisateur.profil.libelleProfil == 'responsable' || sessionScope.sessionUtilisateur.profil.libelleProfil == 'administrateur'}">
+			<c:if test="${sessionScope.sessionUtilisateur.profil.libelleProfil == 'responsable'}">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Responsable
+							Responsable
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href='${param.contextPath}/responsable/inscriptionCandidat'>Inscrire un candidat</a>
-					<a class="dropdown-item" href='${param.contextPath}/responsable/inscriptionPromotion'>Inscrire une promotion</a>
+						<a class="dropdown-item" href='${param.contextPath}/responsable/inscriptionCandidat'>Inscrire un candidat</a>
+						<a class="dropdown-item" href='${param.contextPath}/responsable/inscriptionPromotion'>Inscrire une promotion</a>
+						<a class="dropdown-item" href='${param.contextPath}/responsable/desinscriptionCandidat'>Désinscrire un candidat</a>
+						<a class="dropdown-item" href='${param.contextPath}/ajouterUtilisateur'>Ajouter un candidat</a>
+					</div>
+				</li>
+			 </c:if>
+			 <c:if test="${sessionScope.sessionUtilisateur.profil.libelleProfil == 'administrateur'}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Administrateur
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href='${param.contextPath}/ajouterUtilisateur'>Ajouter un utilisateur</a>
+					</div>
+				</li>
+			 </c:if>
+			 <c:if test="${sessionScope.sessionUtilisateur.profil.libelleProfil == 'formateur'}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Formateur
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href='${param.contextPath}/ajouterUtilisateur'>Ajouter un candidat</a>
+						<a class="dropdown-item" href='${param.contextPath}/formateur/consulterTests'>Maintenir les tests</a>
+					</div>
 				</li>
 			 </c:if>
 		</ul>
