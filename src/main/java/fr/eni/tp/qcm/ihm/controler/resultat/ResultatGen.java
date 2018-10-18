@@ -26,14 +26,12 @@ public class ResultatGen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EpreuveDAO epreuveDao = DAOFactory.epreuveDAO();
 	private EpreuveManager epreuveManager = ManagerFactory.epreuveManager();
-	private TestDAO testDao = DAOFactory.testDAO();
     
     public ResultatGen() {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		//session.setAttribute("epreuveId", "1");
 		Result result = null;
 		Epreuve epreuve = null;
 		Integer idEpreuve;
@@ -83,7 +81,6 @@ public class ResultatGen extends HttpServlet {
 			}
 			
 		}
-		System.out.println(idEpreuve);
 		request.setAttribute("epreuve", epreuve);
 		request.setAttribute("result", result);
 		request.getRequestDispatcher("/resultatDetail").forward(request, response);

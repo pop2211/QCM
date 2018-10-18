@@ -304,7 +304,7 @@ public class EpreuveDAOImpl implements EpreuveDAO{
             connection = MSSQLConnectionFactory.get();
             
             statement = connection.prepareCall(GET_RESULT);  
-            statement.setInt(1, 1);  
+            statement.setInt(1, idEpreuve);  
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
