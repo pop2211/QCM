@@ -59,11 +59,16 @@ public class ModifierTestControler extends HttpServlet {
 		String seuilBas = request.getParameter("seuilBas");
 		
 		try {
-			String dureeTest = duree + ":00";
+			
 			Test test = testManager.findOne(Integer.valueOf(idTest));
 			test.setLibelleTest(libelleTest);
 			test.setDescription(description);
-			test.setDuree(Time.valueOf(dureeTest));
+			if(duree.equals(String.valueOf(test.getDuree()))){			
+				test.setDuree(Time.valueOf(duree));
+			}else{
+				String dureeTest = duree + ":00";
+				test.setDuree(Time.valueOf(dureeTest));
+			}
 			test.setSeuilHaut(Integer.valueOf(seuilHaut));
 			test.setSeuilBas(Integer.valueOf(seuilBas));
 			testManager.saveOne(test);
