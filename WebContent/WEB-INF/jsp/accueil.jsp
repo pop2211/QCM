@@ -40,8 +40,8 @@
 		</div>
 	</c:if>
 	
-	<c:set var="ajoutReussit" value="${ajout}" />
-	<c:if test="${not empty ajoutReussit}">
+	<c:set var="ajoutReussi" value="${ajout}" />
+	<c:if test="${not empty ajoutReussi}">
 		<div class="alert alert-success" role="alert">
   			${ajout}
 		</div>
@@ -54,8 +54,8 @@
 		</div>
 	</c:if>
 	
-	<c:set var="ajoutTestReussit" value="${ajoutTest}" />
-	<c:if test="${not empty ajoutTestReussit}">
+	<c:set var="ajoutTestReussi" value="${ajoutTest}" />
+	<c:if test="${not empty ajoutTestReussi}">
 		<div class="alert alert-success" role="alert">
   			${ajoutTest}
 		</div>

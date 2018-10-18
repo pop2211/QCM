@@ -96,7 +96,7 @@ public class AjouterUtilisateurControler extends HttpServlet {
 				}
 				utilisateurManager.saveOne(utilisateur);
 				
-				request.setAttribute("ajout","Ajout de l'utilisateur réussit");
+				request.setAttribute("ajout","Ajout de l'utilisateur réussi");
 				request.getRequestDispatcher("/accueil").forward(request, response);
 			}
 			else if(utilisateurConnecte.getProfil().getLibelleProfil().equals("responsable") || utilisateurConnecte.getProfil().getLibelleProfil().equals("formateur")){
