@@ -22,18 +22,10 @@ import fr.eni.tp.web.common.exception.FunctionalException;
 /**
  * Servlet implementation class AjouterTestControler
  */
-@WebServlet("/AjouterTestControler")
 public class AjouterTestControler extends HttpServlet {
 	private TestManager testManager = ManagerFactory.testManager();
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjouterTestControler() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
