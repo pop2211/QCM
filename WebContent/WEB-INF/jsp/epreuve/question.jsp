@@ -145,11 +145,17 @@
 				<div class="card" >
 					<ul class="list-group">
 						<c:forEach var="question" items="${questions}">
+							<c:set var="answered" value="warning" />
+							<c:forEach var="proposition" items="${question.getQuestion().getPropositions()}">
+								<c:if test="${proposition.getChecked()}">
+									<c:set var="answered" value="success" />
+								</c:if>
+							</c:forEach>
 							<form method="GET" action="/QCM/epreuve/questions">
 								<input type="hidden" name="numQuestion" value="${question.getNumOrdre()}">
 								<button type="submit" class="btn btn-link">
 								  <li class="list-group-item d-flex justify-content-between align-items-center">
-							  			<div class="alert alert-info" role="alert" style="margin: 0;">
+							  			<div class="alert alert-${answered}" role="alert" style="margin: 0;">
 								 		 	${question.getNumOrdre()}
 										    <c:if test="${question.getEstMarque()}">
 		   								   		<span class="badge badge-primary badge-pill">
