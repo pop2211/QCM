@@ -15,8 +15,8 @@ insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idPr
 insert into UTILISATEUR(nomUtilisateur, prenomUtilisateur, email, password, idProfil, idPromotion) VALUES ('DUPUIS','formateur','formateur@formateur.fr', 'formateur', 3, null);
 
 insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('Java EE', 'Ceci est un test Java de qualité', '01:00:00', 70, 40);
-insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 70, 40);
 insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('PHP', 'Ceci est un test php', '02:00:00', 70, 40);
+insert into TEST(libelleTest, description, duree, seuilHaut, seuilBas ) values ('SQL', 'Ceci est un test sql', '02:00:00', 70, 40);
 
 insert into THEME(libelleTheme) values ('Les variables java');
 insert into THEME(libelleTheme) values ('Les servlets java');

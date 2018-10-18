@@ -48,7 +48,7 @@ public class AjouterTestControler extends HttpServlet {
 			String dureeTest = duree + ":00";
 			Test test = new Test(libelleTest,description,Time.valueOf(dureeTest),Integer.valueOf(seuilHaut),Integer.valueOf(seuilBas));
 			testManager.saveOne(test);
-			request.setAttribute("ajoutTest","Ajout du test réussit");
+			request.setAttribute("ajoutTest","Ajout du test réussi");
 			request.getRequestDispatcher("/accueil" ).forward(request, response);
 		} catch (ManagerException e) {
 			e.printStackTrace();
