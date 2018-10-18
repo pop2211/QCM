@@ -39,7 +39,7 @@
 				</div>
 	
 					<div class="card text-center" style="margin-bottom:5%; padding: 1em;">
-			    		<h5 class="card-title">${question.getQuestion().getEnonce() }</h5>
+			    		<h5 class="card-title">${question.getNumOrdre()} - ${question.getQuestion().getEnonce() }</h5>
 					  	<div class="card-body">
 					  		<div class="container">
  								<form method="POST" action="/QCM/epreuve/questions">
